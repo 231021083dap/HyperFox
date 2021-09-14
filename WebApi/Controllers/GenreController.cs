@@ -24,6 +24,11 @@ namespace WebApi.Controllers
         {
             List<GenreResponse> Genres = _genreService.GetAllGenres();
 
+            if (Genres == null)
+            {
+                return Problem("Got no data, this is unexpected");
+            }
+
             if (Genres.Count == 0)
             {
                 return NoContent();
