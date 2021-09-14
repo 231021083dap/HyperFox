@@ -12,7 +12,7 @@ namespace WebApi.DTOs.Responses
         public DateTime ReleaseDate { get; set; }
         public int RuntimeInMin { get; set; }
         public string Description { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int Stock { get; set; }
         public string Image { get; set; }
     }
