@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.DTOs.Responses;
+using WebApi.Services;
 
 namespace WebApi.Controllers
 {
@@ -11,22 +12,22 @@ namespace WebApi.Controllers
     [ApiController]
     public class GenreController : Controller
     {
+        private readonly IGenreService _genreService;
+
+        public GenreController(IGenreService genreService)
+        {
+            _genreService = genreService;
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<GenreResponse> Genres = new();
+            List<GenreResponse> Genres = _genreService.GetAllGenres();
 
-            Genres.Add(new GenreResponse
+            if (Genres.Count == 0)
             {
-                GenreId = 1,
-                GenreName = "Action"
-            });
-
-            Genres.Add(new GenreResponse
-            {
-                GenreId = 2,
-                GenreName = "Comedy"
-            });
+                return NoContent();
+            }
 
             return Ok(Genres);
         }

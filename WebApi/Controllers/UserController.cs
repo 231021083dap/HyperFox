@@ -7,8 +7,8 @@ using WebApi.DTOs.Responses;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class UserController : Controller
     {
         //private readonly IUserService _userService;
