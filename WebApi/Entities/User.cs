@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WebApi.Entities
 {
     public class User
-    {
+    {  
         [Key]get;
         public int UserId { get; set; }
         [Column(TypeName ="nvarchar(20)")]
