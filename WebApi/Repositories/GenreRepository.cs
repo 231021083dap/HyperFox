@@ -20,7 +20,7 @@ namespace WebApi.Repositories
     {
         private readonly WebApiContext _context;
 
-        private GenreRepository(WebApiContext context)
+        public GenreRepository(WebApiContext context)
         {
             _context = context;
         }
