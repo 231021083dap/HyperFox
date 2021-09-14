@@ -85,5 +85,21 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(500, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public void GetAll_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            _genreService
+                .Setup(g => g.GetAllGenres())
+                .Returns(() => throw new System.Exception("This is an eception"));
+
+            // Act
+            var result = _sut.GetAll();
+
+            // Assert
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
     }
 }

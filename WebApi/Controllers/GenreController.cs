@@ -22,19 +22,26 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<GenreResponse> Genres = _genreService.GetAllGenres();
-
-            if (Genres == null)
+            try
             {
-                return Problem("Got no data, this is unexpected");
-            }
+                List<GenreResponse> Genres = _genreService.GetAllGenres();
 
-            if (Genres.Count == 0)
+                if (Genres == null)
+                {
+                    return Problem("Got no data, this is unexpected");
+                }
+
+                if (Genres.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                return Ok(Genres);
+            }
+            catch (Exception ex)
             {
-                return NoContent();
+                return Problem(ex.Message);
             }
-
-            return Ok(Genres);
         }
     }
 }
