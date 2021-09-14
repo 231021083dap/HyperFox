@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Database.Entities;
+using WebApi.Repositories;
 using WebApi.Services;
 
 namespace WebApi
@@ -30,6 +31,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
             services.AddDbContext<WebApiContext>(o =>
             o.UseSqlServer(Configuration.GetConnectionString("Default")));
