@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace WebApi.Repositories
 {
     public interface IGenreRepository
     {
-        IEnumerable<Genre> GetAll();
+        Task<List<Genre>> GetAll();
     }
 
     public class GenreRepository : IGenreRepository
@@ -20,9 +21,9 @@ namespace WebApi.Repositories
             _context = context;
         }
 
-        public IEnumerable<Genre> GetAll()
+        public async Task<List<Genre>> GetAll()
         {
-            return _context.Genre;
+            return await _context.Genre.ToListAsync();
         }
     }
 }

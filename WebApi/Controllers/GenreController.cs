@@ -20,11 +20,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                List<GenreResponse> Genres = _genreService.GetAllGenres();
+                List<GenreResponse> Genres = await _genreService.GetAllGenres();
 
                 if (Genres == null)
                 {

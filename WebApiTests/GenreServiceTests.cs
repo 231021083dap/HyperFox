@@ -23,7 +23,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnListOfGenreResponses_WhenGenresExist()
+        public async void GetAll_ShouldReturnListOfGenreResponses_WhenGenresExist()
         {
             // Arrange
 
@@ -43,10 +43,10 @@ namespace WebApiTests
 
             _genreRepository
                 .Setup(g => g.GetAll())
-                .Returns(Genres);
+                .ReturnsAsync(Genres);
 
             // Act
-            var result = _sut.GetAllGenres();
+            var result = await _sut.GetAllGenres();
 
             // Assert 
             Assert.NotNull(result);

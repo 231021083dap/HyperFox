@@ -10,7 +10,7 @@ namespace WebApi.Services
 {
     public interface IGenreService
     {
-        List<GenreResponse> GetAllGenres();
+        Task<List<GenreResponse>> GetAllGenres();
     }
 
     public class GenreService : IGenreService
@@ -22,9 +22,9 @@ namespace WebApi.Services
             _genreRepository = genreRepository;
         }
 
-        public List<GenreResponse> GetAllGenres()
+        public async Task<List<GenreResponse>> GetAllGenres()
         {
-            IEnumerable<Genre> Genres = _genreRepository.GetAll();
+            List<Genre> Genres = await _genreRepository.GetAll();
 
             return Genres.Select(g => new GenreResponse
             {

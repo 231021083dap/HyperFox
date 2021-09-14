@@ -23,7 +23,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnStatusCode200_WhenDataExists()
+        public async void GetAll_ShouldReturnStatusCode200_WhenDataExists()
         {
             // Arrange
             List<GenreResponse> Genres = new();
@@ -42,10 +42,10 @@ namespace WebApiTests
 
             _genreService
                 .Setup(g => g.GetAllGenres())
-                .Returns(Genres);
+                .ReturnsAsync(Genres);
 
             // Act
-            var result = _sut.GetAll();
+            var result = await _sut.GetAll();
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -53,17 +53,17 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnStatusCode204_WhenNoElementsExists()
+        public async void GetAll_ShouldReturnStatusCode204_WhenNoElementsExists()
         {
             // Arrange
             List<GenreResponse> Genres = new();
 
             _genreService
                 .Setup(g => g.GetAllGenres())
-                .Returns(Genres);
+                .ReturnsAsync(Genres);
 
             // Act
-            var result = _sut.GetAll();
+            var result = await _sut.GetAll();
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -71,15 +71,15 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnStatusCode500_WhenNullIsReturnedFromService()
+        public async void GetAll_ShouldReturnStatusCode500_WhenNullIsReturnedFromService()
         {
             // Arrange
             _genreService
                 .Setup(g => g.GetAllGenres())
-                .Returns(() => null);
+                .ReturnsAsync(() => null);
 
             // Act
-            var result = _sut.GetAll();
+            var result = await _sut.GetAll();
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -87,15 +87,15 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void GetAll_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             _genreService
                 .Setup(g => g.GetAllGenres())
-                .Returns(() => throw new System.Exception("This is an eception"));
+                .ReturnsAsync(() => throw new System.Exception("This is an eception"));
 
             // Act
-            var result = _sut.GetAll();
+            var result = await _sut.GetAll();
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
