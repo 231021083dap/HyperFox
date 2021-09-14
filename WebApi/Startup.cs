@@ -7,10 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Database.Entities;
+using WebApi.Repository;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -28,7 +32,14 @@ namespace WebApi
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            //Address
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            //Context
+            services.AddDbContext<WebApiContext>(
+                o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
+            
+                services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
