@@ -9,7 +9,7 @@ namespace WebApi.Entities
 {
     public class User
     {  
-        [Key]get;
+        [Key]
         public int UserId { get; set; }
         [Column(TypeName ="nvarchar(20)")]
         [Required]
