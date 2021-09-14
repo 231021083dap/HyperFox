@@ -10,5 +10,6 @@ namespace WebApi.DTOs.Responses
         public int GenreId { get; set; }
         public string GenreName { get; set; }
 
+        public List<GenreFilmResponse> Films { get; set; }
     }
 }

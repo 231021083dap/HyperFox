@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Responses
 {
-    public class FilmResponse
+    public class GenreFilmResponse
     {
         public int FilmId { get; set; }
         public string FilmName { get; set; }
