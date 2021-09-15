@@ -11,6 +11,7 @@ namespace WebApi.Services
 {
     public interface IAddressService
     {
+        
         Task<List<AddressResponse>> GetAllAddress();
         Task<AddressResponse> GetById(int AddressId);
         Task<bool> Delete(int AddressId);

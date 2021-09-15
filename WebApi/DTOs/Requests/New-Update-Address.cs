@@ -13,7 +13,7 @@ namespace WebApi.DTOs.Requests
         public string Address { get; set; }
 
         [Required]
-        [Range(10000,int.MaxValue, ErrorMessage ="Invalid postal number please try again")]
+        [Range(1050,9990, ErrorMessage ="Invalid postal number please try again")]
         public int Postal { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@ namespace WebApi.DTOs.Requests
         public string Address { get; set; }
 
         [Required]
-        [Range(10000, int.MaxValue, ErrorMessage = "Invalid postal number please try again")]
+        [Range(1050,9990, ErrorMessage = "Invalid postal number please try again")]
         public int Postal { get; set; }
 
         [Required]
