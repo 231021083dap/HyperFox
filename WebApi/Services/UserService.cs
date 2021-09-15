@@ -74,10 +74,6 @@ namespace WebApi.Services
         }
 
       
-
-
-
-
         public async Task<UserResponse> Update(int userId, UpdateUser updateuser)
         {
             User user = new User

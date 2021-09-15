@@ -32,9 +32,12 @@ namespace WebApi
         {
 
             services.AddControllers();
+
+        //Database
             services.AddDbContext<WebApiContext>(
                 o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+        // The AddScoped method registers the service with a scoped lifetime
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             
