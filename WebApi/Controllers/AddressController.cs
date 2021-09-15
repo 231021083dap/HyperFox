@@ -24,11 +24,19 @@ namespace WebApi.Controllers
 
         }
 
-        /// <summary>Should Return all addresses</summary>
+        /// <summary>
+        ///  try to Execute GetAllAddress from AddressService in order to get a list of all Addresses from the Database
+        /// </summary>
         /// <returns>
-        ///   <br />
+        ///   <para>- A List of all Addresses in the Database </para>
+        ///   <para>- Can return a problem if Null</para>
+        ///   <para>- Can return NoContent if there is no data </para>
+        ///   <para>- Can return an Exeception </para>
+        ///   <para>
+        ///     <br />
+        ///   </para>
         /// </returns>
-        
+        /// 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -60,6 +68,14 @@ namespace WebApi.Controllers
 
         }
 
+        /// <summary>Receive an int from the user through Httpget and display an address</summary>
+        /// <param name="addressId">The address identifier.</param>
+        /// <returns>
+        ///   <para>- Information about the given address</para>
+        ///   <para>- Can return Address not found </para>
+        ///   <para>- Can return an Exception </para>
+        /// </returns>
+        /// 
         [HttpGet("{addressId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -84,6 +100,17 @@ namespace WebApi.Controllers
             }
         }
 
+        /// <summary>Receive information from the user through Httpget and Creates a new address</summary>
+        /// <param name="newAddress">
+        ///   <para>
+        /// The new address.</para>
+        /// </param>
+        /// <returns>
+        ///   <para>New address successfully added </para>
+        ///   <para>Can return a problem </para>
+        ///   <para>Can return an Exception</para>
+        /// </returns>
+        /// 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -108,6 +135,14 @@ namespace WebApi.Controllers
             }
         }
 
+        /// <summary>Receives an address id, an address information though httpput and Updates the Address </summary>
+        /// <param name="addressId">The address identifier.</param>
+        /// <param name="updateAddress">The update address.</param>
+        /// <returns>
+        ///   <para>The address is successfully updated </para>
+        ///   <para>Can return a problem </para>
+        ///   <para>Can return an Exception</para>
+        /// </returns>
         [HttpPut("{addressId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
