@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Requests
 {
+    //"Updated" item get / set.
     public class UpdateItem
     {
-        [Required]
+        [Required] //Its required to have an ItemId... etc.
         public int ItemId { get; set; }
 
         [Required]

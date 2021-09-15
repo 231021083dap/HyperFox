@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Requests
 {
+    //"New" item get / set.
     public class NewItem
     {
-        [Required]
+        [Required] //Its required to have an ItemId... etc.
         public int ItemId { get; set; }
 
         [Required]

@@ -8,6 +8,8 @@ using WebApi.Entities;
 
 namespace WebApi.Repositories
 {
+
+    //Interface or "Blueprint" for ItemRepository / methods.
     public interface IItemRepository
     {
         Task<List<Item>> GetAll();
@@ -15,6 +17,7 @@ namespace WebApi.Repositories
         Task<Item> Create(Item item);
         Task<Item> Update(int itemId, Item item);
         Task<Item> Delete(int itemId);
+    
     }
 
 
@@ -27,18 +30,19 @@ namespace WebApi.Repositories
             _context = context;
         }
 
+        //GetById method.
         public async Task<Item> GetById(int itemId)
         {
             return await _context.Item.FirstOrDefaultAsync(a => a.ItemId == itemId);
         }
-
+        //Create method.
         public async Task<Item> Create(Item item)
         {
             _context.Item.Add(item);
             await _context.SaveChangesAsync();
             return item;
         }
-
+        //Delete method.
         public async Task<Item> Delete(int itemId)
         {
             Item item = await _context.Item.FirstOrDefaultAsync(a => a.ItemId == itemId);
@@ -50,7 +54,7 @@ namespace WebApi.Repositories
             }
             return item;
         }
-
+        //Update method.
         public async Task<Item> Update(int itemId, Item item)
         {
             Item updateItem = await _context.Item.FirstOrDefaultAsync(a => item.ItemId == itemId);
@@ -66,6 +70,7 @@ namespace WebApi.Repositories
             return updateItem;
         }
 
+        //GetAll method.
         public async Task<List<Item>> GetAll()
         {
             return await _context.Item.ToListAsync();

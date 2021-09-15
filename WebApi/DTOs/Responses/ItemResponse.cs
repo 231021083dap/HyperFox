@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Responses
 {
+    //response is for response on a request.
     public class ItemResponse
     {
         //Getters and setters

@@ -13,11 +13,11 @@ namespace WebApi.Database.Entities
         public WebApiContext() { }
         public WebApiContext(DbContextOptions<WebApiContext> options): base(options){ }
         public DbSet<Item> Item{ get; set; }
-
+        // Modelbuilder: Used for Entity creating for the database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Item>().HasData(
-
+                //Creating new Item in the Database.
                 new Item
                 {
                     ItemId = 1,
@@ -26,6 +26,7 @@ namespace WebApi.Database.Entities
                     Quantity = 1,
                     Price = 1
                 },
+                //Creating new Item in the Database
                 new Item
                 {
                     ItemId = 2,

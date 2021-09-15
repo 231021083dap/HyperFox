@@ -11,13 +11,13 @@ using WebApi.Services;
 namespace WebApi.Controllers
 {
 
-    //API Route for Item
+    //Route for Item in the API.  localhost/api/item
     [Route("api/[controller]")]
     [ApiController]
 
     public class ItemController : Controller
     {
-        //To use the ItemService.
+        //For reading the ItemService interface.
         private readonly IItemService _itemService;
 
         //Contrukctor
@@ -36,8 +36,10 @@ namespace WebApi.Controllers
         {
             try
             {
+                // Creates a list of the Items it should get from the service.
                 List<ItemResponse> Items = await _itemService.GetAllItems();
 
+                //Checks if there is problems / data
                 if (Items == null)
                 {
                     return Problem("No Items was found, not even a empty list!");
@@ -55,14 +57,17 @@ namespace WebApi.Controllers
             }
         }
 
+        //Http getRequest.
         [HttpGet("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //GetById method.
         public async Task<IActionResult> GetById([FromRoute] int itemId)
         {
             try
             {
+                //Checks if there is anything from Service with the Id being send.
                 ItemResponse Item = await _itemService.GetById(itemId);
 
                 if (Item == null)
@@ -77,15 +82,18 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
-        [HttpGet("{itemId}")]
+        
+        //Http getRequest.
+        [HttpGet("{itemId}")] //With an itemId.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        // Create method for creating an new Item.
         public async Task<IActionResult> Create([FromBody] NewItem newItem)
         {
             try
             {
+                //Tries to create the item, if it fails and error will occour.
                 ItemResponse Item = await _itemService.Create(newItem);
                 if (Item == null)
                 {
@@ -98,12 +106,15 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+        //Http getRequest
         [HttpGet("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //Update method.
         public async Task<IActionResult> Update ([FromRoute] int itemId, [FromBody] UpdateItem updateItem)
         {
+            //Tries to update the Item.
             try
             {
                 ItemResponse Item = await _itemService.Update(itemId, updateItem);
@@ -119,12 +130,16 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        //Http getRequest
         [HttpGet("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //Delete method 
         public async Task<IActionResult> Delete([FromRoute] int itemId)
         {
+            //Tries to delete the Item.
             try
             {
                 bool result = await _itemService.Delete(itemId);

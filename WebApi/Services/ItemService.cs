@@ -10,7 +10,7 @@ using WebApi.Repositories;
 namespace WebApi.Services
 {
 
-    //Interfaces for Controllers, a blueprint.
+    //Interfaces, a blueprint.
     public interface IItemService
     {
         Task<List<ItemResponse>> GetAllItems();
@@ -29,6 +29,7 @@ namespace WebApi.Services
         }
 
         //Methods
+        //GetAllItems method
         public async Task<List<ItemResponse>> GetAllItems()
         {
             List<Item> items = await _itemRepository.GetAll();
@@ -41,7 +42,7 @@ namespace WebApi.Services
                 Price = a.Price
             }).ToList();
         }
-
+        //GetById method
         public async Task<ItemResponse> GetById(int itemId)
         {
             Item item = await _itemRepository.GetById(itemId);
@@ -55,7 +56,7 @@ namespace WebApi.Services
                 Price = item.Price
             };
         }
-            
+        //Create method
         public async Task<ItemResponse> Create(NewItem newItem)
         {
             Item item = new Item
@@ -78,7 +79,7 @@ namespace WebApi.Services
                 Price = item.Price
             };
         }
-
+        //Update method
         public async Task<ItemResponse> Update(int itemId, UpdateItem updateItem)
         {
             Item item = new Item
@@ -100,7 +101,7 @@ namespace WebApi.Services
                 Price = item.Price
             };
         }
-    
+        //Delete method
         public async Task<bool> Delete(int itemId)
         {
             var result = await _itemRepository.Delete(itemId);
