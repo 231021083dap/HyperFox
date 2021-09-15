@@ -15,7 +15,7 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ItemController : Controller
+    public class ItemController : ControllerBase
     {
         //For reading the ItemService interface.
         private readonly IItemService _itemService;
@@ -83,8 +83,8 @@ namespace WebApi.Controllers
             }
         }
         
-        //Http getRequest.
-        [HttpGet("{itemId}")] //With an itemId.
+        //Http postRequest.
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -106,8 +106,8 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-        //Http getRequest
-        [HttpGet("{itemId}")]
+        //Http putRequest
+        [HttpPut("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -132,7 +132,7 @@ namespace WebApi.Controllers
         }
 
         //Http getRequest
-        [HttpGet("{itemId}")]
+        [HttpDelete("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

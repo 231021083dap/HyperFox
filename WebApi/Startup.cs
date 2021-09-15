@@ -34,7 +34,7 @@ namespace WebApi
             
             services.AddControllers();
             //Added services
-            services.AddScoped<IItemService>();
+            services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IItemRepository, ItemRepository>();
             //Context (Db)
             services.AddDbContext<WebApiContext>(
