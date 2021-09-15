@@ -31,7 +31,7 @@ namespace WebApi.Services
         }
         public async Task<AddressResponse> Create(NewAddress newAddress)
         {
-            Address address = new Address
+            Address address = new()
             {
                 Add = newAddress.Address,
                 Postal = newAddress.Postal,
@@ -61,7 +61,7 @@ namespace WebApi.Services
         {
             List<Address> addresses = await _AddressRepository.GetAll();
 
-            return addresses == null ? null : addresses.Select(a => new AddressResponse
+            return addresses?.Select(a => new AddressResponse
             {
                 AddressId = a.AddressId,
                 Address = a.Add,
@@ -89,7 +89,7 @@ namespace WebApi.Services
 
         public async Task<AddressResponse> Update(int addressId, UpdateAddress updateAddress)
         {
-            Address address = new Address
+            Address address = new()
             {
                 Add = updateAddress.Address,
                 City = updateAddress.City,

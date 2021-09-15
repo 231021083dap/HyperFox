@@ -11,7 +11,7 @@ namespace WebApi.Database.Entities
     {
         public WebApiContext() { }
         public WebApiContext(DbContextOptions<WebApiContext> options) : base(options) { }
-        public DbSet<Address> address { get; set; }
+        public DbSet<Address> Address { get; set; }
 
 
 
