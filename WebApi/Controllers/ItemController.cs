@@ -131,7 +131,7 @@ namespace WebApi.Controllers
             }
         }
 
-        //Http getRequest
+        //Http DeleteRequest
         [HttpDelete("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
