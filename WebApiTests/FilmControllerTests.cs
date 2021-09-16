@@ -81,5 +81,21 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(204, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public void GetAll_ShouldReturnStatusCode500_WhenNullIsReturnedFromService()
+        {
+            // Arrange
+            _filmService
+                .Setup(s => s.GetAllFilms())
+                .Returns(() => null);
+
+            // Act
+            var result = _sut.GetAll();
+
+            // Assert
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
     }
 }
