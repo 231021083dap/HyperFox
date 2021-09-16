@@ -22,19 +22,26 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<FilmResponse> Films = _filmServise.GetAllFilms();
-
-            if (Films == null)
+            try
             {
-                return Problem("Got no data, this is unexpected");
-            }
+                List<FilmResponse> Films = _filmServise.GetAllFilms();
 
-            if (Films.Count == 0)
+                if (Films == null)
+                {
+                    return Problem("Got no data, this is unexpected");
+                }
+
+                if (Films.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                return Ok(Films);
+            }
+            catch (Exception ex)
             {
-                return NoContent();
+                return Problem(ex.Message);
             }
-
-            return Ok(Films);
         }
     }
 }
