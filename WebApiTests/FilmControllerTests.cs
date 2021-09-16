@@ -63,5 +63,23 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(200, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public void GetAll_ShouldReturnStatusCode204_WhenNoDataExists()
+        {
+            // Arrange
+            List<FilmResponse> Films = new();
+
+            _filmService
+                .Setup(s => s.GetAllFilms())
+                .Returns(Films);
+
+            // Act
+            var result = _sut.GetAll();
+
+            // Assert
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(204, statusCodeResult.StatusCode);
+        }
     }
 }
