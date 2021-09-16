@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,29 @@ namespace WebApi.Controllers
             {
                 return Problem(ex.Message);
             }
+        }
+
+        [HttpGet("{genreId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetById([FromRoute] int genreId)
+        {
+            try 
+	        {	        
+		        GenreResponse Genre = await _genreService.GetById(genreId);
+
+                if (Genre == null)
+	            {
+                    return NotFound();
+	            }
+
+                return Ok(Genre);
+	        }
+	        catch (Exception ex)
+	        {
+                return Problem(ex.Message);
+	        }
         }
     }
 }
