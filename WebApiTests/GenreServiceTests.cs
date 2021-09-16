@@ -180,5 +180,28 @@ namespace WebApiTests
             // Assert
             Assert.Null(result);
         }
+
+        [Fact]
+        public async void Delete_ShouldReturnTrue_WhenDeleteIsSuccess()
+        {
+            // Arrange
+            int genreId = 1;
+
+            Genre genre = new Genre
+            {
+                GenreId = genreId,
+                GenreName = "Action"
+            };
+
+            _genreRepository
+                .Setup(a => a.Delete(It.IsAny<int>()))
+                .ReturnsAsync(genre);
+
+            // Act
+            var result = await _sut.Delete(genreId);
+
+            // Assert
+            Assert.True(result);
+        }
     }
 }
