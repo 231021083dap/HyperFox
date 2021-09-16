@@ -1,53 +1,60 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Controllers;
+using WebApi.DTOs.Requests;
+using WebApi.DTOs.Responses;
+using WebApi.Services;
+using Xunit;
 
 namespace WebApiTests
 {
-    class UserControllerTests
+    public class UserControllerTests
     {
         //Til at kunne teste.
-        private readonly AuthorController _sut;
-        private readonly Mock<IAuthorService> _authorService = new();
+        private readonly UserController _sut;
+        private readonly Mock<IUserService> _userService = new();
 
         //Skulle forstille vores autherService (bruges til test).
-        public AuthorControllerTest() //Contructor
+        public UserControllerTests() //Contructor
         {
-            _sut = new AuthorController(_authorService.Object);
+            _sut = new UserController(_userService.Object);
         }
 
         [Fact] // Det den burde return
         public async void GetAll_ShouldReturnStatusCode200_whenDataExist()
         {
             //Arange - Hvordan skal den se ud.
-            List<AuthorResponse> authors = new();
+            List<UserResponse> users = new();
 
-            authors.Add(new AuthorResponse
+            users.Add(new UserResponse
             {
-                id = 1,
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserId = 1,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
 
-            authors.Add(new AuthorResponse
+            users.Add(new UserResponse
             {
-                id = 2,
-                FirstName = "Bo",
-                LastName = "Ivansen",
-                MiddleName = "Joe"
+                UserId = 2,
+                UserName = "Petersen",
+                Email = "Petersen@gmail.com",
+                Password = "passw0rd"
             });
 
-            _authorService
-                .Setup(s => s.GetAllAuthors())
-                .ReturnsAsync(authors);
+            _userService
+                .Setup(s => s.GetAllUsers())
+                .ReturnsAsync(users);
 
 
 
 
-            //Act - Udfører test om at få alle Authors.
+            //Act - Udfører test om at få alle Users.
             var result = await _sut.GetAll();
 
             //Assert - Kigger på resultatet.
@@ -61,14 +68,14 @@ namespace WebApiTests
         public async void GetAll_ShouldReturnStatusCode204_whenNoDataExist()
         {
             //Arange - Hvordan skal den se ud.
-            List<AuthorResponse> authors = new();
+            List<UserResponse> users = new();
 
-            _authorService
-                .Setup(s => s.GetAllAuthors())
-                .ReturnsAsync(authors);
+            _userService
+                .Setup(s => s.GetAllUsers())
+                .ReturnsAsync(users);
 
 
-            //Act - Udfører test om at få alle Authors.
+            //Act - Udfører test om at få alle Users.
             var result = await _sut.GetAll();
 
             //Assert - Kigger på resultatet.
@@ -82,14 +89,14 @@ namespace WebApiTests
         public async void GetAll_ShouldReturnStatusCode500_whenNullIsReturnedFromService()
         {
             //Arange - Hvordan skal den se ud.
-            List<AuthorResponse> authors = new();
+            List<UserResponse> users = new();
 
-            _authorService
-                .Setup(s => s.GetAllAuthors())
+            _userService
+                .Setup(s => s.GetAllUsers())
                 .Returns(() => null);
 
 
-            //Act - Udfører test om at få alle Authors.
+            //Act - Udfører test om at få alle Users.
             var result = await _sut.GetAll();
 
             //Assert - Kigger på resultatet.
@@ -103,14 +110,14 @@ namespace WebApiTests
         public async void GetAll_ShouldReturnStatusCode500_whenExeptionIsRaised()
         {
             //Arange - Hvordan skal den se ud.
-            List<AuthorResponse> authors = new();
+            List<UserResponse> users = new();
 
-            _authorService
-                .Setup(s => s.GetAllAuthors())
+            _userService
+                .Setup(s => s.GetAllUsers())
                 .ReturnsAsync(() => throw new Exception("This is an exeption")); //Får vores kode til at fejle med vilje
 
 
-            //Act - Udfører test om at få alle Authors.
+            //Act - Udfører test om at få alle Users.
             var result = await _sut.GetAll();
 
             //Assert - Kigger på resultatet.
@@ -125,21 +132,21 @@ namespace WebApiTests
         public async void GetById_ShouldReturnStatusCode200_WhenDataExists()
         {
             // Arrange
-            int authorId = 1;
-            AuthorResponse author = new AuthorResponse
+            int userId = 1;
+            UserResponse user = new UserResponse
             {
-                id = authorId,
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorService
+            _userService
                 .Setup(s => s.GetById(It.IsAny<int>()))
-                .ReturnsAsync(author);
+                .ReturnsAsync(user);
 
             // Act
-            var result = await _sut.GetById(authorId);
+            var result = await _sut.GetById(userId);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -147,16 +154,16 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetById_ShouldReturnStatusCode404_WhenAuthorDoesNotExist()
+        public async void GetById_ShouldReturnStatusCode404_WhenUserDoesNotExist()
         {
             // Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            _authorService
+            _userService
                 .Setup(s => s.GetById(It.IsAny<int>()))
                 .ReturnsAsync(() => null);
             // Act
-            var result = await _sut.GetById(authorId);
+            var result = await _sut.GetById(userId);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -167,7 +174,7 @@ namespace WebApiTests
         public async void GetById_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
-            _authorService
+            _userService
                 .Setup(s => s.GetById(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new System.Exception("This is an exception"));
 
@@ -183,28 +190,29 @@ namespace WebApiTests
         public async void Create_ShouldReturnStatusCode200_WhenDataIsCreated()
         {
             // Arrange
-            int authorId = 1;
-            NewAuthor newAuthor = new NewAuthor
+            int userId = 1;
+            NewUser newUser = new NewUser
             {
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            AuthorResponse author = new AuthorResponse
+            UserResponse user = new UserResponse
             {
-                id = authorId,
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorService
-                .Setup(s => s.Create(It.IsAny<NewAuthor>()))
-                .ReturnsAsync(author);
+            _userService
+                .Setup(s => s.Create(It.IsAny<NewUser>()))
+                .ReturnsAsync(user);
 
             // Act
-            var result = await _sut.Create(newAuthor);
+            var result = await _sut.Create(newUser);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -215,19 +223,19 @@ namespace WebApiTests
         public async void Create_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
-            NewAuthor newAuthor = new NewAuthor
+            NewUser newUser = new NewUser
             {
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorService
-                .Setup(s => s.Create(It.IsAny<NewAuthor>()))
+            _userService
+                .Setup(s => s.Create(It.IsAny<NewUser>()))
                 .ReturnsAsync(() => throw new System.Exception("This is an exception"));
 
             // Act
-            var result = await _sut.Create(newAuthor);
+            var result = await _sut.Create(newUser);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -238,28 +246,29 @@ namespace WebApiTests
         public async void Update_ShouldReturnStatusCode200_WhenDataIsSaved()
         {
             // Arrange
-            int authorId = 1;
-            UpdateAuthor updateAuthor = new UpdateAuthor
+            int userId = 1;
+            UpdateUser updateUser = new UpdateUser
             {
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            AuthorResponse author = new AuthorResponse
+            UserResponse user = new UserResponse
             {
-                id = authorId,
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorService
-                .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<UpdateAuthor>()))
-                .ReturnsAsync(author);
+            _userService
+                .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<UpdateUser>()))
+                .ReturnsAsync(user);
 
             // Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -270,20 +279,21 @@ namespace WebApiTests
         public async void Update_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
-            int authorId = 1;
-            UpdateAuthor updateAuthor = new UpdateAuthor
+            int userId = 1;
+            UpdateUser updateUser = new UpdateUser
             {
-                FirstName = "George",
-                LastName = "Martin",
-                MiddleName = "R.R."
+               
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorService
-                .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<UpdateAuthor>()))
+            _userService
+                .Setup(s => s.Update(It.IsAny<int>(), It.IsAny<UpdateUser>()))
                 .ReturnsAsync(() => throw new System.Exception("This is an exception"));
 
             // Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -291,17 +301,17 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Delete_ShouldReturnStatusCode204_WhenAuthorIsDeleted()
+        public async void Delete_ShouldReturnStatusCode204_WhenUserIsDeleted()
         {
             // Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            _authorService
+            _userService
                 .Setup(s => s.Delete(It.IsAny<int>()))
                 .ReturnsAsync(true);
 
             // Act
-            var result = await _sut.Delete(authorId);
+            var result = await _sut.Delete(userId);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;
@@ -312,14 +322,14 @@ namespace WebApiTests
         public async void Delete_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            _authorService
+            _userService
                 .Setup(s => s.Delete(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new System.Exception("This is an exception"));
 
             // Act
-            var result = await _sut.Delete(authorId);
+            var result = await _sut.Delete(userId);
 
             // Assert
             var statusCodeResult = (IStatusCodeActionResult)result;

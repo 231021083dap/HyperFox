@@ -1,48 +1,53 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Database;
+using WebApi.Entities;
+using WebApi.Repositories;
+using Xunit;
 
 namespace WebApiTests
 {
-    class UserRepositoryTests
+    public class UserRepositoryTests
     {
-         private readonly AuthorRepositories _sut;
-        private readonly LibraryProjectContext _context;
-        private readonly DbContextOptions<LibraryProjectContext> _options;
+        private readonly UserRepository _sut;
+        private readonly WebApiContext _context;
+        private readonly DbContextOptions<WebApiContext> _options;
 
-        public AuthorRepositoriesTests()
+        public UserRepositoryTests()
         {
-            _options = new DbContextOptionsBuilder<LibraryProjectContext>()
-                .UseInMemoryDatabase(databaseName: "LibraryPorject") //Simulation af database
+            _options = new DbContextOptionsBuilder<WebApiContext>()
+                .UseInMemoryDatabase(databaseName: "WebApi") //Simulation af database
                 .Options;
 
-            _context = new LibraryProjectContext(_options);
+            _context = new WebApiContext(_options);
 
-            _sut = new AuthorRepositories(_context);
+            _sut = new UserRepository(_context);
         }
 
 
         [Fact]
-        public async Task GetAll_ShouldReturnListOfAuthors_WhenAuthorsExists()
+        public async Task GetAll_ShouldReturnListOfUsers_WhenUsersExists()
         {
             //Arange
             await _context.Database.EnsureDeletedAsync(); //Sikrer at databasen er slettet.
-            _context.Author.Add(new Author
+            _context.User.Add(new User
             {
-                id = 1,
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserId = 1,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
 
-            _context.Author.Add(new Author
+            _context.User.Add(new User
             {
-                id = 2,
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserId = 2,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
             await _context.SaveChangesAsync();
 
@@ -53,12 +58,12 @@ namespace WebApiTests
             //Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
-            Assert.IsType<List<Author>>(result);
+            Assert.IsType<List<User>>(result);
         }
 
 
         [Fact]
-        public async Task GetAll_ShouldReturnEmptyListOfAuthors_WhenNoAuthorsExists()
+        public async Task GetAll_ShouldReturnEmptyListOfUsers_WhenNoUsersExists()
         {
             //Arange
             await _context.Database.EnsureDeletedAsync(); //Sikrer at databasen er slettet.
@@ -70,88 +75,88 @@ namespace WebApiTests
             //Assert
             Assert.NotNull(result);
             Assert.Empty(result);
-            Assert.IsType<List<Author>>(result);
+            Assert.IsType<List<User>>(result);
         }
 
         [Fact]
-        public async Task GetById_ShouldReturnTheAuthor_IfAuthorExists()
+        public async Task GetById_ShouldReturnTheUser_IfUserExists()
         {
             //Arrange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
-            _context.Author.Add(new Author
+            int userId = 1;
+            _context.User.Add(new User
             {
-                id = authorId,
-                FirstName = "Mira",
-                LastName = "Henne",
-                MiddleName = "R.R"
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
             await _context.SaveChangesAsync();
 
             //Act
-            var result = await _sut.GetbyId(authorId);
+            var result = await _sut.GetById(userId);
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<Author>(result);
-            Assert.Equal(authorId, result.id);
+            Assert.IsType<User>(result);
+            Assert.Equal(userId, result.UserId);
         }
 
         [Fact]
-        public async Task GetById_shouldReturnNull_IfAuthorDoesNotExists()
+        public async Task GetById_shouldReturnNull_IfUserDoesNotExists()
         {
             //Arange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
+            int userId = 1;
 
             //Act
-            var result = await _sut.GetbyId(authorId);
+            var result = await _sut.GetById(userId);
 
             //Assert
             Assert.Null(result);
         }
 
         [Fact]
-        public async Task Create_ShouldAddIdToAuthor_WhenSavingToDatabase()
+        public async Task Create_ShouldAddIdToUser_WhenSavingToDatabase()
         {
             //Arange
             await _context.Database.EnsureDeletedAsync();
             int expectedId = 1;
-            Author author = new Author
+            User user = new User
             {
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
             //Act
-            var result = await _sut.Create(author);
+            var result = await _sut.Create(user);
 
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<Author>(result);
-            Assert.Equal(expectedId, result.id);
+            Assert.IsType<User>(result);
+            Assert.Equal(expectedId, result.UserId);
         }
     
         [Fact]
-        public async Task Create_ShouldFailToaddAuthor_WhenAddingAuthorWithExistingId()
+        public async Task Create_ShouldFailToaddUser_WhenAddingUserWithExistingId()
         {
             //Arange
             await _context.Database.EnsureDeletedAsync();
 
-            Author author = new Author
+            User user = new User
             {
-                id = 1,
-                FirstName = "Hanne",
-                LastName = "Jensen",
-                MiddleName = "P.R"
+                UserId = 1,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
-            _context.Author.Add(author);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
             //Act
-            Func<Task> action = async () => await _sut.Create(author);
+            Func<Task> action = async () => await _sut.Create(user);
 
             //Assert
             var ex = await Assert.ThrowsAsync<ArgumentException>(action);
@@ -159,101 +164,101 @@ namespace WebApiTests
         }
     
         [Fact]
-        public async Task Update_ShouldChangeValueOnAuthor_WhenAuthorExists()
+        public async Task Update_ShouldChangeValueOnUser_WhenUserExists()
         {
 
             //Arange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
-            Author author = new Author
+            int userId = 1;
+            User user = new User
             {
-                id = authorId,
-                FirstName = "fillip",
-                LastName = "Thaiam",
-                MiddleName = "Hansen"
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
-            _context.Author.Add(author);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            Author updateAuthor = new Author
+            User updateUser = new User
             {
-                id = authorId,
-                FirstName = "Rita",
-                LastName = "Jensen",
-                MiddleName = "Ikkersen"
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
             //Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<Author>(result);
-            Assert.Equal(authorId, result.id);
-            Assert.Equal(updateAuthor.FirstName, result.FirstName);
-            Assert.Equal(updateAuthor.LastName, result.LastName);
-            Assert.Equal(updateAuthor.MiddleName, result.MiddleName);
+            Assert.IsType<User>(result);
+            Assert.Equal(userId, result.UserId);
+            Assert.Equal(updateUser.UserName, result.UserName);
+            Assert.Equal(updateUser.Email, result.Email);
+            Assert.Equal(updateUser.Password, result.Password);
         }
 
         [Fact]
-        public async Task Update_ShouldReturnNull_WhenAuthorDoesNotExists()
+        public async Task Update_ShouldReturnNull_WhenUserDoesNotExists()
         {
             //Arrange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
-            Author updateAuthor = new Author
+            int userId = 1;
+            User updateUser = new User
             {
-                id = authorId,
-                FirstName = "Jamie",
-                LastName = "Nielsen",
-                MiddleName = "Has"
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
 
 
             //Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
             //Assert
             Assert.Null(result);
         }
 
         [Fact]
-        public async Task Delete_ShouldreturnDeletedAuthor_WhenAuthorIsDeleted()
+        public async Task Delete_ShouldreturnDeletedUser_WhenUserIsDeleted()
         {
             //Arrange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
-            Author author = new Author
+            int userId = 1;
+            User user = new User
             {
-                id = authorId,
-                FirstName = "Hans",
-                LastName = "Hansen",
-                MiddleName = "Robert"
+                UserId = userId,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             };
-            _context.Author.Add(author);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            var result = await _sut.Delete(authorId);
-            var authors = await _sut.GetAll();
+            var result = await _sut.Delete(userId);
+            var users = await _sut.GetAll();
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<Author>(result);
-            Assert.Equal(authorId, result.id);
+            Assert.IsType<User>(result);
+            Assert.Equal(userId, result.UserId);
 
-            Assert.Empty(authors);
+            Assert.Empty(users);
         }
         
         [Fact]
-        public async Task Delete_shouldReturnNull_WhenAuthorsDoesNotExists()
+        public async Task Delete_shouldReturnNull_WhenUsersDoesNotExists()
         {
             //Arrange
             await _context.Database.EnsureDeletedAsync();
-            int authorId = 1;
+            int userId = 1;
             
             //Act
-            var result = await _sut.Delete(authorId);
+            var result = await _sut.Delete(userId);
 
             //Assert
             Assert.Null(result);

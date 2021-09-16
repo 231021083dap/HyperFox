@@ -11,7 +11,7 @@ namespace WebApi.Repositories
     public interface IUserRepository
     {
         Task<List<User>> GetAll();
-        Task<User> GetById(int authorId);
+        Task<User> GetById(int UserId);
         Task<User> Create(User user);
         Task<User> Update(int userId, User user);
         Task<User> Delete(int userId);

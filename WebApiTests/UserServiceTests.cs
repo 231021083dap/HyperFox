@@ -1,215 +1,223 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.DTOs.Requests;
+using WebApi.DTOs.Responses;
+using WebApi.Entities;
+using WebApi.Repositories;
+using WebApi.Services;
+using Xunit;
+
 
 namespace WebApiTests
 {
-    class UserServiceTests
+    public class UserServiceTests
     {
 
          // Variabler
-        private readonly AuthorService _sut;
-        private readonly Mock<IAuthorRepository> _authorRepositories = new();
+        private readonly UserService _sut;
+        private readonly Mock<IUserRepository> _userRepository = new();
 
         //Contructor 
-        public AuthorServiceTests()
+        public UserServiceTests()
         {
-            _sut = new AuthorService(_authorRepositories.Object);
+            _sut = new UserService(_userRepository.Object);
         }
 
         [Fact]
-        public async void GetAll_ShouldReturnListOfAuthorResponses_WhenAchtorsExists()
+        public async void GetAll_ShouldReturnListOfUserResponses_WhenUsersExists()
         {
             // Arange
-            List<Author> authors = new();
+            List<User> users = new();
 
-            authors.Add(new Author
+            users.Add(new User
             {
-                id = 1,
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserId = 1,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
 
-            authors.Add(new Author
+            users.Add(new User
             {
-                id = 1,
-                FirstName = "Hansen",
-                LastName = "Jensen",
-                MiddleName = "Karn"
+                UserId = 1,
+                UserName = "Hansen",
+                Email = "Hansen@gmail.com",
+                Password = "passw0rd"
             });
 
-            //Får alle Authors og så returnerer dem.
-            _authorRepositories
+            //Får alle Users og så returnerer dem.
+            _userRepository
                 .Setup(a => a.GetAll())
-                .ReturnsAsync(authors);
+                .ReturnsAsync(users);
 
             // act
-            var result = await _sut.GetAllAuthors();
+            var result = await _sut.GetAllUsers();
 
 
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
-            Assert.IsType<List<AuthorResponse>>(result);
+            Assert.IsType<List<UserResponse>>(result);
 
 
         }
         [Fact]
-        public async void GetAll_ShouldReturnEmptyListOfAuthorReponses_WhenNoAuthorExists()
+        public async void GetAll_ShouldReturnEmptyListOfUserReponses_WhenNoUserExists()
         {
             //Arrange
-            List<Author> Authors = new List<Author>();
+            List<User> Users = new List<User>();
 
-            _authorRepositories.Setup(a => a.GetAll()).ReturnsAsync(Authors);
+            _userRepository.Setup(a => a.GetAll()).ReturnsAsync(Users);
 
             //Act
-            var result = await _sut.GetAllAuthors();
+            var result = await _sut.GetAllUsers();
 
             //Assert
             Assert.NotNull(result);
             Assert.Empty(result);
-            Assert.IsType<List<AuthorResponse>>(result);
+            Assert.IsType<List<UserResponse>>(result);
         }
 
         [Fact]
-        public async void GetById_ShouldReturnAnAuthorResponse_WhenAuthorExists()
+        public async void GetById_ShouldReturnAnUserResponse_WhenUserExists()
         {
             //Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            Author author = new Author
+            User user = new User
             {
-                id = authorId,
-                FirstName = "Goe",
-                LastName = "Leo",
-                MiddleName = "trio"
+                UserId = userId,
+                UserName = "Goe",
+                Email = "Leo@gmail.com",
+                Password = "passw0rd"
             };
 
-            _authorRepositories.Setup(a => a.GetbyId(It.IsAny<int>())).ReturnsAsync(author);
+            _userRepository.Setup(a => a.GetById(It.IsAny<int>())).ReturnsAsync(user);
 
             //Act 
-            var result = await _sut.GetById(authorId);
+            var result = await _sut.GetById(userId);
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<AuthorResponse>(result);
-            Assert.Equal(author.id, result.id);
-            Assert.Equal(author.FirstName, result.FirstName);
-            Assert.Equal(author.LastName, result.LastName);
-            Assert.Equal(author.MiddleName, result.MiddleName);
+            Assert.IsType<UserResponse>(result);
+            Assert.Equal(user.UserId, result.UserId);
+            Assert.Equal(user.UserName, result.UserName);
+            Assert.Equal(user.Email, result.Email);
+            Assert.Equal(user.Password, result.Password);
         }
 
         [Fact]
-        public async void GetById_ShouldReturnNull_WhenAuthorDoesNotExists()
+        public async void GetById_ShouldReturnNull_WhenUserDoesNotExists()
         {
             //Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            _authorRepositories.Setup(a => a.GetbyId(It.IsAny<int>())).ReturnsAsync(() => null);
+            _userRepository.Setup(a => a.GetById(It.IsAny<int>())).ReturnsAsync(() => null);
 
             //Act
-            var result = await _sut.GetById(authorId);
+            var result = await _sut.GetById(userId);
 
             //Assert
             Assert.Null(result);
         }
 
         [Fact]
-        public async void Create_ShouldReturnAuthorResponse_WhenCreateIsSuccess()
+        public async void Create_ShouldReturnUserResponse_WhenCreateIsSuccess()
         {
             //Arrange
-            NewAuthor newAuthor = new NewAuthor
+            NewUser newUser = new NewUser
             {
 
-                FirstName = "SomeJoe",
-                LastName = "JoeMama",
-                MiddleName = "Johnson"
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
             };
 
-            int authorId = 1;
-            Author author = new Author
+            int userId = 1;
+            User user = new User
             {
-                id = authorId,
-                FirstName = "SomeJoe",
-                LastName = "JoeMama",
-                MiddleName = "Johnson"
+                UserId = userId,
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
 
             };
 
-            _authorRepositories
-                .Setup(a => a.Create(It.IsAny<Author>()))
-                .ReturnsAsync(author);
+            _userRepository
+                .Setup(a => a.Create(It.IsAny<User>()))
+                .ReturnsAsync(user);
 
 
             //Act
-            var result = await _sut.Create(newAuthor);
+            var result = await _sut.Create(newUser);
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<AuthorResponse>(result);
-            Assert.Equal(authorId, result.id);
-            Assert.Equal(newAuthor.FirstName, result.FirstName);
-            Assert.Equal(newAuthor.LastName, result.LastName);
-            Assert.Equal(newAuthor.MiddleName, result.MiddleName);
+            Assert.IsType<UserResponse>(result);
+            Assert.Equal(userId, result.UserId);
+            Assert.Equal(newUser.UserName, result.UserName);
+            Assert.Equal(newUser.Email, result.Email);
+            Assert.Equal(newUser.Password, result.Password);
         }
 
         [Fact]
-        public async void Update_shouldReturnUpdateAuthorResponse_WhenUpdateIsSucces()
+        public async void Update_shouldReturnUpdateUserResponse_WhenUpdateIsSucces()
         {
             //Arrange
-            UpdateAuthor updateAuthor = new UpdateAuthor
+            UpdateUser updateUser = new UpdateUser
             {
-                FirstName = "SomeJoe",
-                LastName = "JoeMama",
-                MiddleName = "Johnson"
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
             };
 
-            int authorId = 1;
+            int userId = 1;
 
-            Author author = new Author
+            User user = new User
             {
-                id = authorId,
-                FirstName = "SomeJoe",
-                LastName = "JoeMama",
-                MiddleName = "Johnson"
+                UserId = userId,
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
             };
 
-            _authorRepositories.Setup(a => a.Update(It.IsAny<int>(), It.IsAny<Author>())).ReturnsAsync(author);
+            _userRepository.Setup(a => a.Update(It.IsAny<int>(), It.IsAny<User>())).ReturnsAsync(user);
 
             //Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<AuthorResponse>(result);
-            Assert.Equal(authorId, result.id);
-            Assert.Equal(updateAuthor.FirstName, result.FirstName);
-            Assert.Equal(updateAuthor.LastName, result.LastName);
-            Assert.Equal(updateAuthor.MiddleName, result.MiddleName);
+            Assert.IsType<UserResponse>(result);
+            Assert.Equal(userId, result.UserId);
+            Assert.Equal(updateUser.UserName, result.UserName);
+            Assert.Equal(updateUser.Email, result.Email);
+            Assert.Equal(updateUser.Password, result.Password);
 
         }
 
         [Fact]
-        public async void Update_ShouldreturnNull_WhenAuthorDoesNotExists()
+        public async void Update_ShouldreturnNull_WhenUserDoesNotExists()
         {
             //Arrange
-            UpdateAuthor updateAuthor = new UpdateAuthor
+            UpdateUser updateUser = new UpdateUser
             {
-                FirstName = "Jens",
-                LastName = "Jensen",
-                MiddleName = "Jensnens"
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
             };
 
-            int authorId = 1;
+            int userId = 1;
 
-            _authorRepositories.Setup(a => a.Update(It.IsAny<int>(), It.IsAny<Author>())).ReturnsAsync(() => null);
+            _userRepository.Setup(a => a.Update(It.IsAny<int>(), It.IsAny<User>())).ReturnsAsync(() => null);
 
             //Act
-            var result = await _sut.Update(authorId, updateAuthor);
+            var result = await _sut.Update(userId, updateUser);
 
             //Assert
             Assert.Null(result);
@@ -219,20 +227,20 @@ namespace WebApiTests
         public async void Delete_shouldReturnTrue_WhenDeleteIsSuccess()
         {
             //Arrange
-            int authorId = 1;
+            int userId = 1;
 
-            Author author = new Author
+            User user = new User
             {
-                id = authorId,
-                FirstName = "joe",
-                LastName = "jep",
-                MiddleName = "je"
+                UserId = userId,
+                UserName = "SomeJoe",
+                Email = "JoeMama@gmail.com",
+                Password = "Johnson"
             };
 
-            _authorRepositories.Setup(a => a.Delete(It.IsAny<int>())).ReturnsAsync(author);
+            _userRepository.Setup(a => a.Delete(It.IsAny<int>())).ReturnsAsync(user);
 
             //Act
-            var result = await _sut.Delete(authorId);
+            var result = await _sut.Delete(userId);
 
             //Assert
             Assert.True(result);
