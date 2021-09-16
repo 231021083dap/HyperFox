@@ -24,6 +24,11 @@ namespace WebApi.Controllers
         {
             List<FilmResponse> Films = _filmServise.GetAllFilms();
 
+            if (Films == null)
+            {
+                return Problem("Got no data, this is unexpected");
+            }
+
             if (Films.Count == 0)
             {
                 return NoContent();
