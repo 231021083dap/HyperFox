@@ -9,6 +9,7 @@ using WebApi.Controllers;
 using Moq;
 using WebApi.Services;
 using WebApi.DTOs.Responses;
+using WebApi.DTOs.Requests;
 
 namespace WebApiTests
 {
@@ -158,6 +159,35 @@ namespace WebApiTests
             // Assert 
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(500, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void Create_ShouldReturnStatusCode200_WhenDataIsCreated()
+        {
+            // Arrange
+            int genreId = 1;
+
+            NewGenre newGenre = new NewGenre
+            {
+                GenreName = "Action"
+            };
+
+            GenreResponse genre = new GenreResponse
+            {
+                GenreId = genreId,
+                GenreName = "Action"
+            };
+
+            _genreService
+                .Setup(s => s.Create(It.IsAny<NewGenre>()))
+                .ReturnsAsync(genre);
+
+            // Act
+            var result = await _sut.Create(newGenre);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(200, statusCodeResult.StatusCode);
         }
     }
 }
