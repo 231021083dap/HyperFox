@@ -228,5 +228,23 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(204, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public async void Delete_ShouldReturnStatusCode500_WhenExeptionIsRaised()
+        {
+            // Arrange
+            int genreId = 1;
+
+            _genreService
+                .Setup(s => s.Delete(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new System.Exception("This is an exception"));
+
+            // Act
+            var result = await _sut.Delete(genreId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
     }
 }
