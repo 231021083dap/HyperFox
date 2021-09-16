@@ -40,7 +40,13 @@ namespace WebApi.Services
 
         public async Task<GenreResponse> GetById(int genreId)
         {
-            throw new NotImplementedException();
+            Genre genre = await _genreRepository.GetById(genreId);
+
+            return genre == null ? null : new GenreResponse
+            {
+                GenreId = genre.GenreId,
+                GenreName = genre.GenreName
+            };
         }
 
         public Task<GenreResponse> Create(NewGenre newGenre)
