@@ -81,9 +81,11 @@ namespace WebApi.Services
             };
         }
 
-        public Task<bool> Delete(int genreId)
+        public async Task<bool> Delete(int genreId)
         {
-            throw new NotImplementedException();
+            var result = await _genreRepository.Delete(genreId);
+
+            return true;
         }
     }
 }
