@@ -101,5 +101,29 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(500, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public async void GetById_ShouldReturnStatusCode200_WhenDataExists()
+        {
+            // Arrange
+            int genreId = 1;
+
+            GenreResponse genre = new GenreResponse
+            {
+                GenreId = genreId,
+                GenreName = "Action"
+            };
+
+            _genreService
+                .Setup(s => s.GetById(It.IsAny<int>()))
+                .ReturnsAsync(genre);
+
+            // Act
+            var result = await _sut.GetById(genreId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(200, statusCodeResult.StatusCode);
+        }
     }
 }
