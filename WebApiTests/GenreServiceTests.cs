@@ -127,5 +127,58 @@ namespace WebApiTests
             Assert.Equal(genreId, result.GenreId);
             Assert.Equal(newGenre.GenreName, result.GenreName);
         }
+
+        [Fact]
+        public async void Update_ShouldReturnUpdatedGenreResponse_WhenUpdateIsSuccess()
+        {
+            // Arrange
+            UpdateGenre updateGenre = new UpdateGenre
+            {
+                GenreName = "Action"
+            };
+
+            int genreId = 1;
+
+            Genre genre = new Genre
+            {
+                GenreId = genreId,
+                GenreName = "Action"
+            };
+
+            _genreRepository
+                .Setup(g => g.Update(It.IsAny<int>(), It.IsAny<Genre>()))
+                .ReturnsAsync(genre);
+
+            // Act
+            var result = await _sut.Update(genreId, updateGenre);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<GenreResponse>(result);
+            Assert.Equal(genreId, result.GenreId);
+            Assert.Equal(updateGenre.GenreName, result.GenreName);
+        }
+
+        [Fact]
+        public async void Update_ShouldReturnNull_WhenGenreDoesNotExist()
+        {
+            // Arrange
+            UpdateGenre updateGenre = new UpdateGenre
+            {
+                GenreName = "Action"
+            };
+
+            int genreId = 1;
+
+            _genreRepository
+                .Setup(a => a.Update(It.IsAny<int>(), It.IsAny<Genre>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _sut.Update(genreId, updateGenre);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
