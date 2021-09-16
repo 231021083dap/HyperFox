@@ -9,7 +9,7 @@ using WebApi.Database.Entities;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210914105423_Addresses")]
+    [Migration("20210916172231_Addresses")]
     partial class Addresses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("address");
+                    b.ToTable("Address");
 
                     b.HasData(
                         new
@@ -61,6 +61,43 @@ namespace WebApi.Migrations
                             City = "Ballerup",
                             Postal = 2700,
                             UserId = 0
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DateTime")
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            DateTime = "Friday 13th at 4:00",
+                            ItemId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            DateTime = "Friday 13th at 4:00",
+                            ItemId = 2,
+                            UserId = 2
                         });
                 });
 #pragma warning restore 612, 618

@@ -35,6 +35,10 @@ namespace WebApi
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            //Order
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             //Context
             services.AddDbContext<WebApiContext>(
                 o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
