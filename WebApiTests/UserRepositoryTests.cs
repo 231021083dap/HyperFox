@@ -52,7 +52,7 @@ namespace WebApiTests
             await _context.SaveChangesAsync();
 
             //Act
-            var result = await _sut.GetAll();
+            var result = await _sut.GetAll(); 
 
 
             //Assert
