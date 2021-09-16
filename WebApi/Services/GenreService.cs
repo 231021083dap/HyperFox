@@ -65,9 +65,20 @@ namespace WebApi.Services
             };
         }
 
-        public Task<GenreResponse> Update(int genreId, UpdateGenre updateGenre)
+        public async Task<GenreResponse> Update(int genreId, UpdateGenre updateGenre)
         {
-            throw new NotImplementedException();
+            Genre genre = new Genre
+            {
+                GenreName = updateGenre.GenreName
+            };
+
+            genre = await _genreRepository.Update(genreId, genre);
+
+            return genre == null ? null : new GenreResponse
+            {
+                GenreId = genre.GenreId,
+                GenreName = genre.GenreName
+            };
         }
 
         public Task<bool> Delete(int genreId)
