@@ -49,9 +49,20 @@ namespace WebApi.Services
             };
         }
 
-        public Task<GenreResponse> Create(NewGenre newGenre)
+        public async Task<GenreResponse> Create(NewGenre newGenre)
         {
-            throw new NotImplementedException();
+            Genre genre = new Genre
+            {
+                GenreName = newGenre.GenreName
+            };
+
+            genre = await _genreRepository.Create(genre);
+
+            return genre == null ? null : new GenreResponse
+            {
+                GenreId = genre.GenreId,
+                GenreName = genre.GenreName
+            };
         }
 
         public Task<GenreResponse> Update(int genreId, UpdateGenre updateGenre)
