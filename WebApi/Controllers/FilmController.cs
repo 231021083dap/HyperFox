@@ -24,6 +24,11 @@ namespace WebApi.Controllers
         {
             List<FilmResponse> Films = _filmServise.GetAllFilms();
 
+            if (Films.Count == 0)
+            {
+                return NoContent();
+            }
+
             return Ok(Films);
         }
     }
