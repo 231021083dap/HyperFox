@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Database.Entities;
+using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Repositories;
 using WebApi.Services;
@@ -80,7 +81,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetById_ShouldReturnNull_WhenAuthorDoesNotExists()
+        public async void GetById_ShouldReturnNull_WhenGenreDoesNotExists()
         {
             // Arrange
             int genreId = 1;
@@ -94,6 +95,37 @@ namespace WebApiTests
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async void Create_ShouldReturnAGenreResponse_WhenCreateIsSuccess()
+        {
+            // Arrange
+            NewGenre newGenre = new NewGenre
+            {
+                GenreName = "Action"
+            };
+
+            int genreId = 1;
+
+            Genre genre = new Genre
+            {
+                GenreId = genreId,
+                GenreName = "Action"
+            };
+
+            _genreRepository
+                .Setup(g => g.Create(It.IsAny<Genre>()))
+                .ReturnsAsync(genre);
+
+            // Act
+            var result = await _sut.Create(newGenre);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<GenreResponse>(result);
+            Assert.Equal(genreId, result.GenreId);
+            Assert.Equal(newGenre.GenreName, result.GenreName);
         }
     }
 }
