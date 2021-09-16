@@ -12,6 +12,7 @@ namespace WebApi.Database.Entities
         public WebApiContext(DbContextOptions<WebApiContext> options) : base(options) { }
 
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<Film> Film { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
