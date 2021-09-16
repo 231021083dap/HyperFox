@@ -26,7 +26,6 @@ namespace WebApiTests
         public async void GetAll_ShouldReturnListOfGenreResponses_WhenGenresExist()
         {
             // Arrange
-
             List<Genre> Genres = new List<Genre>();
 
             Genres.Add(new Genre
@@ -53,5 +52,7 @@ namespace WebApiTests
             Assert.Equal(2, result.Count);
             Assert.IsType<List<GenreResponse>>(result);
         }
+
+        
     }
 }
