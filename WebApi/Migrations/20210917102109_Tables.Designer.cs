@@ -9,8 +9,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210917073954_UserAddress")]
-    partial class UserAddress
+    [Migration("20210917102109_Tables")]
+    partial class Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,39 @@ namespace WebApi.Migrations
                             City = "Ballerup",
                             Postal = 2700,
                             UserId = 0
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DateTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            DateTime = "Friday 13th at 4:00",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            DateTime = "Friday 13th at 4:00",
+                            UserId = 2
                         });
                 });
 

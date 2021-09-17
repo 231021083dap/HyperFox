@@ -62,6 +62,39 @@ namespace WebApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DateTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            DateTime = "Friday 13th at 4:00",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            DateTime = "Friday 13th at 4:00",
+                            UserId = 2
+                        });
+                });
+
             modelBuilder.Entity("WebApi.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
