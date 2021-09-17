@@ -265,5 +265,34 @@ namespace WebApiTests
             // Assert
             Assert.Null(result);
         }
+
+        [Fact]
+        public async void Delete_ShouldReturnTrue_WhenDeleteIsSuccess()
+        {
+            // Arrange
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmRepository
+                .Setup(f => f.Delete(It.IsAny<int>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.Delete(filmId);
+
+            // Assert
+            Assert.True(result);
+        }
     }
 }
