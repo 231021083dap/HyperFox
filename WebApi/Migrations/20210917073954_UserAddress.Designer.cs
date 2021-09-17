@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Database;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210917083252_Tables")]
-    partial class Tables
+    [Migration("20210917073954_UserAddress")]
+    partial class UserAddress
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,36 +64,41 @@ namespace WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebApi.Entities.Order", b =>
+            modelBuilder.Entity("WebApi.Entities.User", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DateTime")
+                    b.Property<string>("Admin")
                         .IsRequired()
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("nvarchar(5)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
 
-                    b.HasKey("OrderId");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
 
-                    b.ToTable("Order");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("User");
 
                     b.HasData(
                         new
                         {
-                            OrderId = 1,
-                            DateTime = "Friday 13th at 4:00",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            OrderId = 2,
-                            DateTime = "Friday 13th at 4:00",
-                            UserId = 2
+                            UserId = 1,
+                            Admin = "Admin",
+                            Email = "TestMail",
+                            Password = "TestPassword",
+                            UserName = "TestUserName"
                         });
                 });
 #pragma warning restore 612, 618

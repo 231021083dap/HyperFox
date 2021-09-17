@@ -2,19 +2,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Database.Entities;
-using WebApi.Repository;
+using WebApi.Database;
+using WebApi.Repositories;
 using WebApi.Services;
+using WebApi.Repository;
 
 namespace WebApi
 {
@@ -32,19 +33,23 @@ namespace WebApi
         {
 
             services.AddControllers();
+
+        //Database
+            services.AddDbContext<WebApiContext>(
+                o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+        // The AddScoped method registers the service with a scoped lifetime
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
-            //Order
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-
-            //Context
-            services.AddDbContext<WebApiContext>(
-                o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
-            
-                services.AddSwaggerGen(c =>
-                {
+            ////Order
+            //services.AddScoped<IOrderService, OrderService>();
+            //services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
                 });
         }

@@ -5,19 +5,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Entities;
 
-namespace WebApi.Database.Entities
+namespace WebApi.Database
 {
     public class WebApiContext : DbContext
     {
-        public WebApiContext() { }
-        public WebApiContext(DbContextOptions<WebApiContext> options) : base(options) { }
+        public WebApiContext()    {}
+        public WebApiContext(DbContextOptions<WebApiContext> options) : base(options) {}
+
+        public DbSet<User> User { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Order> Order { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    UserId = 1,
+                    UserName = "TestUserName",
+                    Email = "TestMail",
+                    Password = "TestPassword",
+                    Admin = "Admin"
+
+                });
             modelBuilder.Entity<Address>().HasData(
 
                 new Address
@@ -54,9 +64,8 @@ namespace WebApi.Database.Entities
                     DateTime = "Friday 13th at 4:00"
                 });
 
-
-
-
+            //}
         }
+
     }
 }
