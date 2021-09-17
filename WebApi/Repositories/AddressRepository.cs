@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Database.Entities;
+using WebApi.Database;
 using WebApi.Entities;
 
 namespace WebApi.Repository
