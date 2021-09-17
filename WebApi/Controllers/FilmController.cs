@@ -20,11 +20,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                List<FilmResponse> Films = _filmServise.GetAllFilms();
+                List<FilmResponse> Films = await _filmServise.GetAllFilms();
 
                 if (Films == null)
                 {

@@ -23,7 +23,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public void GetAll_ShouldReturnListOfFilmResponses_WhenFilmExist()
+        public async void GetAll_ShouldReturnListOfFilmResponses_WhenFilmExist()
         {
             // Arrange
             List<Film> Films = new List<Film>();
@@ -54,10 +54,10 @@ namespace WebApiTests
 
             _filmRepository
                 .Setup(f => f.GetAll())
-                .Returns(Films);
+                .ReturnsAsync(Films);
 
             // Act
-            var result = _sut.GetAllFilms();
+            var result = await _sut.GetAllFilms();
 
             // Assert 
             Assert.NotNull(result);

@@ -10,7 +10,7 @@ namespace WebApi.Services
 {
     public interface IFilmService
     {
-        List<FilmResponse> GetAllFilms();
+        Task<List<FilmResponse>> GetAllFilms();
     }
 
     public class FilmService : IFilmService
@@ -22,9 +22,9 @@ namespace WebApi.Services
             _filmRepository = filmRepository;
         }
 
-        public List<FilmResponse> GetAllFilms()
+        public async Task<List<FilmResponse>> GetAllFilms()
         {
-            IEnumerable<Film> Films = _filmRepository.GetAll();
+            List<Film> Films = await _filmRepository.GetAll();
 
             return Films.Select(f => new FilmResponse
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace WebApi.Repositories
 {
     public interface IFilmRepository
     {
-        IEnumerable<Film> GetAll();
+        Task<List<Film>> GetAll();
     }
 
     public class FilmRepository : IFilmRepository
@@ -20,9 +21,9 @@ namespace WebApi.Repositories
             _context = context;
         }
 
-        public IEnumerable<Film> GetAll()
+        public async Task<List<Film>> GetAll()
         {
-            return _context.Film;
+            return await _context.Film.ToListAsync();
         }
     }
 }
