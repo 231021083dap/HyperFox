@@ -188,5 +188,82 @@ namespace WebApiTests
             Assert.Equal(newFilm.Stock, result.Stock);
             Assert.Equal(newFilm.Image, result.Image);
         }
+
+        [Fact]
+        public async void Update_ShouldReturnUpdatedFilmResponse_WhenUpdateIsSuccess()
+        {
+            // Arrange
+            UpdateFilm updateFilm = new UpdateFilm
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmRepository
+                .Setup(f => f.Update(It.IsAny<int>(), It.IsAny<Film>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.Update(filmId, updateFilm);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<FilmResponse>(result);
+            Assert.Equal(filmId, result.FilmId);
+            Assert.Equal(updateFilm.FilmName, result.FilmName);
+            Assert.Equal(updateFilm.ReleaseDate, result.ReleaseDate);
+            Assert.Equal(updateFilm.RuntimeInMin, result.RuntimeInMin);
+            Assert.Equal(updateFilm.Description, result.Description);
+            Assert.Equal(updateFilm.Price, result.Price);
+            Assert.Equal(updateFilm.Stock, result.Stock);
+            Assert.Equal(updateFilm.Image, result.Image);
+        }
+
+        [Fact]
+        public async void Update_ShouldReturnNull_WhenFilmDoesNotExist()
+        {
+            // Arrange
+            UpdateFilm updateFilm = new UpdateFilm
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            int filmId = 1;
+
+            _filmRepository
+                .Setup(f => f.Update(It.IsAny<int>(), It.IsAny<Film>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _sut.Update(filmId, updateFilm);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
