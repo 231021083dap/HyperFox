@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Database.Entities;
 using WebApi.DTOs.Responses;
+using WebApi.Repositories;
 
 namespace WebApi.Services
 {
@@ -13,35 +15,28 @@ namespace WebApi.Services
 
     public class FilmService : IFilmService
     {
+        private readonly IFilmRepository _filmRepository;
+
+        public FilmService(IFilmRepository filmRepository)
+        {
+            _filmRepository = filmRepository;
+        }
+
         public List<FilmResponse> GetAllFilms()
         {
-            List<FilmResponse> Films = new();
+            IEnumerable<Film> Films = _filmRepository.GetAll();
 
-            Films.Add(new FilmResponse
+            return Films.Select(f => new FilmResponse
             {
-                FilmId = 1,
-                FilmName = "The lord of the rings",
-                ReleaseDate = "16-09-2001",
-                RuntimeInMin = 123,
-                Description = "This movie is about a ring",
-                Price = 79.99M,
-                Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
-            });
-
-            Films.Add(new FilmResponse
-            {
-                FilmId = 2,
-                FilmName = "Harry potter",
-                ReleaseDate = "16-09-2001",
-                RuntimeInMin = 123,
-                Description = "This movie is about the wizard world",
-                Price = 79.99M,
-                Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
-            });
-
-            return Films;
+                FilmId = f.FilmId,
+                FilmName = f.FilmName,
+                ReleaseDate = f.ReleaseDate,
+                RuntimeInMin = f.RuntimeInMin,
+                Description = f.Description,
+                Price = f.Price,
+                Stock = f.Stock,
+                Image = f.Image
+            }).ToList();
         }
     }
 }

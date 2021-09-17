@@ -34,6 +34,7 @@ namespace WebApi
             services.AddScoped<IGenreRepository, GenreRepository>();
 
             services.AddScoped<IFilmService, FilmService>();
+            services.AddScoped<IFilmRepository, FilmRepository>();
 
             services.AddDbContext<WebApiContext>(o =>
             o.UseSqlServer(Configuration.GetConnectionString("Default")));
