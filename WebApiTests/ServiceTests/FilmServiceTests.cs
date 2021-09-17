@@ -83,5 +83,60 @@ namespace WebApiTests
             Assert.Empty(result);
             Assert.IsType<List<FilmResponse>>(result);
         }
+
+        [Fact]
+        public async void GetById_ShouldReturnAFilmResponse_WhenFilmExists()
+        {
+            // Arrange
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmRepository
+                .Setup(f => f.GetById(It.IsAny<int>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<FilmResponse>(result);
+            Assert.Equal(film.FilmId, result.FilmId);
+            Assert.Equal(film.FilmName, result.FilmName);
+            Assert.Equal(film.ReleaseDate, result.ReleaseDate);
+            Assert.Equal(film.RuntimeInMin, result.RuntimeInMin);
+            Assert.Equal(film.Description, result.Description);
+            Assert.Equal(film.Price, result.Price);
+            Assert.Equal(film.Stock, result.Stock);
+            Assert.Equal(film.Image, result.Image);
+        }
+
+        [Fact]
+        public async void GetById_ShouldReturnNull_WhenFilmDoesNotExists()
+        {
+            // Arrange
+            int filmId = 1;
+
+            _filmRepository
+                .Setup(f => f.GetById(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
