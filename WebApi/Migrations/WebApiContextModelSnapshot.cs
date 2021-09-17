@@ -70,10 +70,8 @@ namespace WebApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DateTime")
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -87,14 +85,12 @@ namespace WebApi.Migrations
                         {
                             OrderId = 1,
                             DateTime = "Friday 13th at 4:00",
-                            ItemId = 1,
                             UserId = 1
                         },
                         new
                         {
                             OrderId = 2,
                             DateTime = "Friday 13th at 4:00",
-                            ItemId = 2,
                             UserId = 2
                         });
                 });

@@ -11,8 +11,6 @@ namespace WebApi.DTOs.Responses
 
         public int UserId { get; set; }
 
-        public int ItemId { get; set; }
-
         public String DateTime { get; set; }
     }
 }

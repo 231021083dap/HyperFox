@@ -64,7 +64,6 @@ namespace WebApi.Repository
             if (UpdateOrder != null)
             {
                 UpdateOrder.UserId = Order.UserId;
-                UpdateOrder.ItemId = Order.ItemId;
                 UpdateOrder.DateTime = UpdateOrder.DateTime;
 
                 await _context.SaveChangesAsync();

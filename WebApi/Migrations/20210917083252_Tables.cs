@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+
 namespace WebApi.Migrations
 {
-    public partial class Addresses : Migration
+    public partial class Tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,9 +29,8 @@ namespace WebApi.Migrations
                 {
                     OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    DateTime = table.Column<string>(type: "nvarchar(40)", nullable: true)
+                    DateTime = table.Column<string>(type: "nvarchar(80)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,11 +48,11 @@ namespace WebApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Order",
-                columns: new[] { "OrderId", "DateTime", "ItemId", "UserId" },
+                columns: new[] { "OrderId", "DateTime", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Friday 13th at 4:00", 1, 1 },
-                    { 2, "Friday 13th at 4:00", 2, 2 }
+                    { 1, "Friday 13th at 4:00", 1 },
+                    { 2, "Friday 13th at 4:00", 2 }
                 });
         }
 

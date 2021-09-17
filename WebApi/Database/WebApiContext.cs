@@ -44,7 +44,6 @@ namespace WebApi.Database.Entities
                 {
                     OrderId = 1,
                     UserId = 1,
-                    ItemId = 1,
                     DateTime = "Friday 13th at 4:00"
 
                 },
@@ -52,7 +51,6 @@ namespace WebApi.Database.Entities
                 {
                     OrderId = 2,
                     UserId = 2,
-                    ItemId = 2,
                     DateTime = "Friday 13th at 4:00"
                 });
 

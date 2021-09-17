@@ -36,7 +36,6 @@ namespace WebApi.Services
                 Order Order = new()
                 {
                     UserId = newOrder.UserId,
-                    ItemId = newOrder.ItemId,
                     DateTime = newOrder.DateTime
 
                 };
@@ -47,7 +46,6 @@ namespace WebApi.Services
                 {
                     OrderId = Order.OrderId,
                     UserId = Order.UserId,
-                    ItemId = Order.ItemId,
                     DateTime = Order.DateTime
 
                 };
@@ -67,7 +65,6 @@ namespace WebApi.Services
                 {
                     OrderId = a.OrderId,
                     UserId = a.UserId,
-                    ItemId = a.ItemId,
                     DateTime = a.DateTime
 
 
@@ -82,7 +79,6 @@ namespace WebApi.Services
                 {
                     OrderId = Orders.OrderId,
                     UserId = Orders.UserId,
-                    ItemId = Orders.ItemId,
                     DateTime = Orders.DateTime
 
 
@@ -94,7 +90,6 @@ namespace WebApi.Services
                 Order Order = new()
                 {
                     UserId = updateOrder.UserId,
-                    ItemId = updateOrder.ItemId,
                     DateTime = updateOrder.DateTime
 
 
@@ -106,7 +101,6 @@ namespace WebApi.Services
                 {
                     OrderId = Order.OrderId,
                     UserId = Order.UserId,
-                    ItemId = Order.ItemId,
                     DateTime = Order.DateTime
 
                 };
