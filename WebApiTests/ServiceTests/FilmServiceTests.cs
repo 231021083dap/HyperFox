@@ -64,5 +64,24 @@ namespace WebApiTests
             Assert.Equal(2, result.Count);
             Assert.IsType<List<FilmResponse>>(result);
         }
+
+        [Fact]
+        public async void GetAll_ShouldReturnListOfFilmResponses_WhenNoFilmExist()
+        {
+            // Arrange
+            List<Film> Films = new List<Film>();
+
+            _filmRepository
+                .Setup(f => f.GetAll())
+                .ReturnsAsync(Films);
+
+            // Act
+            var result = await _sut.GetAllFilms();
+
+            // Assert 
+            Assert.NotNull(result);
+            Assert.Empty(result);
+            Assert.IsType<List<FilmResponse>>(result);
+        }
     }
 }

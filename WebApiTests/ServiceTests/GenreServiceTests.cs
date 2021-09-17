@@ -55,6 +55,25 @@ namespace WebApiTests
         }
 
         [Fact]
+        public async void GetAll_ShouldReturnListOfGenreResponses_WhenNoGenresExist()
+        {
+            // Arrange
+            List<Genre> Genres = new List<Genre>();
+
+            _genreRepository
+                .Setup(g => g.GetAll())
+                .ReturnsAsync(Genres);
+
+            // Act
+            var result = await _sut.GetAllGenres();
+
+            // Assert 
+            Assert.NotNull(result);
+            Assert.Empty(result);
+            Assert.IsType<List<GenreResponse>>(result);
+        }
+
+        [Fact]
         public async void GetById_ShouldReturnAGenreResponse_WhenGenreExists()
         {
             // Arrange
