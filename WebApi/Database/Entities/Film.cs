@@ -25,14 +25,18 @@ namespace WebApi.Database.Entities
         public Int16 RuntimeInMin { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(10000)")]
+        [Column(TypeName = "nvarchar(max)")]
         public string Description { get; set; }
 
         [Required]
-        [Column(TypeName = "")]
+        [Column(TypeName = "decimal(6,2)")]
         public decimal Price { get; set; }
 
+        [Required]
+        [Column(TypeName = "smallInt")]
         public int Stock { get; set; }
+
+
         public string Image { get; set; }
     }
 }
