@@ -35,7 +35,7 @@ namespace WebApiTests
                 ReleaseDate = "16-09-2001",
                 RuntimeInMin = 123,
                 Description = "This movie is about a ring",
-                Price = 79.99,
+                Price = 79.99M,
                 Stock = 50,
                 Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
             });
@@ -47,7 +47,7 @@ namespace WebApiTests
                 ReleaseDate = "16-09-2001",
                 RuntimeInMin = 123,
                 Description = "This movie is about the wizard world",
-                Price = 79.99,
+                Price = 79.99M,
                 Stock = 50,
                 Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
             });

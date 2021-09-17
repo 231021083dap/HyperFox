@@ -12,6 +12,7 @@ namespace WebApi.Database.Entities
         [Key]
         public int GenreId { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(32)")]
         public string GenreName { get; set; }
     }

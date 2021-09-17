@@ -28,7 +28,29 @@ namespace WebApi.Database.Entities
                     GenreName = "Comedy"
                 });
 
-
+            modelBuilder.Entity<Film>().HasData(
+                new Film
+                {
+                    FilmId = 1,
+                    FilmName = "The lord of the rings",
+                    ReleaseDate = "16-09-2001",
+                    RuntimeInMin = 123,
+                    Description = "This movie is about a ring",
+                    Price = 79.99M,
+                    Stock = 50,
+                    Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                },
+                new Film
+                {
+                    FilmId = 2,
+                    FilmName = "Harry potter",
+                    ReleaseDate = "16-09-2001",
+                    RuntimeInMin = 123,
+                    Description = "This movie is about the wizard world",
+                    Price = 79.99M,
+                    Stock = 50,
+                    Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
+                });
         }
     }
 }
