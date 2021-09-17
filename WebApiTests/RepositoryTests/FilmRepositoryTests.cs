@@ -82,5 +82,51 @@ namespace WebApiTests
             Assert.Empty(result);
             Assert.IsType<List<Film>>(result);
         }
+
+        [Fact]
+        public async void GetById_ShouldReturnTheFilm_IfFilmExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            _context.Film.Add(new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            });
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Film>(result);
+            Assert.Equal(filmId, result.FilmId);
+        }
+
+        [Fact]
+        public async void GetById_ShouldReturnNull_IfFilmDoesNotExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
