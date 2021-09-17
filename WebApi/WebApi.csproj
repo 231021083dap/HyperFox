@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Entities\NewFile.txt" />
-    <None Remove="Entities\NewFile1.txt" />
     <None Remove="Services\GenreService" />
     <None Remove="Services\NewFile.txt" />
     <None Remove="Services\UserService" />
