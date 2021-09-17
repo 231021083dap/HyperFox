@@ -263,5 +263,54 @@ namespace WebApiTests
             // Assert
             Assert.Null(result);
         }
+
+        [Fact]
+        public async Task Delete_ShouldReturnDeleteFilm_WhenFilmIsDeleted()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _context.Film.Add(film);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _sut.Delete(filmId);
+            var films = await _sut.GetAll();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Film>(result);
+            Assert.Equal(filmId, result.FilmId);
+            Assert.Empty(films);
+        }
+
+        [Fact]
+        public async Task Delete_ShouldReturnNull_WhenGenreDoesNotExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            // Act
+            var result = await _sut.Delete(filmId);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
