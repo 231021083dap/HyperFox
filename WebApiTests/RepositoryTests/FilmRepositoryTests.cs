@@ -67,5 +67,20 @@ namespace WebApiTests
             Assert.Equal(2, result.Count);
             Assert.IsType<List<Film>>(result);
         }
+
+        [Fact]
+        public async Task GetAll_ShouldReturnEmptyListOfFilms_WhenNoFilmExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            // Act
+            var result = await _sut.GetAll();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
+            Assert.IsType<List<Film>>(result);
+        }
     }
 }
