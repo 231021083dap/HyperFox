@@ -10,6 +10,7 @@ namespace WebApi.Repositories
     public interface IFilmRepository
     {
         Task<List<Film>> GetAll();
+        Task<Film> GetById(int filmId);
     }
 
     public class FilmRepository : IFilmRepository
@@ -24,6 +25,11 @@ namespace WebApi.Repositories
         public async Task<List<Film>> GetAll()
         {
             return await _context.Film.ToListAsync();
+        }
+
+        public async Task<Film> GetById(int filmId)
+        {
+            return await _context.Film.FirstOrDefaultAsync(f => f.FilmId == filmId);
         }
     }
 }
