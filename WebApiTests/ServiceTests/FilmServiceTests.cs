@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Database.Entities;
+using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Repositories;
 using WebApi.Services;
@@ -137,6 +138,55 @@ namespace WebApiTests
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async void Create_ShouldReturnAFilmResponse_WhenCreateIsSuccess()
+        {
+            // Arrange
+            NewFilm newFilm = new NewFilm
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmRepository
+                .Setup(f => f.Create(It.IsAny<Film>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.Create(newFilm);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<FilmResponse>(result);
+            Assert.Equal(filmId, result.FilmId);
+            Assert.Equal(newFilm.FilmName, result.FilmName);
+            Assert.Equal(newFilm.ReleaseDate, result.ReleaseDate);
+            Assert.Equal(newFilm.RuntimeInMin, result.RuntimeInMin);
+            Assert.Equal(newFilm.Description, result.Description);
+            Assert.Equal(newFilm.Price, result.Price);
+            Assert.Equal(newFilm.Stock, result.Stock);
+            Assert.Equal(newFilm.Image, result.Image);
         }
     }
 }
