@@ -19,7 +19,7 @@ namespace WebApiTests
         public GenreRepositoryTests()
         {
             _options = new DbContextOptionsBuilder<WebApiContext>()
-                .UseInMemoryDatabase(databaseName: "WebApi")
+                .UseInMemoryDatabase(databaseName: "WebApiGenre")
                 .Options;
 
             _context = new WebApiContext(_options);
@@ -31,8 +31,12 @@ namespace WebApiTests
         public async Task GetAll_ShouldReturnListOfGenres_WhenGenresExists()
         {
             // Arrange
+
+            // Delete Database
             await _context.Database.EnsureDeletedAsync();
 
+
+            // Add 2 new Genres
             _context.Genre.Add(new Genre
             {
                 GenreId = 1,
@@ -45,6 +49,7 @@ namespace WebApiTests
                 GenreName = "Comedy",
             });
 
+            // Save changes
             await _context.SaveChangesAsync();
 
             // Act

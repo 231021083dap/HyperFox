@@ -19,7 +19,7 @@ namespace WebApiTests
         public FilmRepositoryTests()
         {
             _options = new DbContextOptionsBuilder<WebApiContext>()
-                .UseInMemoryDatabase(databaseName: "WebApi")
+                .UseInMemoryDatabase(databaseName: "WebApiFilm")
                 .Options;
 
             _context = new WebApiContext(_options);
@@ -127,6 +127,63 @@ namespace WebApiTests
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Create_ShouldAddIdToFilm_WhenSavingToDatabase()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int expectedId = 1;
+
+            Film film = new Film
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            // Act
+            var result = await _sut.Create(film);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Film>(result);
+            Assert.Equal(expectedId, result.FilmId);
+        }
+
+        [Fact]
+        public async Task Create_ShouldFailToAddFilm_WhenAddingFilmWithExistingId()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            Film film = new Film
+            {
+                FilmId = 1,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _context.Film.Add(film);
+            await _context.SaveChangesAsync();
+
+            // Act
+            Func<Task> action = async () => await _sut.Create(film);
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentException>(action);
+            Assert.Contains("An item with the same key has already been added", ex.Message);
         }
     }
 }
