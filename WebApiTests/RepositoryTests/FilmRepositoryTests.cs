@@ -185,5 +185,83 @@ namespace WebApiTests
             var ex = await Assert.ThrowsAsync<ArgumentException>(action);
             Assert.Contains("An item with the same key has already been added", ex.Message);
         }
+
+        [Fact]
+        public async Task Update_ShouldChangeValuesOnFilm_WhenfilmExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            Film film = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _context.Film.Add(film);
+            await _context.SaveChangesAsync();
+
+            Film updateFilm = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings 2",
+                ReleaseDate = "10-09-2002",
+                RuntimeInMin = 150,
+                Description = "This is part 2 of a movie about a ring",
+                Price = 89.99M,
+                Stock = 60,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            // Act
+            var result = await _sut.Update(filmId, updateFilm);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Film>(result);
+            Assert.Equal(filmId, result.FilmId);
+            Assert.Equal(updateFilm.FilmName, result.FilmName);
+            Assert.Equal(updateFilm.ReleaseDate, result.ReleaseDate);
+            Assert.Equal(updateFilm.RuntimeInMin, result.RuntimeInMin);
+            Assert.Equal(updateFilm.Description, result.Description);
+            Assert.Equal(updateFilm.Price, result.Price);
+            Assert.Equal(updateFilm.Stock, result.Stock);
+            Assert.Equal(updateFilm.Image, result.Image);
+        }
+
+        [Fact]
+        public async Task Update_ShouldReturnNull_WhenFilmDoesNotExists()
+        {
+            // Arrange
+            await _context.Database.EnsureDeletedAsync();
+
+            int filmId = 1;
+
+            Film updateFilm = new Film
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings 2",
+                ReleaseDate = "10-09-2002",
+                RuntimeInMin = 150,
+                Description = "This is part 2 of a movie about a ring",
+                Price = 89.99M,
+                Stock = 60,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            // Act
+            var result = await _sut.Update(filmId, updateFilm);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
