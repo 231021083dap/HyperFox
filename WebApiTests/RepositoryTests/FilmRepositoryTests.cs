@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Database;
 using WebApi.Database.Entities;
 using WebApi.Repositories;
 using Xunit;

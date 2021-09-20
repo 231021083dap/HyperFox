@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Database.Entities;
 using WebApi.Entities;
 
 namespace WebApi.Database
@@ -70,24 +71,21 @@ namespace WebApi.Database
                 });
 
             modelBuilder.Entity<Item>().HasData(
-                //Creating new Item in the Database.
-                
+                    //Creating new Item in the Database.
+
                     new Item
-                {
-                    ItemId = 1,
-                    FilmId = 2,
-                    OrderId = 2,
-                    Quantity = 2,
-                    Price = 2
-                });
+                    {
+                        ItemId = 1,
+                        FilmId = 2,
+                        OrderId = 2,
+                        Quantity = 2,
+                        Price = 2
+                    });
 
             modelBuilder.Entity<Genre>().HasData(
-               GenreId = 1,
-                    GenreName = "Action"
-                },
                 new Genre
                 {
-                    GenreId = 2,
+                    GenreId = 1,
                     GenreName = "Comedy"
                 });
 
@@ -114,8 +112,9 @@ namespace WebApi.Database
                     Price = 79.99M,
                     Stock = 50,
                     Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
-                    GenreId = 2
+                    GenreId = 1
                 });
+        }
 
     }
 }

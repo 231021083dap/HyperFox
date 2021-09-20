@@ -9,7 +9,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210920072620_Tables")]
+    [Migration("20210920105820_Tables")]
     partial class Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,97 @@ namespace WebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebApi.Database.Entities.Film", b =>
+                {
+                    b.Property<int>("FilmId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilmName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<string>("ReleaseDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<short>("RuntimeInMin")
+                        .HasColumnType("smallInt");
+
+                    b.Property<short>("Stock")
+                        .HasColumnType("smallInt");
+
+                    b.HasKey("FilmId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("Film");
+
+                    b.HasData(
+                        new
+                        {
+                            FilmId = 1,
+                            Description = "This movie is about a ring",
+                            FilmName = "The lord of the rings",
+                            GenreId = 1,
+                            Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                            Price = 79.99m,
+                            ReleaseDate = "16-09-2001",
+                            RuntimeInMin = (short)123,
+                            Stock = (short)50
+                        },
+                        new
+                        {
+                            FilmId = 2,
+                            Description = "This movie is about the wizard world",
+                            FilmName = "Harry potter",
+                            GenreId = 1,
+                            Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                            Price = 79.99m,
+                            ReleaseDate = "16-09-2001",
+                            RuntimeInMin = (short)123,
+                            Stock = (short)50
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
+                {
+                    b.Property<int>("GenreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GenreName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("GenreId");
+
+                    b.ToTable("Genre");
+
+                    b.HasData(
+                        new
+                        {
+                            GenreId = 1,
+                            GenreName = "Comedy"
+                        });
+                });
 
             modelBuilder.Entity("WebApi.Entities.Address", b =>
                 {
@@ -167,6 +258,22 @@ namespace WebApi.Migrations
                             Password = "TestPassword",
                             UserName = "TestUserName"
                         });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Film", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Genre", "Genre")
+                        .WithMany("Films")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
+                {
+                    b.Navigation("Films");
                 });
 #pragma warning restore 612, 618
         }
