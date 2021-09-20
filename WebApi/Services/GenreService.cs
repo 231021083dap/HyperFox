@@ -34,7 +34,18 @@ namespace WebApi.Services
             return genres == null ? null : genres.Select(g => new GenreResponse
             {
                 GenreId = g.GenreId,
-                GenreName = g.GenreName
+                GenreName = g.GenreName,
+                Films = g.Films.Select(f => new GenreFilmResponse
+                {
+                    FilmId = f.FilmId,
+                    FilmName = f.FilmName,
+                    ReleaseDate = f.ReleaseDate,
+                    RuntimeInMin = f.RuntimeInMin,
+                    Description = f.Description,
+                    Price = f.Price,
+                    Stock = f.Stock,
+                    Image = f.Image
+                }).ToList()
             }).ToList();
         }
 
@@ -45,7 +56,18 @@ namespace WebApi.Services
             return genre == null ? null : new GenreResponse
             {
                 GenreId = genre.GenreId,
-                GenreName = genre.GenreName
+                GenreName = genre.GenreName,
+                Films = genre.Films.Select(f => new GenreFilmResponse
+                {
+                    FilmId = f.FilmId,
+                    FilmName = f.FilmName,
+                    ReleaseDate = f.ReleaseDate,
+                    RuntimeInMin = f.RuntimeInMin,
+                    Description = f.Description,
+                    Price = f.Price,
+                    Stock = f.Stock,
+                    Image = f.Image
+                }).ToList()
             };
         }
 

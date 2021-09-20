@@ -27,12 +27,16 @@ namespace WebApi.Repositories
 
         public async Task<List<Film>> GetAll()
         {
-            return await _context.Film.ToListAsync();
+            return await _context.Film
+                .Include(g => g.Genre)
+                .ToListAsync();
         }
 
         public async Task<Film> GetById(int filmId)
         {
-            return await _context.Film.FirstOrDefaultAsync(f => f.FilmId == filmId);
+            return await _context.Film
+                .Include(g => g.Genre)
+                .FirstOrDefaultAsync(f => f.FilmId == filmId);
         }
 
         public async Task<Film> Create(Film film)
@@ -55,6 +59,7 @@ namespace WebApi.Repositories
                 updateFilm.Price = film.Price;
                 updateFilm.Stock = film.Stock;
                 updateFilm.Image = film.Image;
+                updateFilm.GenreId = film.GenreId;
 
                 await _context.SaveChangesAsync();
             }

@@ -27,12 +27,16 @@ namespace WebApi.Repositories
 
         public async Task<List<Genre>> GetAll()
         {
-            return await _context.Genre.ToListAsync();
+            return await _context.Genre
+                .Include(f => f.Films)
+                .ToListAsync();
         }
 
         public async Task<Genre> GetById(int genreId)
         {
-            return await _context.Genre.FirstOrDefaultAsync(g => g.GenreId == genreId);
+            return await _context.Genre
+                .Include(f => f.Films)
+                .FirstOrDefaultAsync(g => g.GenreId == genreId);
         }
 
         public async Task<Genre> Create(Genre genre)

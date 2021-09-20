@@ -38,7 +38,8 @@ namespace WebApi.Database.Entities
                     Description = "This movie is about a ring",
                     Price = 79.99M,
                     Stock = 50,
-                    Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                    Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                    GenreId = 1
                 },
                 new Film
                 {
@@ -49,7 +50,8 @@ namespace WebApi.Database.Entities
                     Description = "This movie is about the wizard world",
                     Price = 79.99M,
                     Stock = 50,
-                    Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
+                    Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                    GenreId = 2
                 });
         }
     }

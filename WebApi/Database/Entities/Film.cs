@@ -39,5 +39,11 @@ namespace WebApi.Database.Entities
         [Required]
         [Column(TypeName = "nvarchar(50)")]
         public string Image { get; set; }
+
+
+        [ForeignKey("Genre.GenreId")]
+        public int GenreId { get; set; }
+
+        public Genre Genre { get; set; }
     }
 }

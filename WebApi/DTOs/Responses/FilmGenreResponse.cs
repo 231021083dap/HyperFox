@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Responses
 {
-    public class GenreResponse
+    public class FilmGenreResponse
     {
         public int GenreId { get; set; }
         public string GenreName { get; set; }
-
-        public List<GenreFilmResponse> Films { get; set; } = new();
     }
 }

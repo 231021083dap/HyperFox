@@ -15,5 +15,7 @@ namespace WebApi.Database.Entities
         [Required]
         [Column(TypeName = "nvarchar(32)")]
         public string GenreName { get; set; }
+
+        public List<Film> Films { get; set; } = new();
     }
 }

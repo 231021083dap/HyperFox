@@ -26,6 +26,7 @@ namespace WebApi.Services
         {
             _filmRepository = filmRepository;
         }
+
         public async Task<List<FilmResponse>> GetAllFilms()
         {
             List<Film> films = await _filmRepository.GetAll();
@@ -39,7 +40,12 @@ namespace WebApi.Services
                 Description = f.Description,
                 Price = f.Price,
                 Stock = f.Stock,
-                Image = f.Image
+                Image = f.Image,
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = f.Genre.GenreId,
+                    GenreName = f.Genre.GenreName
+                }
             }).ToList();
         }
 
@@ -56,7 +62,12 @@ namespace WebApi.Services
                 Description = film.Description,
                 Price = film.Price,
                 Stock = film.Stock,
-                Image = film.Image
+                Image = film.Image,
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = film.Genre.GenreId,
+                    GenreName = film.Genre.GenreName
+                }
             };
         }
 
@@ -70,7 +81,8 @@ namespace WebApi.Services
                 Description = newFilm.Description,
                 Price = newFilm.Price,
                 Stock = newFilm.Stock,
-                Image = newFilm.Image
+                Image = newFilm.Image,
+                GenreId = newFilm.GenreId
             };
 
             film = await _filmRepository.Create(film);
@@ -84,7 +96,12 @@ namespace WebApi.Services
                 Description = film.Description,
                 Price = film.Price,
                 Stock = film.Stock,
-                Image = film.Image
+                Image = film.Image,
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = film.Genre.GenreId,
+                    GenreName = film.Genre.GenreName
+                }
             };
         }
 
@@ -98,7 +115,8 @@ namespace WebApi.Services
                 Description = updateFilm.Description,
                 Price = updateFilm.Price,
                 Stock = updateFilm.Stock,
-                Image = updateFilm.Image
+                Image = updateFilm.Image,
+                GenreId = updateFilm.GenreId
             };
 
             film = await _filmRepository.Update(filmId, film);
@@ -112,7 +130,12 @@ namespace WebApi.Services
                 Description = film.Description,
                 Price = film.Price,
                 Stock = film.Stock,
-                Image = film.Image
+                Image = film.Image,
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = film.Genre.GenreId,
+                    GenreName = film.Genre.GenreName
+                }
             };
         }
 

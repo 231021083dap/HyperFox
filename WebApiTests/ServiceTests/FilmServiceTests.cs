@@ -38,7 +38,12 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                Genre = new Genre
+                {
+                    GenreId = 1,
+                    GenreName = "Action"
+                }
             });
 
             Films.Add(new Film
@@ -50,7 +55,12 @@ namespace WebApiTests
                 Description = "This movie is about the wizard world",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                Genre = new Genre
+                {
+                    GenreId = 2,
+                    GenreName = "Comedy"
+                }
             });
 
             _filmRepository
