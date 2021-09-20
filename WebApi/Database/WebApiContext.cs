@@ -16,6 +16,9 @@ namespace WebApi.Database
         public DbSet<Address> Address { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<Item> Item { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Film> Film { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -77,7 +80,42 @@ namespace WebApi.Database
                     Quantity = 2,
                     Price = 2
                 });
-        }
+
+            modelBuilder.Entity<Genre>().HasData(
+               GenreId = 1,
+                    GenreName = "Action"
+                },
+                new Genre
+                {
+                    GenreId = 2,
+                    GenreName = "Comedy"
+                });
+
+            modelBuilder.Entity<Film>().HasData(
+                new Film
+                {
+                    FilmId = 1,
+                    FilmName = "The lord of the rings",
+                    ReleaseDate = "16-09-2001",
+                    RuntimeInMin = 123,
+                    Description = "This movie is about a ring",
+                    Price = 79.99M,
+                    Stock = 50,
+                    Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                    GenreId = 1
+                },
+                new Film
+                {
+                    FilmId = 2,
+                    FilmName = "Harry potter",
+                    ReleaseDate = "16-09-2001",
+                    RuntimeInMin = 123,
+                    Description = "This movie is about the wizard world",
+                    Price = 79.99M,
+                    Stock = 50,
+                    Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                    GenreId = 2
+                });
 
     }
 }

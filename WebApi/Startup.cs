@@ -43,6 +43,12 @@ namespace WebApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+
+            services.AddScoped<IFilmService, FilmService>();
+            services.AddScoped<IFilmRepository, FilmRepository>();
+
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
