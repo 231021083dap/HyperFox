@@ -113,5 +113,69 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(500, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public async void GetById_ShouldReturnStatusCode200_WhenDataExists()
+        {
+            // Arrange
+            int filmId = 1;
+
+            FilmResponse film = new FilmResponse
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmService
+                .Setup(s => s.GetById(It.IsAny<int>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(200, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void GetById_ShouldReturnStatusCode404_WhenFilmDoesNotExists()
+        {
+            // Arrange
+            int filmId = 1;
+
+            _filmService
+                .Setup(s => s.GetById(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _sut.GetById(filmId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(404, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void GetById_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            _filmService
+                .Setup(s => s.GetById(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new System.Exception("This is an exception"));
+
+            // Act
+            var result = await _sut.GetById(1);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
     }
 }
