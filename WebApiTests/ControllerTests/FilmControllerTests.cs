@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Controllers;
+using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Services;
 using Xunit;
@@ -172,6 +173,74 @@ namespace WebApiTests
 
             // Act
             var result = await _sut.GetById(1);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void Create_ShouldReturnStatusCode200_WhenDataIsCreated()
+        {
+            // Arrange
+            int filmId = 1;
+
+            NewFilm newFilm = new NewFilm
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            FilmResponse film = new FilmResponse
+            {
+                FilmId = filmId,
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmService
+                .Setup(s => s.Create(It.IsAny<NewFilm>()))
+                .ReturnsAsync(film);
+
+            // Act
+            var result = await _sut.Create(newFilm);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(200, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void Create_ShouldReturnStatusCode500_WhenExeptionIsRaised()
+        {
+            // Arrange
+            NewFilm newFilm = new NewFilm
+            {
+                FilmName = "The lord of the rings",
+                ReleaseDate = "16-09-2001",
+                RuntimeInMin = 123,
+                Description = "This movie is about a ring",
+                Price = 79.99M,
+                Stock = 50,
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+            };
+
+            _filmService
+                .Setup(s => s.Create(It.IsAny<NewFilm>()))
+                .ReturnsAsync(() => throw new System.Exception("This is an exception"));
+
+            // Act
+            var result = await _sut.Create(newFilm);
 
             // Assert 
             var statusCodeResult = (IStatusCodeActionResult)result;
