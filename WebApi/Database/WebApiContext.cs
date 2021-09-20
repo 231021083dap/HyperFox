@@ -15,6 +15,7 @@ namespace WebApi.Database
         public DbSet<User> User { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<Item> Item { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,12 +60,23 @@ namespace WebApi.Database
                 },
                 new Order
                 {
+
                     OrderId = 2,
                     UserId = 2,
                     DateTime = "Friday 13th at 4:00"
                 });
 
-            //}
+            modelBuilder.Entity<Item>().HasData(
+                //Creating new Item in the Database.
+                
+                    new Item
+                {
+                    ItemId = 1,
+                    FilmId = 2,
+                    OrderId = 2,
+                    Quantity = 2,
+                    Price = 2
+                });
         }
 
     }
