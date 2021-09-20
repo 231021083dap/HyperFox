@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WebApi.Database.Entities;
+using WebApi.Database;
 using WebApi.Entities;
-using WebApi.Migrations;
 using WebApi.Repositories;
 using Xunit;
 
