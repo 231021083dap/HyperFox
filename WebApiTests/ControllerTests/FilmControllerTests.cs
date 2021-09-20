@@ -246,5 +246,41 @@ namespace WebApiTests
             var statusCodeResult = (IStatusCodeActionResult)result;
             Assert.Equal(500, statusCodeResult.StatusCode);
         }
+
+        [Fact]
+        public async void Delete_ShouldReturnStatusCode204_WhenFilmIsDeleted()
+        {
+            // Arrange
+            int filmId = 1;
+
+            _filmService
+                .Setup(s => s.Delete(It.IsAny<int>()))
+                .ReturnsAsync(true);
+
+            // Act
+            var result = await _sut.Delete(filmId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(204, statusCodeResult.StatusCode);
+        }
+
+        [Fact]
+        public async void Delete_ShouldReturnStatusCode500_WhenExeptionIsRaised()
+        {
+            // Arrange
+            int filmId = 1;
+
+            _filmService
+                .Setup(s => s.Delete(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new System.Exception("This is an exception"));
+
+            // Act
+            var result = await _sut.Delete(filmId);
+
+            // Assert 
+            var statusCodeResult = (IStatusCodeActionResult)result;
+            Assert.Equal(500, statusCodeResult.StatusCode);
+        }
     }
 }
