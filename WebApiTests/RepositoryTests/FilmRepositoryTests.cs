@@ -33,6 +33,14 @@ namespace WebApiTests
             // Arrange
             await _context.Database.EnsureDeletedAsync();
 
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            });
+
+            await _context.SaveChangesAsync();
+
             _context.Film.Add(new Film
             {
                 FilmId = 1,
@@ -42,19 +50,8 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
-            });
-
-            _context.Film.Add(new Film
-            {
-                FilmId = 2,
-                FilmName = "Harry potter",
-                ReleaseDate = "16-09-2001",
-                RuntimeInMin = 123,
-                Description = "This movie is about the wizard world",
-                Price = 79.99M,
-                Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             });
 
             await _context.SaveChangesAsync();
@@ -64,7 +61,7 @@ namespace WebApiTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
+            Assert.Single(result);
             Assert.IsType<List<Film>>(result);
         }
 
@@ -89,6 +86,14 @@ namespace WebApiTests
             // Arrange
             await _context.Database.EnsureDeletedAsync();
 
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            });
+
+            await _context.SaveChangesAsync();
+
             int filmId = 1;
 
             _context.Film.Add(new Film
@@ -100,7 +105,8 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             });
 
             await _context.SaveChangesAsync();
@@ -192,6 +198,20 @@ namespace WebApiTests
             // Arrange
             await _context.Database.EnsureDeletedAsync();
 
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            });
+
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 2,
+                GenreName = "Comedy"
+            });
+
+            await _context.SaveChangesAsync();
+
             int filmId = 1;
 
             Film film = new Film
@@ -203,7 +223,8 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             };
 
             _context.Film.Add(film);
@@ -218,7 +239,8 @@ namespace WebApiTests
                 Description = "This is part 2 of a movie about a ring",
                 Price = 89.99M,
                 Stock = 60,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 2
             };
 
             // Act
@@ -235,6 +257,7 @@ namespace WebApiTests
             Assert.Equal(updateFilm.Price, result.Price);
             Assert.Equal(updateFilm.Stock, result.Stock);
             Assert.Equal(updateFilm.Image, result.Image);
+            Assert.Equal(updateFilm.GenreId, result.GenreId);
         }
 
         [Fact]
@@ -242,6 +265,14 @@ namespace WebApiTests
         {
             // Arrange
             await _context.Database.EnsureDeletedAsync();
+
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            });
+
+            await _context.SaveChangesAsync();
 
             int filmId = 1;
 
@@ -254,7 +285,8 @@ namespace WebApiTests
                 Description = "This is part 2 of a movie about a ring",
                 Price = 89.99M,
                 Stock = 60,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             };
 
             // Act
@@ -270,6 +302,14 @@ namespace WebApiTests
             // Arrange
             await _context.Database.EnsureDeletedAsync();
 
+            _context.Genre.Add(new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            });
+
+            await _context.SaveChangesAsync();
+
             int filmId = 1;
 
             Film film = new Film
@@ -281,7 +321,8 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             };
 
             _context.Film.Add(film);
