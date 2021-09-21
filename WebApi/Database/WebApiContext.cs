@@ -33,6 +33,7 @@ namespace WebApi.Database
                     Admin = "Admin"
 
                 });
+
             modelBuilder.Entity<Address>().HasData(
 
                 new Address
@@ -58,16 +59,10 @@ namespace WebApi.Database
                 new Order
                 {
                     OrderId = 1,
+                    DateTime = "Friday 13th at 4:00",
                     UserId = 1,
-                    DateTime = "Friday 13th at 4:00"
+                    IId = 1,
 
-                },
-                new Order
-                {
-
-                    OrderId = 2,
-                    UserId = 2,
-                    DateTime = "Friday 13th at 4:00"
                 });
 
             modelBuilder.Entity<Item>().HasData(
@@ -76,10 +71,10 @@ namespace WebApi.Database
                     new Item
                     {
                         ItemId = 1,
-                        FilmId = 2,
-                        OrderId = 2,
-                        Quantity = 2,
-                        Price = 2
+                        FilmId = 1,
+                        OrderId = 1,
+                        Quantity = 1,
+                        Price =1
                     });
 
             modelBuilder.Entity<Genre>().HasData(

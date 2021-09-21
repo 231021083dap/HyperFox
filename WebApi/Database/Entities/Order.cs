@@ -18,5 +18,12 @@ namespace WebApi.Entities
         [ForeignKey ("User.UserId")]
         public int UserId { get; set; }
 
+        [ForeignKey("Item.ItemId")]
+        public int IId { get; set; }
+
+        public Item Item { get; set; }
+
+        public User User { get; set; }
+
     }
 }

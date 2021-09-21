@@ -174,16 +174,19 @@ namespace WebApi.Migrations
 
                     b.HasKey("ItemId");
 
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
                     b.ToTable("Item");
 
                     b.HasData(
                         new
                         {
                             ItemId = 1,
-                            FilmId = 2,
-                            OrderId = 2,
-                            Price = 2,
-                            Quantity = 2
+                            FilmId = 1,
+                            OrderId = 1,
+                            Price = 1,
+                            Quantity = 1
                         });
                 });
 
@@ -198,10 +201,15 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(80)");
 
+                    b.Property<int>("IId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Order");
 
@@ -210,13 +218,8 @@ namespace WebApi.Migrations
                         {
                             OrderId = 1,
                             DateTime = "Friday 13th at 4:00",
+                            IId = 1,
                             UserId = 1
-                        },
-                        new
-                        {
-                            OrderId = 2,
-                            DateTime = "Friday 13th at 4:00",
-                            UserId = 2
                         });
                 });
 
@@ -269,9 +272,34 @@ namespace WebApi.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("WebApi.Entities.Item", b =>
+                {
+                    b.HasOne("WebApi.Entities.Order", null)
+                        .WithOne("Item")
+                        .HasForeignKey("WebApi.Entities.Item", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
                 {
                     b.Navigation("Films");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Navigation("Item");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Tables : Migration
+    public partial class Tryhard : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,36 +33,6 @@ namespace WebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genre", x => x.GenreId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Item",
-                columns: table => new
-                {
-                    ItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FilmId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Item", x => x.ItemId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTime = table.Column<string>(type: "nvarchar(80)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.OrderId);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +77,49 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateTime = table.Column<string>(type: "nvarchar(80)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Order_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Item",
+                columns: table => new
+                {
+                    ItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FilmId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Item", x => x.ItemId);
+                    table.ForeignKey(
+                        name: "FK_Item_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Address",
                 columns: new[] { "AddressId", "Add", "City", "Postal", "UserId" },
@@ -120,20 +133,6 @@ namespace WebApi.Migrations
                 table: "Genre",
                 columns: new[] { "GenreId", "GenreName" },
                 values: new object[] { 1, "Comedy" });
-
-            migrationBuilder.InsertData(
-                table: "Item",
-                columns: new[] { "ItemId", "FilmId", "OrderId", "Price", "Quantity" },
-                values: new object[] { 1, 2, 2, 2, 2 });
-
-            migrationBuilder.InsertData(
-                table: "Order",
-                columns: new[] { "OrderId", "DateTime", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "Friday 13th at 4:00", 1 },
-                    { 2, "Friday 13th at 4:00", 2 }
-                });
 
             migrationBuilder.InsertData(
                 table: "User",
@@ -150,10 +149,31 @@ namespace WebApi.Migrations
                 columns: new[] { "FilmId", "Description", "FilmName", "GenreId", "Image", "Price", "ReleaseDate", "RuntimeInMin", "Stock" },
                 values: new object[] { 2, "This movie is about the wizard world", "Harry potter", 1, "C:\\Users\\Tec\\Pictures\\2.jpg", 79.99m, "16-09-2001", (short)123, (short)50 });
 
+            migrationBuilder.InsertData(
+                table: "Order",
+                columns: new[] { "OrderId", "DateTime", "IId", "UserId" },
+                values: new object[] { 1, "Friday 13th at 4:00", 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Item",
+                columns: new[] { "ItemId", "FilmId", "OrderId", "Price", "Quantity" },
+                values: new object[] { 1, 1, 1, 1, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Film_GenreId",
                 table: "Film",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_OrderId",
+                table: "Item",
+                column: "OrderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_UserId",
+                table: "Order",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -168,13 +188,13 @@ namespace WebApi.Migrations
                 name: "Item");
 
             migrationBuilder.DropTable(
+                name: "Genre");
+
+            migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
                 name: "User");
-
-            migrationBuilder.DropTable(
-                name: "Genre");
         }
     }
 }
