@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Tables : Migration
+    public partial class ItemWithFilm : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,22 +33,6 @@ namespace WebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genre", x => x.GenreId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Item",
-                columns: table => new
-                {
-                    ItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FilmId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Item", x => x.ItemId);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +91,28 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Item",
+                columns: table => new
+                {
+                    ItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FilmId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Item", x => x.ItemId);
+                    table.ForeignKey(
+                        name: "FK_Item_Film_FilmId",
+                        column: x => x.FilmId,
+                        principalTable: "Film",
+                        principalColumn: "FilmId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Address",
                 columns: new[] { "AddressId", "Add", "City", "Postal", "UserId" },
@@ -120,11 +126,6 @@ namespace WebApi.Migrations
                 table: "Genre",
                 columns: new[] { "GenreId", "GenreName" },
                 values: new object[] { 1, "Comedy" });
-
-            migrationBuilder.InsertData(
-                table: "Item",
-                columns: new[] { "ItemId", "FilmId", "OrderId", "Price", "Quantity" },
-                values: new object[] { 1, 2, 2, 2, 2 });
 
             migrationBuilder.InsertData(
                 table: "Order",
@@ -150,19 +151,26 @@ namespace WebApi.Migrations
                 columns: new[] { "FilmId", "Description", "FilmName", "GenreId", "Image", "Price", "ReleaseDate", "RuntimeInMin", "Stock" },
                 values: new object[] { 2, "This movie is about the wizard world", "Harry potter", 1, "C:\\Users\\Tec\\Pictures\\2.jpg", 79.99m, "16-09-2001", (short)123, (short)50 });
 
+            migrationBuilder.InsertData(
+                table: "Item",
+                columns: new[] { "ItemId", "FilmId", "OrderId", "Price", "Quantity" },
+                values: new object[] { 1, 2, 2, 2m, 2 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Film_GenreId",
                 table: "Film",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_FilmId",
+                table: "Item",
+                column: "FilmId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Address");
-
-            migrationBuilder.DropTable(
-                name: "Film");
 
             migrationBuilder.DropTable(
                 name: "Item");
@@ -172,6 +180,9 @@ namespace WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Film");
 
             migrationBuilder.DropTable(
                 name: "Genre");

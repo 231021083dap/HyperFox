@@ -166,13 +166,15 @@ namespace WebApi.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("ItemId");
+
+                    b.HasIndex("FilmId");
 
                     b.ToTable("Item");
 
@@ -182,7 +184,7 @@ namespace WebApi.Migrations
                             ItemId = 1,
                             FilmId = 2,
                             OrderId = 2,
-                            Price = 2,
+                            Price = 2m,
                             Quantity = 2
                         });
                 });
@@ -267,6 +269,17 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Item", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Film", "Film")
+                        .WithMany()
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>

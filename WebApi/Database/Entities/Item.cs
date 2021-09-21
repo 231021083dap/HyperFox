@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Database.Entities;
 
 namespace WebApi.Entities
 {
@@ -22,6 +23,8 @@ namespace WebApi.Entities
 
         public int Quantity { get; set; }
         //ForeignKey ?? - idk if it should be foreignkey.
-        public int Price { get; set; }
+        public decimal Price { get; set; }
+
+        public Film Film { get; set; }
     }
 }
