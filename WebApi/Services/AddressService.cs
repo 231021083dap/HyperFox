@@ -33,7 +33,7 @@ namespace WebApi.Services
         {
             Address address = new()
             {
-                Add = newAddress.Address,
+                StreetName = newAddress.StreetName,
                 Postal = newAddress.Postal,
                 City = newAddress.City
 
@@ -44,7 +44,7 @@ namespace WebApi.Services
             return address == null ? null : new AddressResponse
             {
                 AddressId = address.AddressId,
-                Address = address.Add,
+                StreetName = address.StreetName,
                 Postal = address.Postal,
                 City = address.City
 
@@ -64,10 +64,17 @@ namespace WebApi.Services
             return addresses?.Select(a => new AddressResponse
             {
                 AddressId = a.AddressId,
-                Address = a.Add,
+                StreetName = a.StreetName,
                 Postal = a.Postal,
-                City = a.City
+                City = a.City,
+                UserId = a.UserId,
+                User = new AddressUserResponse
+                {
+                    UserId = a.User.UserId,
+            
 
+
+                }
 
             }).ToList();
 
@@ -79,10 +86,16 @@ namespace WebApi.Services
             return addresses == null ? null : new AddressResponse
             {
                 AddressId = addresses.AddressId,
-                Address = addresses.Add,
+                StreetName = addresses.StreetName,
                 Postal = addresses.Postal,
-                City = addresses.City
-
+                City = addresses.City,
+                User = new AddressUserResponse
+                {
+                    UserId = addresses.User.UserId,
+                    UserName = addresses.User.UserName,
+                    Email = addresses.User.Email,
+                    Admin = addresses.User.Admin
+                }
 
             };
         }
@@ -91,7 +104,7 @@ namespace WebApi.Services
         {
             Address address = new()
             {
-                Add = updateAddress.Address,
+                StreetName = updateAddress.StreetName,
                 City = updateAddress.City,
                 Postal = updateAddress.Postal
 
@@ -103,7 +116,7 @@ namespace WebApi.Services
             return address == null ? null : new AddressResponse
             {
                 AddressId = address.AddressId,
-                Address = address.Add,
+                StreetName = address.StreetName,
                 Postal = address.Postal,
                 City = address.City
 

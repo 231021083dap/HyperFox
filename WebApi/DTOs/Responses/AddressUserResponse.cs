@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Responses
 {
-    public class UserResponse
+    public class AddressUserResponse
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Admin { get; set; }
-
-        public List<UserAddressResponse> UserAddressResponses { get; set; } = new();
     }
 }

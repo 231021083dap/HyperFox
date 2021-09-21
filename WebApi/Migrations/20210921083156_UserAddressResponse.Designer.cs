@@ -9,15 +9,15 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210920105820_Tables")]
-    partial class Tables
+    [Migration("20210921083156_UserAddressResponse")]
+    partial class UserAddressResponse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WebApi.Database.Entities.Film", b =>
@@ -118,10 +118,6 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Add")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(80)");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(40)");
@@ -129,10 +125,16 @@ namespace WebApi.Migrations
                     b.Property<int>("Postal")
                         .HasColumnType("int");
 
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Address");
 
@@ -140,18 +142,18 @@ namespace WebApi.Migrations
                         new
                         {
                             AddressId = 1,
-                            Add = "Tec Ballerup",
                             City = "Ballerup",
                             Postal = 2700,
-                            UserId = 0
+                            StreetName = "Tec Ballerup",
+                            UserId = 1
                         },
                         new
                         {
                             AddressId = 2,
-                            Add = "Tec Ballerup",
-                            City = "Ballerup",
+                            City = "Kattegat",
                             Postal = 2700,
-                            UserId = 0
+                            StreetName = "Havet",
+                            UserId = 2
                         });
                 });
 
@@ -257,6 +259,14 @@ namespace WebApi.Migrations
                             Email = "TestMail",
                             Password = "TestPassword",
                             UserName = "TestUserName"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Admin = "User",
+                            Email = "Test2",
+                            Password = "Test2",
+                            UserName = "Test2"
                         });
                 });
 
@@ -271,9 +281,25 @@ namespace WebApi.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("WebApi.Entities.Address", b =>
+                {
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
                 {
                     b.Navigation("Films");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.User", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

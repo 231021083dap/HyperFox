@@ -23,6 +23,7 @@ namespace WebApi.Entities
         [Column(TypeName = "nvarchar(5)")]
         [Required]
         public string Admin { get; set; }
-        
+
+        public List<Address> Addresses { get; set; } = new();
     }
 }

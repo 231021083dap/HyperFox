@@ -36,7 +36,7 @@ namespace WebApiTests
                 UserId = 1,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+
             });
 
             users.Add(new UserResponse
@@ -44,7 +44,7 @@ namespace WebApiTests
                 UserId = 2,
                 UserName = "Petersen",
                 Email = "Petersen@gmail.com",
-                Password = "passw0rd"
+
             });
 
             _userService
@@ -138,7 +138,7 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+
             };
 
             _userService
@@ -204,7 +204,7 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+
             };
 
             _userService
@@ -260,7 +260,7 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+
             };
 
             _userService

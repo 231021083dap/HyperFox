@@ -45,14 +45,14 @@ namespace WebApi.Repository
         public async Task<List<Address>> GetAll()
         {
             return await _context.Address
-                //.Include(a => a.UserId)
+                .Include(a => a.User)
                 .ToListAsync();
         }
 
         public async Task<Address> GetById(int AddressId)
         {
             return await _context.Address
-                //.Include(a => a.Users)
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(a => a.AddressId == AddressId);
         }
 
@@ -61,7 +61,7 @@ namespace WebApi.Repository
             Address Updateaddress = await _context.Address.FirstOrDefaultAsync(a => a.AddressId == AddressId);
             if (Updateaddress != null)
             {
-                Updateaddress.Add = Address.Add;
+                Updateaddress.StreetName = Address.StreetName;
                 Updateaddress.Postal = Address.Postal;
                 Updateaddress.City = Updateaddress.City;
 

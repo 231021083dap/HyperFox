@@ -31,7 +31,10 @@ namespace WebApi.Repositories
         }
         public async Task<User> GetById(int userId)
         {
-            return await _context.User.FirstOrDefaultAsync(a => a.UserId == userId); //
+            return await _context.User
+                .Include(user => user.Addresses)
+                .FirstOrDefaultAsync(a => a.UserId == userId); //
+
         }
         public async Task<User> Create(User user)
         {

@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Tables : Migration
+    public partial class AddressUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,11 +74,18 @@ namespace WebApi.Migrations
                     UserName = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(40)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(40)", nullable: false),
-                    Admin = table.Column<string>(type: "nvarchar(5)", nullable: false)
+                    Admin = table.Column<string>(type: "nvarchar(5)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,8 +119,8 @@ namespace WebApi.Migrations
                 columns: new[] { "AddressId", "Add", "City", "Postal", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Tec Ballerup", "Ballerup", 2700, 0 },
-                    { 2, "Tec Ballerup", "Ballerup", 2700, 0 }
+                    { 1, "Tec Ballerup", "Ballerup", 2700, 1 },
+                    { 2, "Havet", "Kattegat", 2700, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -137,8 +144,12 @@ namespace WebApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "UserId", "Admin", "Email", "Password", "UserName" },
-                values: new object[] { 1, "Admin", "TestMail", "TestPassword", "TestUserName" });
+                columns: new[] { "UserId", "AddressId", "Admin", "Email", "Password", "UserName" },
+                values: new object[,]
+                {
+                    { 1, null, "Admin", "TestMail", "TestPassword", "TestUserName" },
+                    { 2, null, "User", "Test2", "Test2", "Test2" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Film",
@@ -154,13 +165,15 @@ namespace WebApi.Migrations
                 name: "IX_Film_GenreId",
                 table: "Film",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_AddressId",
+                table: "User",
+                column: "AddressId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Address");
-
             migrationBuilder.DropTable(
                 name: "Film");
 
@@ -175,6 +188,9 @@ namespace WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genre");
+
+            migrationBuilder.DropTable(
+                name: "Address");
         }
     }
 }
