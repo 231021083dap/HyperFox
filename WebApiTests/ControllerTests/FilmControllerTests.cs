@@ -27,7 +27,7 @@ namespace WebApiTests
         public async void GetAll_ShouldReturnStatusCode200_WhenDataExists()
         {
             // Arrange
-            List<FilmResponse> Films = new();
+            List<FilmResponse> Films = new(); 
 
             Films.Add(new FilmResponse
             {
