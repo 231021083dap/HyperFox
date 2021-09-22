@@ -9,7 +9,6 @@ using WebApi.Repositories;
 
 namespace WebApi.Services
 {
-
     //Interfaces, a blueprint.
     public interface IItemService
     {
@@ -20,7 +19,7 @@ namespace WebApi.Services
         Task<bool> Delete(int itemId);
     }
 
-    public class ItemService : IItemService  
+    public class ItemService : IItemService
     {
         private readonly IItemRepository _itemRepository;
         public ItemService(IItemRepository itemRepository)
@@ -46,26 +45,37 @@ namespace WebApi.Services
         public async Task<ItemResponse> GetById(int itemId)
         {
             Item item = await _itemRepository.GetById(itemId);
-
             return item == null ? null : new ItemResponse
             {
                 ItemId = item.ItemId,
                 FilmId = item.FilmId,
                 OrderId = item.OrderId,
                 Quantity = item.Quantity,
-                Price = item.Price
+                Price = item.Price,
+                Film = new ItemFilmResponse
+                {
+                    FilmName = item.Film.FilmName,
+                    Description = item.Film.Description,
+                    ReleaseDate = item.Film.ReleaseDate,
+                    RuntimeInMin = item.Film.RuntimeInMin,
+                    Price = item.Film.Price,
+                    Image = item.Film.Image,
+                    Stock = item.Film.Stock
+
+                }
             };
         }
+
         //Create method
         public async Task<ItemResponse> Create(NewItem newItem)
         {
             Item item = new Item
             {
-                ItemId = newItem.ItemId,
                 FilmId = newItem.FilmId,
                 OrderId = newItem.OrderId,
                 Quantity = newItem.Quantity,
                 Price = newItem.Price
+
             };
 
             item = await _itemRepository.Create(item);
@@ -84,9 +94,8 @@ namespace WebApi.Services
         {
             Item item = new Item
             {
-                ItemId = updateItem.ItemId,
-                FilmId = updateItem.ItemId,
-                OrderId = updateItem.ItemId,
+                FilmId = updateItem.FilmId,
+                OrderId = updateItem.OrderId,
                 Quantity = updateItem.Quantity,
                 Price = updateItem.Price
             };
@@ -107,6 +116,6 @@ namespace WebApi.Services
             var result = await _itemRepository.Delete(itemId);
             return true;
         }
-    
+
     }
 }

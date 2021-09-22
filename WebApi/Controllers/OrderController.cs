@@ -19,9 +19,9 @@ namespace WebApi.Controllers
     {
         private readonly IOrderService _OrderService;
 
-        public OrderController(IOrderService authorService)
+        public OrderController(IOrderService Orderservice)
         {
-            _OrderService = authorService;
+            _OrderService = Orderservice;
 
         }
 
@@ -120,15 +120,15 @@ namespace WebApi.Controllers
         {
             try
             {
-                OrderResponse Authors = await _OrderService.Create(newOrder);
+                OrderResponse Orders = await _OrderService.Create(newOrder);
 
-                if (Authors == null)
+                if (Orders == null)
                 {
                     return Problem("something went wrong");
                 }
 
 
-                return Ok(Authors);
+                return Ok(Orders);
             }
             catch (Exception ex)
             {

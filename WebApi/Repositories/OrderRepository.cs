@@ -54,7 +54,7 @@ namespace WebApi.Repository
         public async Task<Order> GetById(int OrderId)
         {
             return await _context.Order
-                .Include(a => a.Item)
+                .Include(a => a.Items)
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(a => a.OrderId == OrderId);
         }

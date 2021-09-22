@@ -13,8 +13,7 @@ namespace WebApi.DTOs.Requests
         public int UserId { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Date and time must be no longer than 50")]
-        public string DateTime { get; set; }
+        public DateTime  DateTime { get; set; }
 
 
     }
@@ -27,8 +26,7 @@ namespace WebApi.DTOs.Requests
 
 
         [Required]
-        [StringLength(50, ErrorMessage = "Date and time must be no longer than 50")]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
     }
 }

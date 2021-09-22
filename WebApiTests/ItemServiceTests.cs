@@ -216,7 +216,6 @@ namespace WebApiTests
             //Arrange
             UpdateItem updateItem = new UpdateItem
             {
-                ItemId = 2,
                 FilmId = 2,
                 OrderId = 2,
                 Quantity = 2,

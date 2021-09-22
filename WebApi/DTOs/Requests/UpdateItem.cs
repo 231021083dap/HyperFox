@@ -9,9 +9,6 @@ namespace WebApi.DTOs.Requests
     //"Updated" item get / set.
     public class UpdateItem
     {
-        [Required] //Its required to have an ItemId... etc.
-        public int ItemId { get; set; }
-
         [Required]
         public int FilmId { get; set; }
 

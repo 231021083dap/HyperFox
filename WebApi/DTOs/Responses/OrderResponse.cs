@@ -10,9 +10,9 @@ namespace WebApi.DTOs.Responses
 
         public int UserId { get; set; }
 
-        public String DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
-        public OrderItemResponse Item{get; set;}
+        public List<OrderItemResponse>Items{get; set;}
         public OrderUserResponse User { get; set; }
     }
 }

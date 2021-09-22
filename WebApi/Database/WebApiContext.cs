@@ -59,10 +59,18 @@ namespace WebApi.Database
                 new Order
                 {
                     OrderId = 1,
-                    DateTime = "Friday 13th at 4:00",
+                    DateTime = DateTime.Parse("2001-08-21 04:45:21"),
                     UserId = 1
 
-                });
+                },
+
+                 new Order
+                 {
+                     OrderId = 2,
+                     DateTime = DateTime.Parse("2001-08-21 04:45:41"),
+                     UserId = 1
+
+                 });
 
             modelBuilder.Entity<Item>().HasData(
                     //Creating new Item in the Database.
@@ -73,16 +81,16 @@ namespace WebApi.Database
                         FilmId = 1,
                         OrderId = 1,
                         Quantity = 1,
-                        Price =1
+                        Price = 1
                     },
-                
+
                     new Item
                     {
                         ItemId = 2,
                         FilmId = 2,
-                        OrderId = 1,
-                        Quantity = 1,
-                        Price = 1
+                        OrderId = 2,
+                        Quantity = 2,
+                        Price = 2
                     });
 
             modelBuilder.Entity<Genre>().HasData(

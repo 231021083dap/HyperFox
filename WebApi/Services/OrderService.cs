@@ -88,18 +88,18 @@ namespace WebApi.Services
             public async Task<OrderResponse> GetById(int OrderId)
             {
                 Order Orders = await _OrderRepository.GetById(OrderId);
-                return Orders == null ? null : new OrderResponse
+            return Orders == null ? null : new OrderResponse
+            {
+                OrderId = Orders.OrderId,
+                UserId = Orders.UserId,
+                DateTime = Orders.DateTime,
+                Items = Orders.Items.Select(a => new OrderItemResponse
                 {
-                    OrderId = Orders.OrderId,
-                    UserId = Orders.UserId,
-                    DateTime = Orders.DateTime,
-                    Item = new OrderItemResponse
-                    {
-                        ItemId = Orders.Item.ItemId,
-                        Quantity = Orders.Item.Quantity,
-                        Price = Orders.Item.Price
+                    ItemId = a.ItemId,
+                    Quantity = a.Quantity,
+                    Price = a.Price
 
-                    },
+                }).ToList(),
                     User = new OrderUserResponse
                     {
                         UserId = Orders.User.UserId,

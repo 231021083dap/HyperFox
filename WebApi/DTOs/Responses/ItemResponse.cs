@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs.Responses
 {
-    //response is for response on a request.
     public class ItemResponse
     {
         //Getters and setters
@@ -13,6 +12,8 @@ namespace WebApi.DTOs.Responses
         public int FilmId{ get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }
-        public int Price { get; set; }
+        public int  Price { get; set; }
+
+        public ItemFilmResponse Film { get; set; }
     }
 }

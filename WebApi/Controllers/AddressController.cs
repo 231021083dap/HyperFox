@@ -18,9 +18,9 @@ namespace WebApi.Controllers
     {
         private readonly IAddressService _addressService;
 
-        public AddressController(IAddressService authorService)
+        public AddressController(IAddressService Orderservice)
         {
-            _addressService = authorService;
+            _addressService = Orderservice;
 
         }
 
@@ -119,15 +119,15 @@ namespace WebApi.Controllers
         {
             try
             {
-                AddressResponse Authors = await _addressService.Create(newAddress);
+                AddressResponse Orders = await _addressService.Create(newAddress);
 
-                if (Authors == null)
+                if (Orders == null)
                 {
                     return Problem("something went wrong");
                 }
 
 
-                return Ok(Authors);
+                return Ok(Orders);
             }
             catch (Exception ex)
             {

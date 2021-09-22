@@ -14,12 +14,12 @@ namespace WebApi.Entities
         [Column(TypeName = "nvarchar(80)")]
 
         [Required]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         [ForeignKey ("User.UserId")]
         public int UserId { get; set; }
 
-        public Item Item { get; set; }
+        public List<Item> Items { get; set; } = new();
 
         public User User { get; set; }
 

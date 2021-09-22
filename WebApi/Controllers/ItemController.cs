@@ -82,7 +82,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-        
+
         //Http postRequest.
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -112,7 +112,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //Update method.
-        public async Task<IActionResult> Update ([FromRoute] int itemId, [FromBody] UpdateItem updateItem)
+        public async Task<IActionResult> Update([FromRoute] int itemId, [FromBody] UpdateItem updateItem)
         {
             //Tries to update the Item.
             try
