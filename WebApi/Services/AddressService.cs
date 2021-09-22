@@ -35,7 +35,8 @@ namespace WebApi.Services
             {
                 StreetName = newAddress.StreetName,
                 Postal = newAddress.Postal,
-                City = newAddress.City
+                City = newAddress.City,
+                UserId = newAddress.UserId
 
             };
 
@@ -68,13 +69,13 @@ namespace WebApi.Services
                 Postal = a.Postal,
                 City = a.City,
                 UserId = a.UserId,
-                User = new AddressUserResponse
-                {
-                    UserId = a.User.UserId,
+                //User = new AddressUserResponse
+                //{
+                //    UserId = a.User.UserId,
             
 
 
-                }
+                //}
 
             }).ToList();
 

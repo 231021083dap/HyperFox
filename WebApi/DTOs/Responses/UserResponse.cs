@@ -12,6 +12,7 @@ namespace WebApi.DTOs.Responses
         public string Email { get; set; }
         public string Admin { get; set; }
 
-        public List<UserAddressResponse> UserAddressResponses { get; set; } = new();
+        public UserAddressResponse UserAddressResponses { get; set; } 
+
     }
 }

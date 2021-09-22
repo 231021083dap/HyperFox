@@ -24,6 +24,6 @@ namespace WebApi.Entities
         [Required]
         public string Admin { get; set; }
 
-        public List<Address> Addresses { get; set; } = new();
+        public Address Addresses { get; set; } 
     }
 }

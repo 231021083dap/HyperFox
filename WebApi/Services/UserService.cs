@@ -47,14 +47,14 @@ namespace WebApi.Services
                 UserName = user.UserName,
                 Email = user.Email,
                 Admin = user.Admin,
-                UserAddressResponses = user.Addresses.Select(address => new UserAddressResponse 
+                UserAddressResponses = new UserAddressResponse 
                 {
-                    AddressId = address.AddressId,
-                    StreetName = address.StreetName,
-                    City = address.City,
-                    Postal = address.Postal
+                    AddressId = user.Addresses.AddressId,
+                    StreetName = user.Addresses.StreetName,
+                    City = user.Addresses.City,
+                    Postal = user.Addresses.Postal
 
-                }).ToList()
+                }
                 
             };
         }
@@ -67,6 +67,7 @@ namespace WebApi.Services
                 Email = newUser.Email,
                 Password = newUser.Password,
                 Admin = newUser.Admin
+               
             };
             user = await _userRepository.Create(user);
 
