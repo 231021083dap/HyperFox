@@ -249,7 +249,11 @@ namespace WebApiTests
                 Price = 79.99M,
                 Stock = 50,
                 Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
-                GenreId = 1
+                Genre = new Genre
+                {
+                    GenreId = 2,
+                    GenreName = "Comedy"
+                }
             };
 
             _filmRepository
@@ -280,6 +284,8 @@ namespace WebApiTests
             Assert.Equal(updateFilm.Price, result.Price);
             Assert.Equal(updateFilm.Stock, result.Stock);
             Assert.Equal(updateFilm.Image, result.Image);
+            Assert.Equal(updateFilm.GenreId, result.Genre.GenreId);
+            Assert.Equal(genre.GenreName, result.Genre.GenreName);
         }
 
         [Fact]
@@ -294,7 +300,8 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             };
 
             int filmId = 1;
@@ -302,6 +309,16 @@ namespace WebApiTests
             _filmRepository
                 .Setup(f => f.Update(It.IsAny<int>(), It.IsAny<Film>()))
                 .ReturnsAsync(() => null);
+
+            Genre genre = new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            };
+
+            _genreRepository
+                .Setup(g => g.GetById(It.IsAny<int>()))
+                .ReturnsAsync(genre);
 
             // Act
             var result = await _sut.Update(filmId, updateFilm);
@@ -325,12 +342,23 @@ namespace WebApiTests
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                GenreId = 1
             };
 
             _filmRepository
                 .Setup(f => f.Delete(It.IsAny<int>()))
                 .ReturnsAsync(film);
+
+            Genre genre = new Genre
+            {
+                GenreId = 1,
+                GenreName = "Action"
+            };
+
+            _genreRepository
+                .Setup(g => g.GetById(It.IsAny<int>()))
+                .ReturnsAsync(genre);
 
             // Act
             var result = await _sut.Delete(filmId);

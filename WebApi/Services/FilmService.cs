@@ -109,8 +109,6 @@ namespace WebApi.Services
                         GenreName = genre.GenreName
                     }
                 };
-
-               
             }
 
             return null;
@@ -132,22 +130,29 @@ namespace WebApi.Services
 
             film = await _filmRepository.Update(filmId, film);
 
-            return film == null ? null : new FilmResponse
+            if (film != null)
             {
-                FilmId = film.FilmId,
-                FilmName = film.FilmName,
-                ReleaseDate = film.ReleaseDate,
-                RuntimeInMin = film.RuntimeInMin,
-                Description = film.Description,
-                Price = film.Price,
-                Stock = film.Stock,
-                Image = film.Image,
-                Genre = new FilmGenreResponse
+                film.Genre = await _genreRepository.GetById(film.GenreId);
+
+                return new FilmResponse
                 {
-                    GenreId = film.Genre.GenreId,
-                    GenreName = film.Genre.GenreName
-                }
-            };
+                    FilmId = film.FilmId,
+                    FilmName = film.FilmName,
+                    ReleaseDate = film.ReleaseDate,
+                    RuntimeInMin = film.RuntimeInMin,
+                    Description = film.Description,
+                    Price = film.Price,
+                    Stock = film.Stock,
+                    Image = film.Image,
+                    Genre = new FilmGenreResponse
+                    {
+                        GenreId = film.Genre.GenreId,
+                        GenreName = film.Genre.GenreName
+                    }
+                };
+            }
+
+            return null;
         }
 
         public async Task<bool> Delete(int filmId)
