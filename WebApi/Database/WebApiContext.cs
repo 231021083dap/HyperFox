@@ -80,7 +80,16 @@ namespace WebApi.Database
                         OrderId = 2,
                         Quantity = 2,
                         Price = 2
+                    },
+                    new Item
+                    {
+                        ItemId = 2,
+                        FilmId = 3,
+                        OrderId = 3,
+                        Quantity = 3,
+                        Price = 3
                     });
+
 
             modelBuilder.Entity<Genre>().HasData(
                 new Genre

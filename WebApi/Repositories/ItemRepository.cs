@@ -33,7 +33,7 @@ namespace WebApi.Repositories
         //GetById method.
         public async Task<Item> GetById(int itemId)
         {
-            return await _context.Item.FirstOrDefaultAsync(a => a.ItemId == itemId);
+            return await _context.Item.Include(film => film.Film).FirstOrDefaultAsync(a => a.ItemId == itemId);
         }
         //Create method.
         public async Task<Item> Create(Item item)

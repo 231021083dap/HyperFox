@@ -45,7 +45,6 @@ namespace WebApi.Services
         public async Task<ItemResponse> GetById(int itemId)
         {
             Item item = await _itemRepository.GetById(itemId);
-
             return item == null ? null : new ItemResponse
             {
                 ItemId = item.ItemId,
@@ -62,15 +61,16 @@ namespace WebApi.Services
                     Price = item.Film.Price,
                     Image = item.Film.Image,
                     Stock = item.Film.Stock
+
                 }
             };
         }
+
         //Create method
         public async Task<ItemResponse> Create(NewItem newItem)
         {
             Item item = new Item
             {
-                ItemId = newItem.ItemId,
                 FilmId = newItem.FilmId,
                 OrderId = newItem.OrderId,
                 Quantity = newItem.Quantity,
@@ -94,9 +94,8 @@ namespace WebApi.Services
         {
             Item item = new Item
             {
-                ItemId = updateItem.ItemId,
-                FilmId = updateItem.ItemId,
-                OrderId = updateItem.ItemId,
+                FilmId = updateItem.FilmId,
+                OrderId = updateItem.OrderId,
                 Quantity = updateItem.Quantity,
                 Price = updateItem.Price
             };

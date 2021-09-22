@@ -15,15 +15,15 @@ namespace WebApi.Entities
         [Key]
         public int ItemId { get; set; }
         //Foreignkey to FilmId in Film.
-        [ForeignKey("FilmId")]
+        [ForeignKey("Film.FilmId")]
         public int FilmId { get; set; }
         //Foreignkey to OrderId in Order.
-        [ForeignKey("OrderId")]
+        [ForeignKey("Order.OrderId")]
         public int OrderId { get; set; }
 
         public int Quantity { get; set; }
-        //ForeignKey ?? - idk if it should be foreignkey.
-        public decimal Price { get; set; }
+
+        public int Price { get; set; }
 
         public Film Film { get; set; }
     }
