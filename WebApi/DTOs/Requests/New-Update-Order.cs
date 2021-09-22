@@ -8,8 +8,6 @@ namespace WebApi.DTOs.Requests
 {
     public class NewOrder
     {
-        [Required]
-        public int ItemId { get; set; }
 
         [Required]
         public int UserId { get; set; }
@@ -23,8 +21,6 @@ namespace WebApi.DTOs.Requests
 
     public class UpdateOrder
     {
-        [Required]
-        public int ItemId { get; set; }
 
         [Required]
         public int UserId { get; set; }

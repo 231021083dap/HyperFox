@@ -14,10 +14,10 @@ namespace WebApi.Entities
         [Key]
         public int ItemId { get; set; }
         //Foreignkey to FilmId in Film.
-        [ForeignKey("FilmId")]
+        [ForeignKey("Film.FilmId")]
         public int FilmId { get; set; }
         //Foreignkey to OrderId in Order.
-        [ForeignKey("OrderId")]
+        [ForeignKey("Order.OrderId")]
         public int OrderId { get; set; }
 
         public int Quantity { get; set; }

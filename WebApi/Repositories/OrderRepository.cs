@@ -47,7 +47,6 @@ namespace WebApi.Repository
         public async Task<List<Order>> GetAll()
         {
             return await _context.Order
-                .Include(a => a.Item)
                 .Include(a => a.User)
                 .ToListAsync();
         }
@@ -55,6 +54,7 @@ namespace WebApi.Repository
         public async Task<Order> GetById(int OrderId)
         {
             return await _context.Order
+                .Include(a => a.Item)
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(a => a.OrderId == OrderId);
         }
@@ -64,7 +64,6 @@ namespace WebApi.Repository
             Order UpdateOrder = await _context.Order.FirstOrDefaultAsync(a => a.OrderId == OrderId);
             if (UpdateOrder != null)
             {
-                UpdateOrder.IId = Order.IId;
                 UpdateOrder.UserId = Order.UserId;
                 
                 UpdateOrder.DateTime = UpdateOrder.DateTime;

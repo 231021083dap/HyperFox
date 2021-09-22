@@ -60,8 +60,7 @@ namespace WebApi.Database
                 {
                     OrderId = 1,
                     DateTime = "Friday 13th at 4:00",
-                    UserId = 1,
-                    IId = 1,
+                    UserId = 1
 
                 });
 
@@ -75,6 +74,15 @@ namespace WebApi.Database
                         OrderId = 1,
                         Quantity = 1,
                         Price =1
+                    },
+                
+                    new Item
+                    {
+                        ItemId = 2,
+                        FilmId = 2,
+                        OrderId = 1,
+                        Quantity = 1,
+                        Price = 1
                     });
 
             modelBuilder.Entity<Genre>().HasData(

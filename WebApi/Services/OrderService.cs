@@ -36,8 +36,7 @@ namespace WebApi.Services
                 Order Order = new()
                 {
                     UserId = newOrder.UserId,
-                    DateTime = newOrder.DateTime,
-                    IId = newOrder.ItemId
+                    DateTime = newOrder.DateTime
                     
 
                 };
@@ -47,7 +46,6 @@ namespace WebApi.Services
                 return Order == null ? null : new OrderResponse
                 {
                     OrderId = Order.OrderId,
-                    ItemId = Order.IId,
                     UserId = Order.UserId,
                     DateTime = Order.DateTime
 
@@ -67,16 +65,8 @@ namespace WebApi.Services
                 return Orderes?.Select(a => new OrderResponse
                 {
                     OrderId = a.OrderId,
-                    ItemId = a.IId,
                     UserId = a.UserId,
                     DateTime = a.DateTime,
-                    Item = new OrderItemResponse
-                    {
-                        ItemId = a.Item.ItemId,
-                        Quantity = a.Item.Quantity,
-                        Price = a.Item.Price
-
-                    },
                     User = new OrderUserResponse
                     {
                         UserId = a.User.UserId,
@@ -101,7 +91,6 @@ namespace WebApi.Services
                 return Orders == null ? null : new OrderResponse
                 {
                     OrderId = Orders.OrderId,
-                    ItemId = Orders.IId,
                     UserId = Orders.UserId,
                     DateTime = Orders.DateTime,
                     Item = new OrderItemResponse
@@ -130,7 +119,6 @@ namespace WebApi.Services
                 Order Order = new()
                 {
                     UserId = updateOrder.UserId,
-                    IId = updateOrder.ItemId,
                     DateTime = updateOrder.DateTime
 
 
@@ -141,7 +129,6 @@ namespace WebApi.Services
                 return Order == null ? null : new OrderResponse
                 {
                     OrderId = Order.OrderId,
-                    ItemId = Order.IId,
                     UserId = Order.UserId,
                     DateTime = Order.DateTime
 
