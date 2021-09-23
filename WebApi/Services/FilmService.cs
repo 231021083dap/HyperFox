@@ -21,10 +21,12 @@ namespace WebApi.Services
     public class FilmService : IFilmService
     {
         private readonly IFilmRepository _filmRepository;
+        private readonly IGenreRepository _genreRepository;
 
-        public FilmService(IFilmRepository filmRepository)
+        public FilmService(IFilmRepository filmRepository, IGenreRepository genreRepository)
         {
             _filmRepository = filmRepository;
+            _genreRepository = genreRepository;
         }
 
         public async Task<List<FilmResponse>> GetAllFilms()
@@ -87,22 +89,29 @@ namespace WebApi.Services
 
             film = await _filmRepository.Create(film);
 
-            return film == null ? null : new FilmResponse
+            if (film != null)
             {
-                FilmId = film.FilmId,
-                FilmName = film.FilmName,
-                ReleaseDate = film.ReleaseDate,
-                RuntimeInMin = film.RuntimeInMin,
-                Description = film.Description,
-                Price = film.Price,
-                Stock = film.Stock,
-                Image = film.Image,
-                Genre = new FilmGenreResponse
+                Genre genre = await _genreRepository.GetById(film.GenreId);
+
+                return new FilmResponse
                 {
-                    GenreId = film.Genre.GenreId,
-                    GenreName = film.Genre.GenreName
-                }
-            };
+                    FilmId = film.FilmId,
+                    FilmName = film.FilmName,
+                    ReleaseDate = film.ReleaseDate,
+                    RuntimeInMin = film.RuntimeInMin,
+                    Description = film.Description,
+                    Price = film.Price,
+                    Stock = film.Stock,
+                    Image = film.Image,
+                    Genre = new FilmGenreResponse
+                    {
+                        GenreId = genre.GenreId,
+                        GenreName = genre.GenreName
+                    }
+                };
+            }
+
+            return null;
         }
 
         public async Task<FilmResponse> Update(int filmId, UpdateFilm updateFilm)
@@ -121,22 +130,29 @@ namespace WebApi.Services
 
             film = await _filmRepository.Update(filmId, film);
 
-            return film == null ? null : new FilmResponse
+            if (film != null)
             {
-                FilmId = film.FilmId,
-                FilmName = film.FilmName,
-                ReleaseDate = film.ReleaseDate,
-                RuntimeInMin = film.RuntimeInMin,
-                Description = film.Description,
-                Price = film.Price,
-                Stock = film.Stock,
-                Image = film.Image,
-                Genre = new FilmGenreResponse
+                film.Genre = await _genreRepository.GetById(film.GenreId);
+
+                return new FilmResponse
                 {
-                    GenreId = film.Genre.GenreId,
-                    GenreName = film.Genre.GenreName
-                }
-            };
+                    FilmId = film.FilmId,
+                    FilmName = film.FilmName,
+                    ReleaseDate = film.ReleaseDate,
+                    RuntimeInMin = film.RuntimeInMin,
+                    Description = film.Description,
+                    Price = film.Price,
+                    Stock = film.Stock,
+                    Image = film.Image,
+                    Genre = new FilmGenreResponse
+                    {
+                        GenreId = film.Genre.GenreId,
+                        GenreName = film.Genre.GenreName
+                    }
+                };
+            }
+
+            return null;
         }
 
         public async Task<bool> Delete(int filmId)
