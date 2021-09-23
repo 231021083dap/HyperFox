@@ -37,7 +37,8 @@ namespace WebApiTests
                 AddressId = 1,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
             });
 
             Address.Add(new AddressResponse
@@ -45,7 +46,8 @@ namespace WebApiTests
                 AddressId = 2,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 2
             });
 
 
@@ -134,7 +136,14 @@ namespace WebApiTests
                 AddressId = 1,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                User = new AddressUserResponse
+                {
+                    UserId = 1,
+                    UserName = "Karsten",
+                    Email = "Karsen@gmail.com",
+                    Admin = "User"
+                }
             };
 
 
@@ -156,7 +165,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetById_ShouldReturnStatusCode404_whenDataExists()
+        public async void GetById_ShouldReturnStatusCode404_WhenAddressDoesNotExists()
         {
             //Arrange
             int AddressId = 1;
@@ -181,7 +190,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetById_ShouldReturnStatusCode500_whenDataExists()
+        public async void GetById_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             //Arrange
 
@@ -201,7 +210,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Create_ShouldReturnStatusCode200_whenDataExists()
+        public async void Create_ShouldReturnStatusCode200_whenDataIsCreated()
         {
             //Arrange
             int AddressId = 1;
@@ -210,7 +219,8 @@ namespace WebApiTests
 
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
             };
 
             AddressResponse Address = new()
@@ -218,7 +228,8 @@ namespace WebApiTests
                 AddressId = AddressId,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
             };
 
 
@@ -242,7 +253,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Create_ShouldReturnStatusCode500_whenDataExists()
+        public async void Create_ShouldReturnStatusCode500_whenExceptionIsRaised()
         {
             //Arrange
 
@@ -269,7 +280,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Update_ShouldReturnStatusCode200_whenDataExists()
+        public async void Update_ShouldReturnStatusCode200_whenDataIsSaved()
         {
             //Arrange
             int AddressId = 1;
@@ -310,7 +321,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Update_ShouldReturnStatusCode500_whenDataExists()
+        public async void Update_ShouldReturnStatusCode500_whenExceptionIsRaised()
         {
             //Arrange
             int AddressId = 1;
@@ -338,7 +349,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Delete_ShouldReturnStatusCode204_whenDataExists()
+        public async void Delete_ShouldReturnStatusCode204_whenAddressIsDeleted()
         {
             //Arrange
             int AddressId = 1;
@@ -359,7 +370,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void Delete_ShouldReturnStatusCode500_whenDataExists()
+        public async void Delete_ShouldReturnStatusCode500_whenExceptionIsRaised()
         {
             //Arrange
             int AddressId = 1;
