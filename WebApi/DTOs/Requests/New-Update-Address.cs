@@ -10,7 +10,7 @@ namespace WebApi.DTOs.Requests
     {
         [Required]
         [StringLength(80, ErrorMessage ="Address must be less than 80 chars")]
-        public string Address { get; set; }
+        public string StreetName { get; set; }
 
         [Required]
         [Range(1050,9990, ErrorMessage ="Invalid postal number please try again")]
@@ -19,13 +19,16 @@ namespace WebApi.DTOs.Requests
         [Required]
         [StringLength(40,ErrorMessage = "City name must be less than 40 chars")]
         public string City { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 
     public class UpdateAddress
     {
         [Required]
         [StringLength(80, ErrorMessage = "Address must be less than 80 chars")]
-        public string Address { get; set; }
+        public string StreetName { get; set; }
 
         [Required]
         [Range(1050,9990, ErrorMessage = "Invalid postal number please try again")]
@@ -34,5 +37,8 @@ namespace WebApi.DTOs.Requests
         [Required]
         [StringLength(40, ErrorMessage = "City name must be less than 40 chars")]
         public string City { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 }

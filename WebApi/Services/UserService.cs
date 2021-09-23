@@ -21,8 +21,8 @@ namespace WebApi.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        
-       public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -34,7 +34,6 @@ namespace WebApi.Services
                 UserId = a.UserId,
                 UserName = a.UserName,
                 Email = a.Email,
-                Password = a.Password,
                 Admin = a.Admin
             }).ToList();
         }
@@ -47,8 +46,16 @@ namespace WebApi.Services
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Email = user.Email,
-                Password = user.Password,
-                Admin = user.Admin
+                Admin = user.Admin,
+                UserAddressResponses = new UserAddressResponse 
+                {
+                    AddressId = user.Addresses.AddressId,
+                    StreetName = user.Addresses.StreetName,
+                    City = user.Addresses.City,
+                    Postal = user.Addresses.Postal
+
+                }
+                
             };
         }
 
@@ -60,20 +67,20 @@ namespace WebApi.Services
                 Email = newUser.Email,
                 Password = newUser.Password,
                 Admin = newUser.Admin
+               
             };
             user = await _userRepository.Create(user);
-            
+
             return user == null ? null : new UserResponse
             {
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Email = user.Email,
-                Password = user.Password,
                 Admin = user.Admin
             };
         }
 
-      
+
         public async Task<UserResponse> Update(int userId, UpdateUser updateuser)
         {
             User user = new User
@@ -90,7 +97,6 @@ namespace WebApi.Services
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Email = user.Email,
-                Password = user.Password,
                 Admin = user.Admin
             };
         }

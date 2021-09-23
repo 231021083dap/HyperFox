@@ -37,7 +37,7 @@ namespace WebApiTests
                 _context.Address.Add(new Address
                 {
                     AddressId = 1,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
 
@@ -45,7 +45,7 @@ namespace WebApiTests
                 _context.Address.Add(new Address
                 {
                     AddressId = 2,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
                 });
@@ -89,7 +89,7 @@ namespace WebApiTests
                 _context.Address.Add(new Address
                 {
                     AddressId = AddressId,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
 
@@ -130,7 +130,7 @@ namespace WebApiTests
                 int ExpectedID = 1;
                 Address Address = new()
                 {
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
                 };
@@ -153,7 +153,7 @@ namespace WebApiTests
                 Address Address = new()
                 {
                     AddressId = 1,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
                 };
@@ -178,7 +178,7 @@ namespace WebApiTests
                 Address Address = new()
                 {
                     AddressId = AddressId,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
 
@@ -189,7 +189,7 @@ namespace WebApiTests
                 Address updateAddress = new()
                 {
                     AddressId = AddressId,
-                    Add = "John",
+                    StreetName = "John",
                     Postal = 2700,
                     City = "Kage"
                 };
@@ -201,7 +201,7 @@ namespace WebApiTests
                 Assert.NotNull(result);
                 Assert.IsType<Address>(result);
                 Assert.Equal(AddressId, result.AddressId);
-                Assert.Equal(updateAddress.Add, result.Add);
+                Assert.Equal(updateAddress.StreetName, result.StreetName);
                 Assert.Equal(updateAddress.Postal, result.Postal);
                 Assert.Equal(updateAddress.City, result.City);
 
@@ -217,7 +217,7 @@ namespace WebApiTests
                 Address updateAddress = new()
                 {
                     AddressId = AddressId,
-                    Add = "asdasd",
+                    StreetName = "asdasd",
                     Postal = 2700,
                     City = "asdasd"
                 };
@@ -241,7 +241,7 @@ namespace WebApiTests
                 Address Address = new()
                 {
                     AddressId = Addressid,
-                    Add = "Joasdsdhn",
+                    StreetName = "Joasdsdhn",
                     Postal = 2700,
                     City = "assadasd"
                 };

@@ -35,7 +35,7 @@ namespace WebApiTests
             Address.Add(new AddressResponse
             {
                 AddressId = 1,
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             });
@@ -43,7 +43,7 @@ namespace WebApiTests
             Address.Add(new AddressResponse
             {
                 AddressId = 2,
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             });
@@ -132,7 +132,7 @@ namespace WebApiTests
             AddressResponse Address = new()
             {
                 AddressId = 1,
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -208,7 +208,7 @@ namespace WebApiTests
             NewAddress newAddress = new()
             {
 
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -216,7 +216,7 @@ namespace WebApiTests
             AddressResponse Address = new()
             {
                 AddressId = AddressId,
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -248,7 +248,7 @@ namespace WebApiTests
 
             NewAddress newAddress = new()
             {
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -276,7 +276,7 @@ namespace WebApiTests
             UpdateAddress updateAddress = new()
             {
 
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -284,7 +284,7 @@ namespace WebApiTests
             AddressResponse Address = new()
             {
                 AddressId = AddressId,
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };
@@ -316,7 +316,7 @@ namespace WebApiTests
             int AddressId = 1;
             UpdateAddress updateAddress = new()
             {
-                Address = "John",
+                StreetName = "John",
                 Postal = 2700,
                 City = "Kage"
             };

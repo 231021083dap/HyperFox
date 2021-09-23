@@ -9,15 +9,15 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210922111018_DTest")]
-    partial class DTest
+    [Migration("20210921083156_UserAddressResponse")]
+    partial class UserAddressResponse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WebApi.Database.Entities.Film", b =>
@@ -118,10 +118,6 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Add")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(80)");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(40)");
@@ -129,10 +125,16 @@ namespace WebApi.Migrations
                     b.Property<int>("Postal")
                         .HasColumnType("int");
 
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Address");
 
@@ -140,18 +142,18 @@ namespace WebApi.Migrations
                         new
                         {
                             AddressId = 1,
-                            Add = "Tec Ballerup",
                             City = "Ballerup",
                             Postal = 2700,
-                            UserId = 0
+                            StreetName = "Tec Ballerup",
+                            UserId = 1
                         },
                         new
                         {
                             AddressId = 2,
-                            Add = "Tec Ballerup",
-                            City = "Ballerup",
+                            City = "Kattegat",
                             Postal = 2700,
-                            UserId = 0
+                            StreetName = "Havet",
+                            UserId = 2
                         });
                 });
 
@@ -176,24 +178,12 @@ namespace WebApi.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("FilmId");
-
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Item");
 
                     b.HasData(
                         new
                         {
                             ItemId = 1,
-                            FilmId = 1,
-                            OrderId = 1,
-                            Price = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            ItemId = 2,
                             FilmId = 2,
                             OrderId = 2,
                             Price = 2,
@@ -217,22 +207,20 @@ namespace WebApi.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Order");
 
                     b.HasData(
                         new
                         {
                             OrderId = 1,
-                            DateTime = "2001-08-21 04:45:21",
+                            DateTime = "Friday 13th at 4:00",
                             UserId = 1
                         },
                         new
                         {
                             OrderId = 2,
-                            DateTime = "2001-08-21 04:45:41",
-                            UserId = 1
+                            DateTime = "Friday 13th at 4:00",
+                            UserId = 2
                         });
                 });
 
@@ -271,6 +259,14 @@ namespace WebApi.Migrations
                             Email = "TestMail",
                             Password = "TestPassword",
                             UserName = "TestUserName"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Admin = "User",
+                            Email = "Test2",
+                            Password = "Test2",
+                            UserName = "Test2"
                         });
                 });
 
@@ -285,27 +281,10 @@ namespace WebApi.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("WebApi.Entities.Item", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApi.Entities.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Film");
-                });
-
-            modelBuilder.Entity("WebApi.Entities.Order", b =>
+            modelBuilder.Entity("WebApi.Entities.Address", b =>
                 {
                     b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -318,9 +297,9 @@ namespace WebApi.Migrations
                     b.Navigation("Films");
                 });
 
-            modelBuilder.Entity("WebApi.Entities.Order", b =>
+            modelBuilder.Entity("WebApi.Entities.User", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

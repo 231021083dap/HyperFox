@@ -13,7 +13,7 @@ namespace WebApi.Entities
         public int AddressId { get; set; }
         [Column(TypeName = "nvarchar(80)")]
         [Required]
-        public string Add { get; set; }
+        public string StreetName { get; set; }
         [Required]
         public int Postal { get; set; }
         [Required]
@@ -23,7 +23,8 @@ namespace WebApi.Entities
         [ForeignKey ("User.UserId")]
         public int UserId { get; set; }
 
-        //public User User {get; set;}
+        
+        public User User {get; set;}
 
 
 

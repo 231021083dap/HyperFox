@@ -32,6 +32,15 @@ namespace WebApi.Database
                     Password = "TestPassword",
                     Admin = "Admin"
 
+                },
+                new User
+                {
+                    UserId = 2,
+                    UserName = "Test2",
+                    Email = "Test2",
+                    Password = "Test2",
+                    Admin = "User"
+
                 });
 
             modelBuilder.Entity<Address>().HasData(
@@ -39,19 +48,20 @@ namespace WebApi.Database
                 new Address
                 {
                     AddressId = 1,
-                    Add = "Tec Ballerup",
+                    StreetName = "Tec Ballerup",
                     Postal = 2700,
-                    City = "Ballerup"
+                    City = "Ballerup",
+                    UserId = 1
 
 
                 },
                 new Address
                 {
                     AddressId = 2,
-                    Add = "Tec Ballerup",
+                    StreetName = "Havet",
                     Postal = 2700,
-                    City = "Ballerup"
-
+                    City = "Kattegat",
+                    UserId = 2
                 });
 
             modelBuilder.Entity<Order>().HasData(

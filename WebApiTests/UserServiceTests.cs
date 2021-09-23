@@ -108,7 +108,7 @@ namespace WebApiTests
             Assert.Equal(user.UserId, result.UserId);
             Assert.Equal(user.UserName, result.UserName);
             Assert.Equal(user.Email, result.Email);
-            Assert.Equal(user.Password, result.Password);
+
         }
 
         [Fact]
@@ -162,7 +162,7 @@ namespace WebApiTests
             Assert.Equal(userId, result.UserId);
             Assert.Equal(newUser.UserName, result.UserName);
             Assert.Equal(newUser.Email, result.Email);
-            Assert.Equal(newUser.Password, result.Password);
+
         }
 
         [Fact]
@@ -197,7 +197,7 @@ namespace WebApiTests
             Assert.Equal(userId, result.UserId);
             Assert.Equal(updateUser.UserName, result.UserName);
             Assert.Equal(updateUser.Email, result.Email);
-            Assert.Equal(updateUser.Password, result.Password);
+
 
         }
 

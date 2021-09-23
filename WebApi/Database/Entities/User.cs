@@ -25,6 +25,6 @@ namespace WebApi.Entities
         [Required]
         public string Admin { get; set; }
 
-
+        public Address Addresses { get; set; } 
     }
 }
