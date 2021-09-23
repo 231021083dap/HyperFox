@@ -11,7 +11,7 @@ using WebApi.Repositories;
 using Xunit;
 using WebApi.Database;
 
-namespace WebApiTests
+namespace WebApiTests2
 {
     public class ItemRepositoryTests
     {
@@ -36,6 +36,42 @@ namespace WebApiTests
         {
             //Arange
             await _context.Database.EnsureDeletedAsync(); //Sikrer at databasen er slettet.
+
+            _context.Film.Add(new Film
+            {
+                FilmId = 1,
+                FilmName = "TestRepo",
+                Description = "The repo team is out again",
+                ReleaseDate = "11-14-2001",
+                Price = 214,
+                Image = "Stonk",
+                Stock = 123
+            });
+            await _context.SaveChangesAsync();
+
+            _context.User.Add(new User
+            {
+                UserId = 1,
+                UserName = "Jens",
+                Email = "jensmail@gmail.com",
+                Password = "123",
+                Admin = "Jeg er en banan",
+                Addresses = new Address()
+            });
+
+            await _context.SaveChangesAsync();
+
+            _context.Order.Add(new Order
+            {
+                OrderId = 1,
+                DateTime = DateTime.Parse("2001-08-21 04:45:21"),
+                UserId = 1,
+                Items = new List<Item>(),
+                User = new User()
+            });
+
+            await _context.SaveChangesAsync();
+
             _context.Item.Add(new Item
             {
                 ItemId = 1,
@@ -48,8 +84,8 @@ namespace WebApiTests
             _context.Item.Add(new Item
             {
                 ItemId = 2,
-                FilmId = 2,
-                OrderId = 2,
+                FilmId = 1,
+                OrderId = 1,
                 Quantity = 2,
                 Price = 2
             });
