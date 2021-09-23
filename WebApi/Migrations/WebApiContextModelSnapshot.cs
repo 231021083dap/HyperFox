@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Database;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20210921083156_UserAddressResponse")]
-    partial class UserAddressResponse
+    partial class WebApiContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +132,8 @@ namespace WebApi.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Address");
 
@@ -178,12 +177,24 @@ namespace WebApi.Migrations
 
                     b.HasKey("ItemId");
 
+                    b.HasIndex("FilmId");
+
+                    b.HasIndex("OrderId");
+
                     b.ToTable("Item");
 
                     b.HasData(
                         new
                         {
                             ItemId = 1,
+                            FilmId = 1,
+                            OrderId = 1,
+                            Price = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            ItemId = 2,
                             FilmId = 2,
                             OrderId = 2,
                             Price = 2,
@@ -207,20 +218,22 @@ namespace WebApi.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Order");
 
                     b.HasData(
                         new
                         {
                             OrderId = 1,
-                            DateTime = "Friday 13th at 4:00",
+                            DateTime = "2001-08-21 04:45:21",
                             UserId = 1
                         },
                         new
                         {
                             OrderId = 2,
-                            DateTime = "Friday 13th at 4:00",
-                            UserId = 2
+                            DateTime = "2001-08-21 04:45:41",
+                            UserId = 1
                         });
                 });
 
@@ -284,7 +297,35 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Entities.Address", b =>
                 {
                     b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany("Addresses")
+                        .WithOne("Addresses")
+                        .HasForeignKey("WebApi.Entities.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Item", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Film", "Film")
+                        .WithMany()
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApi.Entities.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -295,6 +336,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
                 {
                     b.Navigation("Films");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("WebApi.Entities.User", b =>
