@@ -141,7 +141,19 @@ namespace WebApiTests
                 FilmId = 1,
                 OrderId = 1,
                 Quantity = 1,
-                Price = 1
+                Price = 1,
+                Film = new ItemFilmResponse
+                {
+                    FilmId = 1,
+                    FilmName = "TestFilmen",
+                    Description = "Dette er en test film",
+                    ReleaseDate = "19-12-2000",
+                    RuntimeInMin = 26,
+                    Price = 1225,
+                    Image = "stringImage",
+                    Stock = 124
+                },
+
 
             };
 
@@ -194,7 +206,6 @@ namespace WebApiTests
         public async void Create_ShouldReturnStatusCode200_WhenDataIsCreated()
         {
             // Arrange
-            int ItemId = 1;
             NewItem newItem = new NewItem
             {
                 FilmId = 1,
@@ -205,11 +216,21 @@ namespace WebApiTests
 
             ItemResponse Item = new ItemResponse
             {
-                ItemId = ItemId,
+                ItemId = 1,
                 FilmId = 1,
                 OrderId = 1,
                 Quantity = 1,
-                Price = 1
+                Price = 1,
+                Film = new ItemFilmResponse
+                {
+                    FilmId = 2,
+                    FilmName = "Den lange slange",
+                    Description = "Det er en lang slange",
+                    ReleaseDate = "11-14-2014",
+                    Price = 51,
+                    Image = "StockImageOfSnake",
+                    Stock = 114
+                }
             };
 
             _itemService
@@ -256,8 +277,8 @@ namespace WebApiTests
             UpdateItem updateItem = new UpdateItem
             {
 
-                FilmId = 1,
-                OrderId = 1,
+                FilmId = 2,
+                OrderId = 2,
                 Quantity = 1,
                 Price = 1
             };
@@ -268,7 +289,18 @@ namespace WebApiTests
                 FilmId = 1,
                 OrderId = 1,
                 Quantity = 1,
-                Price = 1
+                Price = 1,
+                Film = new ItemFilmResponse
+                {
+                    FilmId = 1,
+                    FilmName = "Den gule regnjakke",
+                    Description = "en pige med en gul regnjakke i solvejr",
+                    ReleaseDate = "21-11-2021",
+                    Price = 399,
+                    Image = "StockImageOfGirl",
+                    Stock = 10
+                }
+
             };
 
             _itemService
