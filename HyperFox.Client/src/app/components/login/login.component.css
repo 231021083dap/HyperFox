@@ -1,0 +1,29 @@
+.btn{
+    background-color: rgb(84, 196, 196);
+    margin-top: 50px;
+}
+
+img{
+    justify-content: center;
+    display: block;
+    margin: auto;
+}
+
+#login-form{
+    margin: 30px;
+}
+
+#container{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#login-container{
+    background-color: rgba(0, 128, 128, 0.2);
+    border-radius: 5%;
+}
+
+h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
