@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Database;
+using WebApi.DTOs.Responses;
 using WebApi.Entities;
 using WebApi.Repositories;
 using Xunit;
@@ -39,7 +40,7 @@ namespace WebApiTests1
                 UserId = 1,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
             });
 
             _context.User.Add(new User
@@ -89,7 +90,16 @@ namespace WebApiTests1
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "Admin",
+                Addresses = new Address
+                {
+                    AddressId = 1,
+                    StreetName = "Telegrafvej 9",
+                    City = "Ballerup",
+                    Postal = 2660
+
+                }
             });
             await _context.SaveChangesAsync();
 
@@ -126,7 +136,9 @@ namespace WebApiTests1
             {
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
+                
             };
 
             //Act
@@ -150,7 +162,8 @@ namespace WebApiTests1
                 UserId = 1,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -175,7 +188,8 @@ namespace WebApiTests1
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -185,7 +199,8 @@ namespace WebApiTests1
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
             };
 
             //Act
@@ -212,7 +227,8 @@ namespace WebApiTests1
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
             };
 
 
@@ -234,7 +250,8 @@ namespace WebApiTests1
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "User"
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();

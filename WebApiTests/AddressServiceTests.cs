@@ -35,7 +35,8 @@ namespace WebApiTests
                 AddressId = 1,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
 
 
@@ -46,7 +47,8 @@ namespace WebApiTests
                 AddressId = 2,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 2
 
 
 
@@ -66,14 +68,15 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetAll_ShouldReturnListOfAddressResponses_WhenAuhtorsExist()
+        public async void GetById_ShouldReturnListOfAddressResponses_WhenAuhtorsExist()
         {
             NewAddress newAddress = new()
             {
 
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -84,7 +87,14 @@ namespace WebApiTests
                 AddressId = AddressId,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                User = new User
+                {
+                    UserId = 1,
+                    UserName = "Karsten",
+                    Email = "Karsen@gmail.com",
+                    Admin = "User"
+                }
 
             };
 
@@ -126,7 +136,7 @@ namespace WebApiTests
         }
 
         [Fact]
-        public async void GetAll_ShouldReturnnull_WhenNoAddresssExists()
+        public async void GetById_ShouldReturnnull_WhenNoAddresssExists()
         {
             //arrange
             int Addressid = 1;
@@ -152,7 +162,8 @@ namespace WebApiTests
 
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -163,7 +174,8 @@ namespace WebApiTests
                 AddressId = AddressId,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -193,7 +205,8 @@ namespace WebApiTests
 
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -204,7 +217,8 @@ namespace WebApiTests
                 AddressId = AddressId,
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -233,7 +247,8 @@ namespace WebApiTests
             {
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 
@@ -264,7 +279,8 @@ namespace WebApiTests
             {
                 StreetName = "John",
                 Postal = 2700,
-                City = "Kage"
+                City = "Kage",
+                UserId = 1
 
             };
 

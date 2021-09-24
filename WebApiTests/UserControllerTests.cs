@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WebApi.Controllers;
 using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
+using WebApi.Entities;
 using WebApi.Services;
 using Xunit;
 
@@ -36,6 +37,7 @@ namespace WebApiTests
                 UserId = 1,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
+                Admin = "Admin"
 
             });
 
@@ -44,7 +46,7 @@ namespace WebApiTests
                 UserId = 2,
                 UserName = "Petersen",
                 Email = "Petersen@gmail.com",
-
+                Admin = "User"
             });
 
             _userService
@@ -138,7 +140,15 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
+                Admin = "Admin",
+                UserAddressResponses = new UserAddressResponse
+                {
+                    AddressId = 1,
+                    StreetName = "Telegrafvej 9",
+                    City = "Ballerup",
+                    Postal = 2660
 
+                }
             };
 
             _userService
@@ -196,7 +206,9 @@ namespace WebApiTests
                 
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "Admin"
+               
             };
 
             UserResponse user = new UserResponse
@@ -204,7 +216,7 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-
+                Admin = "Admin"
             };
 
             _userService
@@ -227,7 +239,8 @@ namespace WebApiTests
             {
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "Admin"
             };
 
             _userService
@@ -252,7 +265,8 @@ namespace WebApiTests
                 
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "Admin"
             };
 
             UserResponse user = new UserResponse
@@ -260,6 +274,7 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
+                Admin = "Admin"
 
             };
 
@@ -285,7 +300,8 @@ namespace WebApiTests
                
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Admin = "Admin"
             };
 
             _userService

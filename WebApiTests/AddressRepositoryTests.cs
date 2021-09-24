@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Database;
+using WebApi.DTOs.Responses;
 using WebApi.Entities;
 using WebApi.Repository;
 using Xunit;
@@ -34,12 +35,13 @@ namespace WebApiTests
                 //Arrange
                 await _context.Database.EnsureDeletedAsync();
 
-                _context.Address.Add(new Address
+                _context.User.Add(new User
                 {
-                    AddressId = 1,
-                    StreetName = "John",
-                    Postal = 2700,
-                    City = "Kage"
+                    UserId = 2,
+                    UserName = "Hansen",
+                    Email = "Hansen@gmail.com",
+                    Password = "passw0rd",
+                    Admin = "User"
 
                 });
                 _context.Address.Add(new Address
@@ -47,18 +49,19 @@ namespace WebApiTests
                     AddressId = 2,
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    UserId = 2
                 });
                 await _context.SaveChangesAsync();
 
-                var result = await _sut.GetAll();
 
 
                 //Act
+                var result = await _sut.GetAll();
 
                 //Assert
                 Assert.NotNull(result);
-                Assert.Equal(2, result.Count);
+                Assert.Single(result);
                 Assert.IsType<List<Address>>(result);
             }
 
@@ -91,7 +94,14 @@ namespace WebApiTests
                     AddressId = AddressId,
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    User = new User
+                    {
+                        UserId = 1,
+                        UserName = "Karsten",
+                        Email = "Karsen@gmail.com",
+                        Admin = "User"
+                    }
 
 
 
@@ -132,7 +142,9 @@ namespace WebApiTests
                 {
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    UserId = 2
+                    
                 };
 
                 //Act
@@ -155,7 +167,9 @@ namespace WebApiTests
                     AddressId = 1,
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    UserId = 4
+                    
                 };
 
                 _context.Address.Add(Address);
@@ -180,7 +194,8 @@ namespace WebApiTests
                     AddressId = AddressId,
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    UserId = 4
 
                 };
                 _context.Address.Add(Address);
@@ -191,7 +206,8 @@ namespace WebApiTests
                     AddressId = AddressId,
                     StreetName = "John",
                     Postal = 2700,
-                    City = "Kage"
+                    City = "Kage",
+                    UserId = 4
                 };
 
                 //Act
@@ -219,7 +235,8 @@ namespace WebApiTests
                     AddressId = AddressId,
                     StreetName = "asdasd",
                     Postal = 2700,
-                    City = "asdasd"
+                    City = "asdasd",
+                    UserId = 4
                 };
 
                 //Act
@@ -243,7 +260,8 @@ namespace WebApiTests
                     AddressId = Addressid,
                     StreetName = "Joasdsdhn",
                     Postal = 2700,
-                    City = "assadasd"
+                    City = "assadasd",
+                    UserId = 4
                 };
 
                 _context.Address.Add(Address);

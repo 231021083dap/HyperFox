@@ -94,7 +94,15 @@ namespace WebApiTests
                 UserId = userId,
                 UserName = "Goe",
                 Email = "Leo@gmail.com",
-                Password = "passw0rd"
+                Password = "passw0rd",
+                Addresses = new Address
+                {
+                    AddressId = 1,
+                    StreetName = "Kllk",
+                    City = "jajsda",
+                    Postal = 2323
+
+                }
             };
 
             _userRepository.Setup(a => a.GetById(It.IsAny<int>())).ReturnsAsync(user);
