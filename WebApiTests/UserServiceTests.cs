@@ -12,12 +12,12 @@ using WebApi.Services;
 using Xunit;
 
 
-namespace WebApiTests20
+namespace WebApiTests
 {
     public class UserServiceTests
     {
 
-         // Variabler
+        // Variabler
         private readonly UserService _sut;
         private readonly Mock<IUserRepository> _userRepository = new();
 

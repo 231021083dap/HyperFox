@@ -14,7 +14,7 @@ using WebApi.Repositories;
 using WebApi.Services;
 using Xunit;
 
-namespace WebApiTests10
+namespace WebApiTests
 {
     public class ItemServiceTests
     {
