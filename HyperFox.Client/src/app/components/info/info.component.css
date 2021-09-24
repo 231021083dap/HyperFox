@@ -1,0 +1,32 @@
+h2{
+    margin-top: 100px;
+    text-decoration: underline;
+
+}
+
+.container{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.card{
+    background-color:rgb(243, 214, 214);
+}
+
+h3{
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
+h6{
+    margin-bottom: 20px;
+}
+svg{
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.con2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
