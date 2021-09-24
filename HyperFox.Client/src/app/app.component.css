@@ -1,0 +1,27 @@
+.navbar {
+    /* display: table-header-group; */
+    background-color:rgb(84, 196, 196);
+}
+
+a {
+    font-weight: bolder;
+}
+
+.navbar-brand {
+    font-style: italic;
+    font-family: Geneva;
+    font-size: 25px;
+}
+
+footer {
+    background-color:rgb(84, 196, 196);
+    margin-bottom: -30px;
+}
+
+.footer-p {
+    font-weight: bolder;
+}
+
+.dropdown-menu{
+    background-color:rgb(84, 196, 196);
+}
