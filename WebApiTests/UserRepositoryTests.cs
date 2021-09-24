@@ -53,7 +53,7 @@ namespace WebApiTests1
             await _context.SaveChangesAsync();
 
             //Act
-            var result = await _sut.GetAll(); 
+            var result = await _sut.GetAll();
 
 
             //Assert
@@ -138,7 +138,7 @@ namespace WebApiTests1
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
                 Admin = "User"
-                
+
             };
 
             //Act
@@ -150,7 +150,7 @@ namespace WebApiTests1
             Assert.IsType<User>(result);
             Assert.Equal(expectedId, result.UserId);
         }
-    
+
         [Fact]
         public async Task Create_ShouldFailToaddUser_WhenAddingUserWithExistingId()
         {
@@ -175,7 +175,7 @@ namespace WebApiTests1
             var ex = await Assert.ThrowsAsync<ArgumentException>(action);
             Assert.Contains("An item with the same key has already been added", ex.Message);
         }
-    
+
         [Fact]
         public async Task Update_ShouldChangeValueOnUser_WhenUserExists()
         {
@@ -266,14 +266,14 @@ namespace WebApiTests1
 
             Assert.Empty(users);
         }
-        
+
         [Fact]
         public async Task Delete_shouldReturnNull_WhenUsersDoesNotExists()
         {
             //Arrange
             await _context.Database.EnsureDeletedAsync();
             int userId = 1;
-            
+
             //Act
             var result = await _sut.Delete(userId);
 

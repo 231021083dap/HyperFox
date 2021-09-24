@@ -11,7 +11,7 @@ using WebApi.Repository;
 using WebApi.Services;
 using Xunit;
 
-namespace WebApiTests
+namespace WebApiTests40
 {
     public class AddressServiceTests
     {

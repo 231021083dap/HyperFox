@@ -12,7 +12,7 @@ using WebApi.Services;
 using Xunit;
 
 
-namespace WebApiTests
+namespace WebApiTests20
 {
     public class UserServiceTests
     {

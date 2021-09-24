@@ -8,7 +8,7 @@ using WebApi.Entities;
 using WebApi.Repository;
 using Xunit;
 
-namespace WebApiTests
+namespace WebApiTests40
 {
     public class AddressRepositoryTests
     {

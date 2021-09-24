@@ -18,7 +18,7 @@ using WebApi.Services;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace WebApiTests.ServiceTests
+namespace WebApiTests30
 {
     public class OrderControllerTests
     {

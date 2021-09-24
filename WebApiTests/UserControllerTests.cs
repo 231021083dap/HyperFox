@@ -66,7 +66,7 @@ namespace WebApiTests
 
         }
 
-        [Fact] 
+        [Fact]
         public async void GetAll_ShouldReturnStatusCode204_whenNoDataExist()
         {
             //Arange - Hvordan skal den se ud.
@@ -108,7 +108,7 @@ namespace WebApiTests
 
         }
 
-        [Fact] 
+        [Fact]
         public async void GetAll_ShouldReturnStatusCode500_whenExeptionIsRaised()
         {
             //Arange - Hvordan skal den se ud.
@@ -203,12 +203,12 @@ namespace WebApiTests
             int userId = 1;
             NewUser newUser = new NewUser
             {
-                
+
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
                 Admin = "Admin"
-               
+
             };
 
             UserResponse user = new UserResponse
@@ -262,7 +262,7 @@ namespace WebApiTests
             int userId = 1;
             UpdateUser updateUser = new UpdateUser
             {
-                
+
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
@@ -297,7 +297,7 @@ namespace WebApiTests
             int userId = 1;
             UpdateUser updateUser = new UpdateUser
             {
-               
+
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
