@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.Auth;
 using WebApi.Database;
 using WebApi.DTOs.Responses;
 using WebApi.Entities;
@@ -41,7 +42,7 @@ namespace WebApiTests40
                     UserName = "Hansen",
                     Email = "Hansen@gmail.com",
                     Password = "passw0rd",
-                    Admin = "User"
+                    Admin = WebApi.Auth.Role.User
 
                 });
                 _context.Address.Add(new Address
@@ -100,7 +101,7 @@ namespace WebApiTests40
                         UserId = 1,
                         UserName = "Karsten",
                         Email = "Karsen@gmail.com",
-                        Admin = "User"
+                        Admin = WebApi.Auth.Role.User
                     }
 
 

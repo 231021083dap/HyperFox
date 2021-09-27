@@ -22,8 +22,7 @@ namespace WebApi.Entities
         [Required]
         public string Password { get; set; }
         [Column(TypeName = "nvarchar(5)")]
-        [Required]
-        public string Admin { get; set; }
+        public  Auth.Role Admin{ get; set; }
 
         public Address Addresses { get; set; } 
     }

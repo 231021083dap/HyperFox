@@ -55,7 +55,7 @@ namespace WebApiTests10
                 UserName = "Jens",
                 Email = "jensmail@gmail.com",
                 Password = "123",
-                Admin = "Jeg er en banan",
+                Admin = WebApi.Auth.Role.User,
                 Addresses = new Address()
             });
 
@@ -142,7 +142,7 @@ namespace WebApiTests10
                 UserName = "Jens",
                 Email = "jensmail@gmail.com",
                 Password = "123",
-                Admin = "Jeg er en banan",
+                Admin = WebApi.Auth.Role.User,
                 Addresses = new Address()
             });
 

@@ -17,13 +17,18 @@ using WebApi.Repository;
 using WebApi.Services;
 using WebApi.Database;
 using WebApi.Repositories;
+using WebApi.Auth;
 
 namespace WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly string CORSRules = "_CORSRules";
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
+        public Startup(IWebHostEnvironment env,IConfiguration configuration)
         {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -32,6 +37,21 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORSRules,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
+
+            //Users
+            services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
+            services.AddScoped<IJwtUtils, JwtUtils>();
 
             services.AddControllers();
             //Address

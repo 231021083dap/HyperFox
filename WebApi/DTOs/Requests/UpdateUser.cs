@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Auth;
 
 namespace WebApi.DTOs.Requests
 {
@@ -24,6 +25,6 @@ namespace WebApi.DTOs.Requests
 
         [StringLength(55, ErrorMessage = "Admin or user ")]
         [MinLength(5, ErrorMessage = "Admin or user")]
-        public string Admin { get; set; }
+        public Role Admin { get; set; }
     }
 }

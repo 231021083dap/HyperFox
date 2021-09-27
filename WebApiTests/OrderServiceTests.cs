@@ -35,7 +35,7 @@ namespace WebApiTests30
                 UserName = "Master",
                 Email = "Dragon",
                 Password = "12345",
-                Admin = "Elder",
+                Admin = WebApi.Auth.Role.User,
                 Addresses = new Address()
             });
 
@@ -45,7 +45,7 @@ namespace WebApiTests30
                 UserName = "Master",
                 Email = "Dragon",
                 Password = "12345",
-                Admin = "Elder",
+                Admin = WebApi.Auth.Role.User,
                 Addresses = new Address()
             });
 

@@ -91,7 +91,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "Admin",
+                Admin = WebApi.Auth.Role.User,
                 Addresses = new Address
                 {
                     AddressId = 1,
@@ -137,7 +137,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
 
             };
 
@@ -163,7 +163,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -189,7 +189,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -200,7 +200,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
             };
 
             //Act
@@ -228,7 +228,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
             };
 
 
@@ -251,7 +251,7 @@ namespace WebApiTests1
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = "User"
+                Admin = WebApi.Auth.Role.User
             };
             _context.User.Add(user);
             await _context.SaveChangesAsync();

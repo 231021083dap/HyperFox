@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Auth;
 using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Services;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -21,6 +23,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
+        [Authorize(Role.Admin)]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -46,6 +49,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+        [Authorize(Role.User,Role.Admin)]
         [HttpGet("{UserId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,7 +73,27 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+        [AllowAnonymous]
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register([FromBody] RegisterUser newUser)
+        {
+            try
+            {
 
+                UserResponse user = await _userService.Register(newUser);
+                return Ok(user);
+
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [Authorize(Role.Admin)]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -92,7 +116,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
+        [Authorize(Role.User,Role.Admin)]
         [HttpPut("{UserId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -116,6 +140,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize(Role.Admin)]
         [HttpDelete("{UserId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

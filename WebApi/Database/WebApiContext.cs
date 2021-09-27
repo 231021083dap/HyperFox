@@ -30,8 +30,7 @@ namespace WebApi.Database
                     UserName = "TestUserName",
                     Email = "TestMail",
                     Password = "TestPassword",
-                    Admin = "Admin"
-
+                    Admin = Auth.Role.Admin
                 },
                 new User
                 {
@@ -39,7 +38,7 @@ namespace WebApi.Database
                     UserName = "Test2",
                     Email = "Test2",
                     Password = "Test2",
-                    Admin = "User"
+                    Admin = Auth.Role.User
 
                 });
 
