@@ -1,0 +1,24 @@
+#data-container{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#btn-container{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+label, input, button{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+button{
+    background-color: rgb(84, 196, 196);
+    width: 10%;
+}
