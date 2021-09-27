@@ -18,8 +18,6 @@ namespace WebApi.Services
         Task<UserResponse> Update(int userId, UpdateUser updateUser);
         Task<LoginResponse> Authenticate(LoginRequest login);
         Task<UserResponse> Register(RegisterUser newUser);
-
-
         Task<bool> Delete(int userId);
 
     }
@@ -28,9 +26,10 @@ namespace WebApi.Services
         private readonly IUserRepository _userRepository;
         private readonly IJwtUtils _jwUtils;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
         {
             _userRepository = userRepository;
+            _jwUtils = jwtUtils;
         }
         public async Task<List<UserResponse>> GetAllUsers()
         {

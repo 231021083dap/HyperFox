@@ -1,24 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApi.Database.Entities;
 using WebApi.Repository;
 using WebApi.Services;
 using WebApi.Database;
 using WebApi.Repositories;
 using WebApi.Auth;
-
+using System.Text.Json.Serialization;
 namespace WebApi
 {
     public class Startup
@@ -26,10 +18,10 @@ namespace WebApi
         private readonly string CORSRules = "_CORSRules";
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
-        public Startup(IWebHostEnvironment env,IConfiguration configuration)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             _env = env;
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -75,11 +67,41 @@ namespace WebApi
 
             //Context
             services.AddDbContext<WebApiContext>(
-                o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
+                o => o.UseSqlServer(_configuration.GetConnectionString("Default")));
             
-                services.AddSwaggerGen(c =>
-                {
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                // serialize enums as strings in api responses (e.g. Role)
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+
+                    }
+                });
             });
         }
 
@@ -94,10 +116,14 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(CORSRules);
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<JwtMiddleware>();
+
 
             app.UseEndpoints(endpoints =>
             {

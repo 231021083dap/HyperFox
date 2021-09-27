@@ -142,7 +142,7 @@ namespace WebApiTests40
                     UserId = 1,
                     UserName = "Karsten",
                     Email = "Karsen@gmail.com",
-                    Admin = "User"
+                    Admin = WebApi.Auth.Role.User
                 }
             };
 

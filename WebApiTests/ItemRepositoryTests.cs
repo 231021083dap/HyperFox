@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Database.Entities;
 using WebApi.Entities;
-using WebApi.Migrations;
 using WebApi.Repositories;
 using Xunit;
 using WebApi.Database;

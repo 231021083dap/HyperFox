@@ -23,10 +23,12 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-        [Authorize(Role.Admin)]
+        // Only admins are allowed to entry this endpoint
+        [Authorize(Role.Admin)] 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
@@ -49,6 +51,32 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Authenticate(LoginRequest login)
+        {
+            try
+            {
+                LoginResponse response = await _userService.Authenticate(login);
+
+                if (response == null)
+                {
+                    return Unauthorized();
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [Authorize(Role.User,Role.Admin)]
         [HttpGet("{UserId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,6 +87,14 @@ namespace WebApi.Controllers
         {
             try
             {
+                // only admins can access other user records
+                var currentUser = (UserResponse)HttpContext.Items["User"];
+                if (currentUser == null || (UserId != currentUser.UserId && currentUser.Admin != Role.Admin))
+                {
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
+
                 UserResponse User = await _userService.GetById(UserId);
 
                 if (User == null)

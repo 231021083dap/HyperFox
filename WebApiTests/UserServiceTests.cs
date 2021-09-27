@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Auth;
 using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Entities;
@@ -20,11 +21,12 @@ namespace WebApiTests20
          // Variabler
         private readonly UserService _sut;
         private readonly Mock<IUserRepository> _userRepository = new();
+        private readonly Mock<IJwtUtils> _jwtUtils;
 
         //Contructor 
         public UserServiceTests()
         {
-            _sut = new UserService(_userRepository.Object);
+            _sut = new UserService(_userRepository.Object,_jwtUtils.Object);
         }
 
         [Fact]
