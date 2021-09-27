@@ -1,0 +1,47 @@
+#search-container{
+    margin-top: 100px;
+}
+
+#table-container{
+    background-color: #f1f1f1;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+#add-btn{
+    float: right;
+    background-color: rgb(160, 214, 183);
+}
+
+#update-btn{
+    background-color: rgb(160, 214, 183);
+    margin-right: 15px;
+}
+
+#delete-btn, #search-btn{
+    background-color: rgb(84, 196, 196);
+    /* margin-right: -50px; */
+}#search-container{
+    margin-top: 100px;
+}
+
+#table-container{
+    background-color: transparent;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+#add-btn{
+    float: right;
+    background-color: rgb(84, 196, 196);
+}
+
+#update-btn{
+    background-color: rgb(84, 196, 196);
+    margin-right: 15px;
+}
+
+#delete-btn, #search-btn{
+    background-color: rgb(84, 196, 196);
+    /* margin-right: -50px; */
+}
