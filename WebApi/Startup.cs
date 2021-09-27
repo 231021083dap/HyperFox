@@ -20,6 +20,8 @@ namespace WebApi
 {
     public class Startup
     {
+        readonly string CORSRules = "_CORSRules";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +32,17 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORSRules,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
+
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IGenreRepository, GenreRepository>();
 
@@ -57,6 +70,8 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(CORSRules);
 
             app.UseRouting();
 
