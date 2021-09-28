@@ -1,4 +1,4 @@
-<div class="container" id="search-container">
+<!-- <div class="container" id="search-container">
     <input type="search" class="w-50">
     <button class="btn" id="search-btn">search</button>
     <button class="btn" id="add-btn">Add poduct</button>
@@ -38,5 +38,42 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->
 
+
+<h3>Inputs</h3>
+
+<input [(ngModel)]="film.FilmName" placeholder="FilmName">
+
+<input [(ngModel)]="film.ReleaseDate" placeholder="ReleaseDate">
+
+<input [(ngModel)]="film.RunTimeInMin" placeholder="RunTimeInMin">
+
+<input [(ngModel)]="film.Description" placeholder="Description">
+
+<input [(ngModel)]="film.Price" placeholder="Price">
+
+<input [(ngModel)]="film.Stock" placeholder="Stock">
+
+<input [(ngModel)]="film.Image" placeholder="Image">
+
+<input [(ngModel)]="film.GenreId" placeholder="GenreId">
+
+
+<button (click)="save()">Gem</button>
+<button (click)="cancel()">"Anuller</button>
+
+Dropdown
+<select [(ngModel)]="film.FilmId">
+    <option [value]="0">Choose Film</option>
+    <option *ngFor="let film of films" [value]="film.FilmId"> {{ film.FilmName }} {{ film.ReleaseDate }} {{ film.Price }}</option>
+</select>
+
+
+<ul>
+    <li *ngFor="let film of films">
+        <button (click)="edit(film)">Ret</button>
+        <button (click)="delete(film)">Delete</button>
+        {{ film.FilmName }} {{ film.Description }} 
+    </li>
+</ul>
