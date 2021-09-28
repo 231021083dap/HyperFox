@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Test : Migration
+    public partial class DTest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
