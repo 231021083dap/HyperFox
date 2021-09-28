@@ -31,11 +31,11 @@ export class GenreComponent implements OnInit {
     if (this.genre.genreId == 0) {
       this.genreService.addGenre(this.genre).subscribe(a => {
         this.genres.push(a)
-        this.genre = this.genre;
+        this.genre = { genreId: 0, genreName: '', films: [] };
       });
     } else {
       this.genreService.updateGenre(this.genre.genreId, this.genre).subscribe(() => {
-        this.genre = this.genre;
+        this.genre = { genreId: 0, genreName: '', films: [] };
       });
     }
   }
