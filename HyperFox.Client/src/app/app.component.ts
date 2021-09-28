@@ -15,8 +15,20 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService
   ){
-    //
-    this.authenticationService.
+    // get the current user from authentication service
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
+  logout() {
+    if (confirm('Er du sikker på du vil logge ud')) {
+      // ask authentication service to perform logout
+      this.authenticationService.logout();
+
+      // subscribe to the changes in currentUser, and load Home component
+      this.authenticationService.currentUser.subscribe(x => {
+        this.currentUser = x
+        this.router.navigate(['/']);
+      });
+    }
   }
 }
