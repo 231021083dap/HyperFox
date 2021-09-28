@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApi.Database.Entities;
+using WebApi.Database;
 
 namespace WebApi.Migrations
 {
@@ -15,7 +15,7 @@ namespace WebApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WebApi.Database.Entities.Film", b =>
@@ -77,7 +77,7 @@ namespace WebApi.Migrations
                             FilmId = 2,
                             Description = "This movie is about the wizard world",
                             FilmName = "Harry potter",
-                            GenreId = 2,
+                            GenreId = 1,
                             Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
                             Price = 79.99m,
                             ReleaseDate = "16-09-2001",
@@ -105,12 +105,181 @@ namespace WebApi.Migrations
                         new
                         {
                             GenreId = 1,
-                            GenreName = "Action"
+                            GenreName = "Comedy"
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("Postal")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Address");
+
+                    b.HasData(
+                        new
+                        {
+                            AddressId = 1,
+                            City = "Ballerup",
+                            Postal = 2700,
+                            StreetName = "Tec Ballerup",
+                            UserId = 1
                         },
                         new
                         {
-                            GenreId = 2,
-                            GenreName = "Comedy"
+                            AddressId = 2,
+                            City = "Kattegat",
+                            Postal = 2700,
+                            StreetName = "Havet",
+                            UserId = 2
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Item", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItemId");
+
+                    b.HasIndex("FilmId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Item");
+
+                    b.HasData(
+                        new
+                        {
+                            ItemId = 1,
+                            FilmId = 1,
+                            OrderId = 1,
+                            Price = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            ItemId = 2,
+                            FilmId = 2,
+                            OrderId = 2,
+                            Price = 2,
+                            Quantity = 2
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DateTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            DateTime = "2001-08-21 04:45:21",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            DateTime = "2001-08-21 04:45:41",
+                            UserId = 1
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Entities.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Admin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Admin = "Admin",
+                            Email = "TestMail",
+                            Password = "TestPassword",
+                            UserName = "TestUserName"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Admin = "User",
+                            Email = "Test2",
+                            Password = "Test2",
+                            UserName = "Test2"
                         });
                 });
 
@@ -125,9 +294,58 @@ namespace WebApi.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("WebApi.Entities.Address", b =>
+                {
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithOne("Addresses")
+                        .HasForeignKey("WebApi.Entities.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Item", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Film", "Film")
+                        .WithMany()
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApi.Entities.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Genre", b =>
                 {
                     b.Navigation("Films");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.User", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

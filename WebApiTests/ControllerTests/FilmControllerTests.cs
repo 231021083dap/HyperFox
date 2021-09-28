@@ -11,7 +11,7 @@ using WebApi.DTOs.Responses;
 using WebApi.Services;
 using Xunit;
 
-namespace WebApiTests
+namespace WebApiTests50
 {
     public class FilmControllerTests
     {

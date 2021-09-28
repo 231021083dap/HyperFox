@@ -10,38 +10,46 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
+
+    //Route for Item in the API.  localhost/api/item
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : Controller
-    {
-        private readonly IGenreService _genreService;
 
-        public GenreController(IGenreService genreService)
+    public class ItemController : ControllerBase
+    {
+        //For reading the ItemService interface.
+        private readonly IItemService _itemService;
+
+        //Contrukctor
+        public ItemController(IItemService itemService)
         {
-            _genreService = genreService;
+            _itemService = itemService;
         }
 
+        //Http getRequest.
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //GetALl Items.
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                List<GenreResponse> Genres = await _genreService.GetAllGenres();
+                // Creates a list of the Items it should get from the service.
+                List<ItemResponse> Items = await _itemService.GetAllItems();
 
-                if (Genres == null)
+                //Checks if there is problems / data
+                if (Items == null)
                 {
-                    return Problem("Got no data, this is unexpected");
-                }
+                    return Problem("No Items was found, not even a empty list!");
 
-                if (Genres.Count == 0)
+                }
+                if (Items.Count == 0)
                 {
                     return NoContent();
                 }
-
-                return Ok(Genres);
+                return Ok(Items);
             }
             catch (Exception ex)
             {
@@ -49,23 +57,25 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("{genreId}")]
+        //Http getRequest.
+        [HttpGet("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById([FromRoute] int genreId)
+        //GetById method.
+        public async Task<IActionResult> GetById([FromRoute] int itemId)
         {
             try
             {
-                GenreResponse Genre = await _genreService.GetById(genreId);
+                //Checks if there is anything from Service with the Id being send.
+                ItemResponse Item = await _itemService.GetById(itemId);
 
-                if (Genre == null)
+                if (Item == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(Genre);
+                return Ok(Item);
             }
             catch (Exception ex)
             {
@@ -73,45 +83,47 @@ namespace WebApi.Controllers
             }
         }
 
+        //Http postRequest.
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([FromBody] NewGenre newGenre)
+        // Create method for creating an new Item.
+        public async Task<IActionResult> Create([FromBody] NewItem newItem)
         {
             try
             {
-                GenreResponse Genre = await _genreService.Create(newGenre);
-
-                if (Genre == null)
+                //Tries to create the item, if it fails and error will occour.
+                ItemResponse Item = await _itemService.Create(newItem);
+                if (Item == null)
                 {
-                    return Problem("Genre was not created, something went wrong");
-                }
-
-                return Ok(Genre);
+                    return Problem("Item was not created, something went wrong!");
+                };
+                return Ok(Item);
             }
             catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
-
-        [HttpPut("{genreId}")]
+        //Http putRequest
+        [HttpPut("{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update([FromRoute] int genreId, [FromBody] UpdateGenre updateGenre)
+        //Update method.
+        public async Task<IActionResult> Update([FromRoute] int itemId, [FromBody] UpdateItem updateItem)
         {
+            //Tries to update the Item.
             try
             {
-                GenreResponse Genre = await _genreService.Update(genreId, updateGenre);
+                ItemResponse Item = await _itemService.Update(itemId, updateItem);
 
-                if (Genre == null)
+                if (Item == null)
                 {
-                    return Problem("Genre was not updated, something went wrong");
+                    return Problem("Item was NOT updated! something went wrong!");
                 }
-
-                return Ok(Genre);
+                return Ok(Item);
             }
             catch (Exception ex)
             {
@@ -119,21 +131,23 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("{genreId}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        //Http DeleteRequest
+        [HttpDelete("{itemId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete([FromRoute] int genreId)
+        //Delete method 
+        public async Task<IActionResult> Delete([FromRoute] int itemId)
         {
+            //Tries to delete the Item.
             try
             {
-                bool result = await _genreService.Delete(genreId);
+                bool result = await _itemService.Delete(itemId);
 
                 if (!result)
                 {
-                    return Problem("Genre was not deleted, something went wrong");
+                    return Problem("Item was not deleted, something went wrong");
                 }
-
                 return NoContent();
             }
             catch (Exception ex)

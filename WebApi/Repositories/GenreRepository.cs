@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Database;
 using WebApi.Database.Entities;
 
 namespace WebApi.Repositories
