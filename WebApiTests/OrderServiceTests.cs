@@ -11,7 +11,7 @@ using WebApi.Repository;
 using WebApi.Services;
 using Xunit;
 
-namespace WebApiTests30
+namespace WebApiTests
 {
     public class OrderServiceTests
     {

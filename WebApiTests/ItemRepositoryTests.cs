@@ -10,7 +10,7 @@ using WebApi.Repositories;
 using Xunit;
 using WebApi.Database;
 
-namespace WebApiTests10
+namespace WebApiTests
 {
     public class ItemRepositoryTests
     {
@@ -21,7 +21,7 @@ namespace WebApiTests10
         public ItemRepositoryTests()
         {
             _options = new DbContextOptionsBuilder<WebApiContext>()
-                .UseInMemoryDatabase(databaseName: "WebApi") //Simulation af database
+                .UseInMemoryDatabase(databaseName: "WebApi2") //Simulation af database
                 .Options;
 
             _context = new WebApiContext(_options);
@@ -87,6 +87,7 @@ namespace WebApiTests10
                 OrderId = 1,
                 Quantity = 2,
                 Price = 2
+
             });
             await _context.SaveChangesAsync();
 

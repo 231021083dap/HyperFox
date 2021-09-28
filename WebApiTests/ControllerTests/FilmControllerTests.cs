@@ -27,8 +27,8 @@ namespace WebApiTests50
         public async void GetAll_ShouldReturnStatusCode200_WhenDataExists()
         {
             // Arrange
-            List<FilmResponse> Films = new(); 
-
+            List<FilmResponse> Films = new();
+            
             Films.Add(new FilmResponse
             {
                 FilmId = 1,
@@ -38,7 +38,12 @@ namespace WebApiTests50
                 Description = "This movie is about a ring",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\1.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = 1,
+                    GenreName = "Action"
+                }
             });
 
             Films.Add(new FilmResponse
@@ -50,7 +55,12 @@ namespace WebApiTests50
                 Description = "This movie is about the wizard world",
                 Price = 79.99M,
                 Stock = 50,
-                Image = "C:\\Users\\Tec\\Pictures\\2.jpg"
+                Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                Genre = new FilmGenreResponse
+                {
+                    GenreId = 2,
+                    GenreName = "Comedy"
+                }
             });
 
             _filmService

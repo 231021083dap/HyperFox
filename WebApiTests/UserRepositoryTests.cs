@@ -10,7 +10,7 @@ using WebApi.Entities;
 using WebApi.Repositories;
 using Xunit;
 
-namespace WebApiTests1
+namespace WebApiTests
 {
     public class UserRepositoryTests
     {
