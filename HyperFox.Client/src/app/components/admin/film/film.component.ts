@@ -27,8 +27,8 @@ export class FilmComponent implements OnInit {
 }
 
 delete(film:Film):void{
-  if(confirm("Er du sikker på du vil slette?")){
-    this.filmService.deleteAuthor(film.FilmId)
+  if(confirm("Are you sure you want to delete?")){
+    this.filmService.deleteFilm(film.FilmId)
     .subscribe(() => { 
       this.getFilms();
     })
