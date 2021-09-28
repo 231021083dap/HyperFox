@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   title = 'HyperFox-Client';
 
   genres: Genre[] = [];
-  genre: Genre = { genreId: 0, genreName: '', films: [] };
 
   constructor(private genreService: GenreService) { }
 

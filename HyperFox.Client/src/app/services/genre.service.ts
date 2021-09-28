@@ -24,15 +24,15 @@ export class GenreService {
     return this.http.get<Genre>(`${this.URLApi}/${genreId}`);
   }
 
-  // addAuthor(author: Author): Observable<Author>{
-  //   return this.http.post<Author>(this.URLApi, author, this.httpOptions);
-  // }
+  addGenre(genre: Genre): Observable<Genre>{
+    return this.http.post<Genre>(this.URLApi, genre, this.httpOptions);
+  }
 
-  // updateAuthor(authorId: number, author: Author): Observable<Author>{
-  //   return this.http.put<Author>(`${this.URLApi}/${authorId}`, author, this.httpOptions);
-  // }
+  updateGenre(genreId: number, genre: Genre): Observable<Genre>{
+    return this.http.put<Genre>(`${this.URLApi}/${genreId}`, genre, this.httpOptions);
+  }
 
-  // deleteAuthor(authorId: number): Observable<boolean>{
-  //   return this.http.delete<boolean>(`${this.URLApi}/${authorId}`, this.httpOptions);
-  // }
+  deleteGenre(genreId: number): Observable<boolean>{
+    return this.http.delete<boolean>(`${this.URLApi}/${genreId}`, this.httpOptions);
+  }
 }

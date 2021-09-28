@@ -18,7 +18,23 @@ label, input, button{
     margin-right: 20px;
 }
 
-button{
+#save-btn, #cancel-btn{
     background-color: rgb(84, 196, 196);
     width: 10%;
+}
+
+#table-container{
+    background-color: transparent;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+#update-btn{
+    background-color: rgb(84, 196, 196);
+    margin-right: 5px;
+}
+
+#delete-btn {
+    background-color: rgb(84, 196, 196);
+    /* margin-right: -50px; */
 }
