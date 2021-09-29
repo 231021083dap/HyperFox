@@ -10,7 +10,7 @@ import { GenreService } from 'src/app/services/genre.service';
 export class GenreComponent implements OnInit {
 
   genres: Genre[] = [];
-  genre: Genre = { genreId: 0, genreName: '', films: [] };
+  genre: Genre = { GenreId: 0, GenreName: '', Films: [] };
   
   constructor(private genreService: GenreService) { }
 
@@ -28,25 +28,25 @@ export class GenreComponent implements OnInit {
   }
 
   save(): void {
-    if (this.genre.genreId == 0) {
+    if (this.genre.GenreId == 0) {
       this.genreService.addGenre(this.genre).subscribe(a => {
         this.genres.push(a)
-        this.genre = { genreId: 0, genreName: '', films: [] };
+        this.genre = { GenreId: 0, GenreName: '', Films: [] };
       });
     } else {
-      this.genreService.updateGenre(this.genre.genreId, this.genre).subscribe(() => {
-        this.genre = { genreId: 0, genreName: '', films: [] };
+      this.genreService.updateGenre(this.genre.GenreId, this.genre).subscribe(() => {
+        this.genre = { GenreId: 0, GenreName: '', Films: [] };
       });
     }
   }
 
   cancel(): void {
-    this.genre = { genreId: 0, genreName: '', films: [] };
+    this.genre = { GenreId: 0, GenreName: '', Films: [] };
   }
 
   delete(genre: Genre): void {
     if (confirm('Are you sure you want to delete?')) {
-      this.genreService.deleteGenre(genre.genreId).subscribe(() => {
+      this.genreService.deleteGenre(genre.GenreId).subscribe(() => {
           this.getGenres();
         });
     }

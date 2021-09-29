@@ -1,18 +1,18 @@
 export interface Genre {
-    genreId: number;
-    genreName: string;
-    films: Film[];
+    GenreId: number;
+    GenreName: string;
+    Films: Film[];
 }
 
 export interface Film {
-    filmId: number;
-    filmName: string;
-    releaseDate: string;
-    runTimeInMin: number;
-    description: string;
-    price: number;
-    stock: number;
-    image: string;
-    genreId: number;
-    genre?: Genre;
+    FilmId: number;
+    FilmName: string;
+    ReleaseDate: string;
+    RunTimeInMin: number;
+    Description: string;
+    Price: number;
+    Stock: number;
+    Image: string;
+    GenreId: number;
+    Genre?: Genre;
 }

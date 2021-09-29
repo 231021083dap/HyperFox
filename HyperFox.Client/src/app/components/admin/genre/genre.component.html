@@ -1,6 +1,6 @@
 <div class="container" id="data-container">
     <label for="">Genre:</label>
-    <input type="text" [(ngModel)]="genre.genreName">
+    <input type="text" [(ngModel)]="genre.GenreName">
 </div>
 
 <div class="container" id="btn-container">
@@ -20,8 +20,8 @@
         </thead>
         <tbody *ngFor='let genre of genres'>
             <tr>
-                <td>{{genre.genreId}}</td>
-                <td>{{genre.genreName}}</td>
+                <td>{{genre.GenreId}}</td>
+                <td>{{genre.GenreName}}</td>
                 <td></td>
                 <td class="w-25">
                     <button class="btn" id="update-btn" (click)="edit(genre)">
