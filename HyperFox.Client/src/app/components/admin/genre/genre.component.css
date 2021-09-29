@@ -38,3 +38,9 @@ label, input, button{
     background-color: rgb(84, 196, 196);
     /* margin-right: -50px; */
 }
+
+#search-container{
+    justify-content: center;
+    margin: auto;
+    display: flex;
+}
