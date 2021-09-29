@@ -49,16 +49,16 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("{genreId}")]
+        [HttpGet("{GenreId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById([FromRoute] int genreId)
+        public async Task<IActionResult> GetById([FromRoute] int GenreId)
         {
             try
             {
-                GenreResponse Genre = await _genreService.GetById(genreId);
+                GenreResponse Genre = await _genreService.GetById(GenreId);
 
                 if (Genre == null)
                 {
@@ -96,15 +96,15 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("{genreId}")]
+        [HttpPut("{GenreId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update([FromRoute] int genreId, [FromBody] UpdateGenre updateGenre)
+        public async Task<IActionResult> Update([FromRoute] int GenreId, [FromBody] UpdateGenre updateGenre)
         {
             try
             {
-                GenreResponse Genre = await _genreService.Update(genreId, updateGenre);
+                GenreResponse Genre = await _genreService.Update(GenreId, updateGenre);
 
                 if (Genre == null)
                 {
@@ -119,15 +119,15 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("{genreId}")]
+        [HttpDelete("{GenreId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete([FromRoute] int genreId)
+        public async Task<IActionResult> Delete([FromRoute] int GenreId)
         {
             try
             {
-                bool result = await _genreService.Delete(genreId);
+                bool result = await _genreService.Delete(GenreId);
 
                 if (!result)
                 {

@@ -26,7 +26,7 @@ namespace WebApiTests
         //Contructor 
         public UserServiceTests()
         {
-            _sut = new UserService(_userRepository.Object,_jwtUtils.Object);
+            _sut = new UserService(_userRepository.Object, _jwtUtils.Object);
         }
 
         [Fact]
