@@ -11,10 +11,10 @@ namespace WebApi.Repositories
     public interface IFilmRepository
     {
         Task<List<Film>> GetAll();
-        Task<Film> GetById(int filmId);
+        Task<Film> GetById(int FilmId);
         Task<Film> Create(Film film);
-        Task<Film> Update(int filmId, Film film);
-        Task<Film> Delete(int filmId);
+        Task<Film> Update(int FilmId, Film film);
+        Task<Film> Delete(int FilmId);
     }
 
     public class FilmRepository : IFilmRepository
@@ -33,11 +33,11 @@ namespace WebApi.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Film> GetById(int filmId)
+        public async Task<Film> GetById(int FilmId)
         {
             return await _context.Film
                 .Include(g => g.Genre)
-                .FirstOrDefaultAsync(f => f.FilmId == filmId);
+                .FirstOrDefaultAsync(f => f.FilmId == FilmId);
         }
 
         public async Task<Film> Create(Film film)
@@ -47,9 +47,9 @@ namespace WebApi.Repositories
             return film;
         }
 
-        public async Task<Film> Update(int filmId, Film film)
+        public async Task<Film> Update(int FilmId, Film film)
         {
-            Film updateFilm = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == filmId);
+            Film updateFilm = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == FilmId);
 
             if (updateFilm != null)
             {
@@ -68,9 +68,9 @@ namespace WebApi.Repositories
             return updateFilm;
         }
 
-        public async Task<Film> Delete(int filmId)
+        public async Task<Film> Delete(int FilmId)
         {
-            Film film = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == filmId);
+            Film film = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == FilmId);
 
             if (film != null)
             {
