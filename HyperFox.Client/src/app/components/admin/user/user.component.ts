@@ -18,9 +18,14 @@ export class UserComponent implements OnInit {
     this.getUsers();
   }
 
-  //GetAll
+  //Get all users
   getUsers():void{
-    this.userService.getUsers().subscribe(a => this.user = a); //Fix this at home
+    this.userService.getUsers().subscribe(a => this.user = a);
+  }
+
+  //Get user by UserId
+  getUser(user:User):void{
+    this.userService.getUser(user.UserId).subscribe(a => this.user = a);
   }
 
   //Edit
@@ -49,7 +54,7 @@ export class UserComponent implements OnInit {
         this.cancel();
       });
     }else{
-      this.userService.updateUser(this.user.UserId, this.user).subscrube(() => this.cancel());
+      this.userService.updateUser(this.user.UserId, this.user).subscribe(() => this.cancel());
     }
   }
 
