@@ -3,11 +3,11 @@
     id: number;
     username: string;
     email: string;
-    role?: Role;
+    Admin?: Admin;
     token?: string;
   }
   
-  export enum Role {
+  export enum Admin {
     User = 'User',
     Admin = 'Admin'
   }
