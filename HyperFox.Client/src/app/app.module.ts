@@ -10,6 +10,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { FilmComponent } from './components/admin/film/film.component';
 import { GenreComponent } from './components/admin/genre/genre.component';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { JwtInterceptor } from './_Assets/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,9 +27,13 @@ import { GenreComponent } from './components/admin/genre/genre.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
