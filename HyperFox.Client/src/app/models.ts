@@ -6,6 +6,12 @@
     Admin?: Admin;
     token?: string;
   }
+
+  export interface Register{
+    Email: string;
+    Username: string;
+    Password: string;
+  }
   
   export enum Admin {
     User = 'User',

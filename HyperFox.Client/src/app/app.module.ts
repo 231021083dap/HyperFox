@@ -13,6 +13,7 @@ import { UserComponent } from './components/admin/user/user.component';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_Assets/jwt.interceptor';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { JwtInterceptor } from './_Assets/jwt.interceptor';
     AdminComponent,
     FilmComponent,
     GenreComponent,
-    UserComponent
+    UserComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

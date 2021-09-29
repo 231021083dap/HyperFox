@@ -8,6 +8,7 @@ import { UserComponent } from './components/admin/user/user.component';
 import { Admin } from './models';
 import { AuthGuard } from './_Assets/auth.guard';
 import { AdminComponent } from './components/admin/admin.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'admin/film',  component: FilmComponent, canActivate: [AuthGuard],data: {roles: [Admin.Admin]}},
   {path: 'admin/user', component: UserComponent, canActivate: [AuthGuard],data: {roles: [Admin.Admin]}},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard],data: {roles: [Admin.Admin]}}
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard],data: {roles: [Admin.Admin]}},
+  {path: 'register', component: RegisterComponent},
 ];
 
 
