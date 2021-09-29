@@ -1,4 +1,6 @@
-<!-- <div class="container" id="search-container">
+<!-- 
+
+<div class="container" id="search-container">
     <input type="search" class="w-50">
     <button class="btn" id="search-btn">search</button>
     <button class="btn" id="add-btn">Add poduct</button>
@@ -9,18 +11,18 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>Date</th>
+                <th>RunTime</th>
+                <th>Description</th>
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor='let film of films'>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{film.FilmId}}</td>
+                <td>{{ film.ReleaseDate }}</td>
+                <td>{{ film.RunTimeInMin }} </td>
+                <td>{{ film.Description }}</td>
                 <td class="w-25">
                     <button class="btn" id="update-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -60,13 +62,13 @@
 <input [(ngModel)]="film.GenreId" placeholder="GenreId">
 
 
-<button (click)="save()">Gem</button>
-<button (click)="cancel()">"Anuller</button>
+<button (click)="save()">Save</button>
+<button (click)="cancel()">Cancel</button>
 
 Dropdown
 <select [(ngModel)]="film.FilmId">
     <option [value]="0">Choose Film</option>
-    <option *ngFor="let film of films" [value]="film.FilmId"> {{ film.FilmName }} {{ film.ReleaseDate }} {{ film.Price }}</option>
+    <option *ngFor="let film of films" [value]="film.FilmId"> {{ film.FilmId }}</option>
 </select>
 
 
@@ -74,6 +76,6 @@ Dropdown
     <li *ngFor="let film of films">
         <button (click)="edit(film)">Ret</button>
         <button (click)="delete(film)">Delete</button>
-        {{ film.FilmName }} {{ film.Description }} 
+        {{ film.FilmId }} {{ film.FilmName }} {{ film.ReleaseDate }} {{ film.RunTimeInMin }} {{ film.Description }}  {{ film.Price }} {{ film.Stock }} {{ film.Image }} {{ film.GenreId }} 
     </li>
-</ul>
+</ul> 

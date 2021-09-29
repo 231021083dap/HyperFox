@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FilmService {
-  private apiUrl = "http://localhost:5001/api/admin/film";
+  private apiUrl = "https://localhost:5001/api/Film";
 
 
   httpOptions = {
@@ -33,7 +33,7 @@ export class FilmService {
         return this.http.put<Film>(`${this.apiUrl}/${FilmId}`, film, this.httpOptions);
       }
     
-      deleteAuthor(FilmId: number): Observable<boolean> {
+      deleteFilm(FilmId: number): Observable<boolean> {
         return this.http.delete<boolean>(`${this.apiUrl}/${FilmId}`, this.httpOptions);
       }
 }
