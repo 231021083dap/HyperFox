@@ -49,16 +49,16 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("{filmId}")]
+        [HttpGet("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById([FromRoute] int filmId)
+        public async Task<IActionResult> GetById([FromRoute] int FilmId)
         {
             try
             {
-                FilmResponse Film = await _filmServise.GetById(filmId);
+                FilmResponse Film = await _filmServise.GetById(FilmId);
 
                 if (Film == null)
                 {
@@ -96,15 +96,15 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("{filmId}")]
+        [HttpPut("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update([FromRoute] int filmId, [FromBody] UpdateFilm updateFilm)
+        public async Task<IActionResult> Update([FromRoute] int FilmId, [FromBody] UpdateFilm updateFilm)
         {
             try
             {
-                FilmResponse Film = await _filmServise.Update(filmId, updateFilm);
+                FilmResponse Film = await _filmServise.Update(FilmId, updateFilm);
 
                 if (Film == null)
                 {
@@ -119,15 +119,15 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("{filmId}")]
+        [HttpDelete("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete([FromRoute] int filmId)
+        public async Task<IActionResult> Delete([FromRoute] int FilmId)
         {
             try
             {
-                bool result = await _filmServise.Delete(filmId);
+                bool result = await _filmServise.Delete(FilmId);
 
                 if (!result)
                 {

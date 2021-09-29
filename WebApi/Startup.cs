@@ -45,7 +45,7 @@ namespace WebApi
             services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
             services.AddScoped<IJwtUtils, JwtUtils>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions( opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();

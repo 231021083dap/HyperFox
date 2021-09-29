@@ -12,10 +12,10 @@ namespace WebApi.Services
     public interface IFilmService
     {
         Task<List<FilmResponse>> GetAllFilms();
-        Task<FilmResponse> GetById(int filmId);
+        Task<FilmResponse> GetById(int FilmId);
         Task<FilmResponse> Create(NewFilm newFilm);
-        Task<FilmResponse> Update(int filmId, UpdateFilm updateFilm);
-        Task<bool> Delete(int filmId);
+        Task<FilmResponse> Update(int FilmId, UpdateFilm updateFilm);
+        Task<bool> Delete(int FilmId);
     }
 
     public class FilmService : IFilmService
@@ -51,9 +51,9 @@ namespace WebApi.Services
             }).ToList();
         }
 
-        public async Task<FilmResponse> GetById(int filmId)
+        public async Task<FilmResponse> GetById(int FilmId)
         {
-            Film film = await _filmRepository.GetById(filmId);
+            Film film = await _filmRepository.GetById(FilmId);
 
             return film == null ? null : new FilmResponse
             {
@@ -114,7 +114,7 @@ namespace WebApi.Services
             return null;
         }
 
-        public async Task<FilmResponse> Update(int filmId, UpdateFilm updateFilm)
+        public async Task<FilmResponse> Update(int FilmId, UpdateFilm updateFilm)
         {
             Film film = new Film
             {
@@ -128,7 +128,7 @@ namespace WebApi.Services
                 GenreId = updateFilm.GenreId
             };
 
-            film = await _filmRepository.Update(filmId, film);
+            film = await _filmRepository.Update(FilmId, film);
 
             if (film != null)
             {
@@ -155,9 +155,9 @@ namespace WebApi.Services
             return null;
         }
 
-        public async Task<bool> Delete(int filmId)
+        public async Task<bool> Delete(int FilmId)
         {
-            var result = await _filmRepository.Delete(filmId);
+            var result = await _filmRepository.Delete(FilmId);
             return true;
         }
     }
