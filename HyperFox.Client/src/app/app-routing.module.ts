@@ -7,15 +7,16 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/admin/user/user.component';
 import { Role } from './models';
 import { AuthGuard } from './_Assets/auth.guard';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'info', component: InfoComponent},
   {path: 'login', component: LoginComponent},
   {path: 'admin/film',  component: FilmComponent, canActivate: [AuthGuard],data: {roles: [Role.Admin]}},
-  {path: 'admin/user', component: FilmComponent, canActivate: [AuthGuard],data: {roles: [Role.Admin]}},
-  {path: 'admin/film', component: FilmComponent, canActivate: [AuthGuard],data: {roles: [Role.Admin]}}
-]
+  {path: 'admin/user', component: UserComponent, canActivate: [AuthGuard],data: {roles: [Role.Admin]}},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard],data: {roles: [Role.Admin]}}
+];
 
 
 @NgModule({

@@ -10,7 +10,6 @@ import { AuthenticationService } from './authentication.service';
 })
 export class AppComponent {
   currentUser: User = {id: 0, email: '', username:''};
-  title = 'HyperFox-Client';
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
