@@ -33,7 +33,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions( opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
