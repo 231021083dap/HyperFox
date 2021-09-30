@@ -1,4 +1,4 @@
-#data-container{
+#data-container {
     display: flex;
     margin: auto;
     justify-content: center;
@@ -6,30 +6,30 @@
     margin-bottom: 50px;
 }
 
-#btn-container{
+#btn-container {
     display: flex;
     margin: auto;
     justify-content: center;
     margin-bottom: 100px;
 }
 
-label, input, button{
+label, input, button {
     margin-left: 20px;
     margin-right: 20px;
 }
 
-#save-btn, #cancel-btn{
+#save-btn, #cancel-btn {
     background-color: rgb(84, 196, 196);
     width: 10%;
 }
 
-#table-container{
+#table-container {
     background-color: transparent;
     margin-top: 50px;
     margin-bottom: 100px;
 }
 
-#update-btn{
+#update-btn {
     background-color: rgb(84, 196, 196);
     margin-right: 5px;
 }
@@ -39,7 +39,7 @@ label, input, button{
     /* margin-right: -50px; */
 }
 
-#search-container{
+#search-container {
     justify-content: center;
     margin: auto;
     display: flex;
