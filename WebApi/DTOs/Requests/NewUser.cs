@@ -25,8 +25,6 @@ namespace WebApi.DTOs.Requests
         public string Password { get; set; }
 
         [Required]
-        [StringLength(5, ErrorMessage = "Admin or user")]
-        [MinLength(5, ErrorMessage = "Admin or user")]
         public Role Admin { get; set; }
     }
 }

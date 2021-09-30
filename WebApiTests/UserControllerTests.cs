@@ -207,7 +207,7 @@ namespace WebApiTests
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = WebApi.Auth.Role.User
+                Admin = 2
 
             };
 
@@ -240,7 +240,7 @@ namespace WebApiTests
                 UserName = "Hansen",
                 Email = "Hansen@gmail.com",
                 Password = "passw0rd",
-                Admin = WebApi.Auth.Role.User
+                Admin = 2
             };
 
             _userService

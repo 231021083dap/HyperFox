@@ -71,8 +71,7 @@ namespace WebApi.Services
                 UserName = newUser.UserName,
                 Email = newUser.Email,
                 Password = newUser.Password,
-                Admin = newUser.Admin
-               
+                Admin = newUser.Admin         
             };
             user = await _userRepository.Create(user);
 

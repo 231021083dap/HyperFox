@@ -45,7 +45,10 @@ namespace WebApi
             services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
             services.AddScoped<IJwtUtils, JwtUtils>();
 
-            services.AddControllers().AddJsonOptions( opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddControllers().AddJsonOptions( opts => {
+                opts.JsonSerializerOptions.PropertyNamingPolicy = null;
+                opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             //Address
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
@@ -69,11 +72,6 @@ namespace WebApi
             services.AddDbContext<WebApiContext>(
                 o => o.UseSqlServer(_configuration.GetConnectionString("Default")));
             
-            services.AddControllers().AddJsonOptions(x =>
-            {
-                // serialize enums as strings in api responses (e.g. Role)
-                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
 
             services.AddSwaggerGen(c =>
             {
