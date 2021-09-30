@@ -6,8 +6,6 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a class="nav-link col px-md-3" href="">Home</a>
-          <a (click)="logout()">Logout</a>
-          <a routerLink="/login" routerLinkActive="active-link" *ngIf="currentUser == null">Login</a>
         </li>
         
 
@@ -34,10 +32,22 @@
         <li class="nav-item active">
           <a class="nav-link col px-md-3" routerLink="/admin/film">Film</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link col px-md-3" routerLinkActive="active-link" *ngIf="currentUser == null" routerLink="/Register">Register</a>
+          
+          
+        </li>
 
         <li class="nav-item active">
-          <a class="nav-link col px-md-3" routerLink="/login">Login</a>
+          <a class="nav-link col px-md-3" routerLinkActive="active-link" *ngIf="currentUser == null" routerLink="/login">Login</a>
+          
         </li>
+
+        <li class="nav-item active">
+          <a class="nav-link col px-md-3" (click)="logout()">Logout</a>
+          
+        </li>
+        
 
         <li class="nav-item active">
           <a class="nav-link col px-md-3" href="">
