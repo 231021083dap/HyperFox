@@ -1,10 +1,9 @@
-  
   export interface User {
     id: number;
     username: string;
     email: string;
     Admin?: Admin;
-    token?: string;
+    Token?: string;
   }
 
   export interface Register{
