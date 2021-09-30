@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { FilmComponent } from './components/admin/film/film.component';
 import { GenreComponent } from './components/admin/genre/genre.component';
+import { SingleFilmComponent } from './components/single-film/single-film.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { GenreComponent } from './components/admin/genre/genre.component';
     LoginComponent,
     AdminComponent,
     FilmComponent,
-    GenreComponent
+    GenreComponent,
+    SingleFilmComponent
   ],
   imports: [
     BrowserModule,
