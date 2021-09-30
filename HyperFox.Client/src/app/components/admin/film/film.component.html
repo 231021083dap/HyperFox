@@ -43,7 +43,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody *ngFor='let film of films.slice(0,2); let i = index'> 
+        <tbody *ngFor='let film of films; let i = index'> 
             <tr>
                 <td>{{i}}</td>
                 <td>{{ film.FilmName }}</td>
@@ -53,6 +53,7 @@
                 <td>{{ film.Price }} </td> 
                 <td>{{ film.Stock }}</td>  
                 <td>{{ film.Image }}</td> 
+                <img src = "{{ film.Image }}" width="210px" height="210px"> 
         
                 <td class="w-25">
                     <button class="btn" id="update-btn" (click)="edit(film)">
