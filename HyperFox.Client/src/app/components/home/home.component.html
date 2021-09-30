@@ -4,15 +4,24 @@
 
 <p class="text-center">New products</p>
 
-<div class="row row-cols-1 row-cols-md-5 g-4">
-    <div class="col">
-        <div class="card border-content">
-            <h6 class="text-center">Name</h6>
-            <img src="\assets\5.jpg" alt="">
-            <h6 class="text-center">Price</h6>
-            <!-- <div class="btn-div"> -->
+<tbody *ngFor='let film of films.slice(0,4); let i = index'> 
+    <tr>
+                        <div class="row row-cols-1 row-cols-md-5 g-4">
+                            <div class="col">
+                                <div class="card border-content">
+                                    <h6 class="text-center">Name</h6>
+                                    <td>{{ film.FilmName }}</td>
+                                    <h6 class="text-center">Price</h6>
+                                    <td>{{ film.Price }} </td> 
+                                    <h6 class="text-center">Description</h6>
+                                    <td>{{ film.Description }}</td>
+                                    <h6 class="text-center">Image</h6>
+                                    <td>{{ film.Image }}</td> 
+                                    <!-- <div class="btn-div"> -->
+                        
+                    </div>
+                </div>
+            </div>
+                     </tr>
                 <button class="btn w-75" routerLink="/view-produckts">View</button>
             <!-- </div> -->
-        </div>
-    </div>
-</div>
