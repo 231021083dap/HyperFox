@@ -21,8 +21,8 @@ export class UserService {
   }
 
   //Get all users
-  getUsers(): Observable<User>{
-    return this.http.get<User>(`${this.apiUrl}`)
+  getUsers(): Observable<User[]>{
+    return this.http.get<User[]>(this.apiUrl);
   }
 
   //Get User

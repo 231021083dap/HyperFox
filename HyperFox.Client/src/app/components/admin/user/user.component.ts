@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
 
   //Get all users
   getUsers():void{
-    this.userService.getUsers().subscribe(a => this.user = a);
+    this.userService.getUsers().subscribe(a => this.users = a);
   }
 
   //Get user by UserId
