@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../models';
 import { Observable, observable } from 'rxjs';
 import { getMissingNgModuleMetadataErrorData } from '@angular/compiler';
+import { User } from './models';
 
 @Injectable({
   providedIn: 'root'

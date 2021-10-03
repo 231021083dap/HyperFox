@@ -9,7 +9,7 @@ import { AuthenticationService } from './authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  currentUser: User = {id: 0, email: '', username:''};
+  currentUser: User = {UserId: 0, UserName:'', Email: '',};
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService

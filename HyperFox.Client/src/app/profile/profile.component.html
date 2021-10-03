@@ -1,0 +1,15 @@
+<h3>{{user.UserName}} Profile</h3>
+<input [(ngModel)]="user.UserName" placeholder="Username">
+
+<input [(ngModel)]="user.Email" placeholder="Email">
+
+<input type="password" [(ngModel)]="user.Password" placeholder="Password">
+
+<input [(ngModel)]="user.Admin" placeholder="Role">
+<button (click)="save()">Save</button>
+<button (click)="delete(user)">Delete</button>
+
+<!-- Dropdown -->
+
+
+
