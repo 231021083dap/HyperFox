@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Auth;
 using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Services;
@@ -20,7 +21,7 @@ namespace WebApi.Controllers
         {
             _filmServise = filmService;
         }
-
+        [Authorize(Role.Admin)]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -48,7 +49,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
+        [Authorize(Role.Admin)]
         [HttpGet("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -72,7 +73,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
+        [Authorize(Role.Admin)]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -95,7 +96,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
+        [Authorize(Role.Admin)]
         [HttpPut("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -118,7 +119,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-
+        [Authorize(Role.Admin)]
         [HttpDelete("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
