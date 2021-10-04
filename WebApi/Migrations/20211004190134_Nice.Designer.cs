@@ -9,8 +9,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20211003145325_Hello")]
-    partial class Hello
+    [Migration("20211004190134_Nice")]
+    partial class Nice
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");

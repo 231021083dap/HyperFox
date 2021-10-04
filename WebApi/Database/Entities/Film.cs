@@ -37,7 +37,7 @@ namespace WebApi.Database.Entities
         public int Stock { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "nvarchar(4000)")]
         public string Image { get; set; }
 
 

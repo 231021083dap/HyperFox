@@ -38,7 +38,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");

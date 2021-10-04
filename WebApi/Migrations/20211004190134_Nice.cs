@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Hello : Migration
+    public partial class Nice : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace WebApi.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     Stock = table.Column<short>(type: "smallInt", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(4000)", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
