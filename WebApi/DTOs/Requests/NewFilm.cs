@@ -34,7 +34,7 @@ namespace WebApi.DTOs.Requests
         public int Stock { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Image must be less than 50 chars")]
+        [StringLength(5000, ErrorMessage = "Image must be less than 5000 chars")]
         [MinLength(5, ErrorMessage = "Image must contain atleast 5 char")]
         public string Image { get; set; }
 

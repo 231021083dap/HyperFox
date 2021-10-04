@@ -21,7 +21,6 @@ namespace WebApi.Controllers
         {
             _filmServise = filmService;
         }
-        [Authorize(Role.Admin)]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -49,7 +48,7 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
-        [Authorize(Role.Admin)]
+
         [HttpGet("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
