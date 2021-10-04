@@ -12,6 +12,9 @@ namespace WebApi.Repositories
     {
         Task<List<Film>> GetAll();
         Task<Film> GetById(int FilmId);
+
+        //Task<Film> GetAllById(int FilmId, Genre Genre);
+
         Task<Film> Create(Film Film);
         Task<Film> Update(int FilmId, Film Film);
         Task<Film> Delete(int FilmId);
@@ -80,5 +83,12 @@ namespace WebApi.Repositories
 
             return film;
         }
+
+        //public async Task<Film> GetAllById(int FilmId, Genre Genre)
+        //{
+        //    return await _context.Film
+        //        .Include(g => g.Genre)
+        //        .FirstOrDefaultAsync(f => f.FilmId == FilmId);
+        //}
     }
 }

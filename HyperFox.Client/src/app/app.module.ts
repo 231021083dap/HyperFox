@@ -13,6 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { FilmComponent } from './components/admin/film/film.component';
 import { GenreComponent } from './components/admin/genre/genre.component';
 import { SingleFilmComponent } from './components/single-film/single-film.component';
+import { GenreFilmComponent } from './components/genre-film/genre-film.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SingleFilmComponent } from './components/single-film/single-film.compon
     AdminComponent,
     FilmComponent,
     GenreComponent,
-    SingleFilmComponent
+    SingleFilmComponent,
+    GenreFilmComponent
   ],
   imports: [
     BrowserModule,
