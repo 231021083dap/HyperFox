@@ -38,16 +38,18 @@ delete(film:Film):void{
   }
 }
 
+//Clear 
 cancel():void{
   this.film = { FilmId:0, FilmName:'', ReleaseDate:'', RunTimeInMin:0, Description:"", Price:0, Stock:0, Image:"", GenreId:0 }
 }
 
-//Opretter
+//Update and Create
 save():void{
   if(this.film.FilmId == 0){
     this.filmService.addFilm(this.film)
     .subscribe(a => {
       this.films.push(a);
+      //Clear 
       this.cancel();
     });
   }else{
