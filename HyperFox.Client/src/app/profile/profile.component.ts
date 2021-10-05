@@ -35,13 +35,7 @@ export class ProfileComponent implements OnInit {
 
       this.userService.updateUser(this.user.UserId, this.user).subscribe();
     }
-
-  //Delete
-  delete(user:User):void {
-    if(confirm("Er du sikker på du vil slette?")){
-      this.userService.deleteUser(user.UserId).subscribe();
-    }
-  }
+  
 
  
 }

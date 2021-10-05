@@ -43,12 +43,12 @@ cancel():void{
   this.film = { FilmId:0, FilmName:'', ReleaseDate:'', RunTimeInMin:0, Description:"", Price:0, Stock:0, Image:"", GenreId:0 }
 }
 
-//Update and Create
+//Create
 save():void{
   if(this.film.FilmId == 0){
     this.filmService.addFilm(this.film)
     .subscribe(a => {
-      this.films.push(a);
+      this.films.push(a); // push = adds to films array, then refreshes
       //Clear 
       this.cancel();
     });
