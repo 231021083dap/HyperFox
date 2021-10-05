@@ -1,3 +1,6 @@
+  // Blueprint for setting data.
+  // Also using models to get data from Entities
+
   export interface User {
     UserId: number;
     UserName: string;
@@ -6,6 +9,12 @@
     Admin?: Admin;
     Token?: string;
   }
+
+  export interface Genre {
+    GenreId: number;
+    GenreName: string;
+    Films: Film[];
+}
 
   export interface Film{
     FilmId: number;
@@ -27,6 +36,7 @@
     Password: string;
   }
   
+  // Enum of Admin to set difference between Admin and User.
   export enum Admin {
     User = 'User',
     Admin = 'Admin'

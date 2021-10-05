@@ -21,7 +21,9 @@
 #delete-btn, #search-btn{
     background-color: rgb(84, 196, 196);
     /* margin-right: -50px; */
-}#search-container{
+}
+
+#search-container{
     margin-top: 100px;
 }
 

@@ -4,24 +4,25 @@
 
 <p class="text-center">New products</p>
 
-<tbody *ngFor='let film of films.slice(0,4); let i = index'> 
-    <tr>
-                        
-                            <div class="col" >
+<div class="row row-cols-1 row-cols-md-4 g-4"   > 
+    <!-- <tr> -->
+                            <!-- Gets from models-->
+                            <div   class="col" *ngFor='let film of films.slice(0,4); let i = index'>
                                 <div class="card border-content">
                                     <h6 class="text-center">Name</h6>
-                                    <td>{{ film.FilmName }}</td>
-                                    <h6 class="text-center">Price</h6>
-                                    <td>{{ film.Price }} </td> 
-                                    <h6 class="text-center">Description</h6>
-                                    <td>{{ film.Description }}</td>
+                                    <td class="text-center">{{ film.FilmName }}</td>
+                                    
                                     
                                     <!-- <div class="btn-div"> -->
-                                    <img src = "{{ film.Image }}" width="210px" height="210px">      
+                                    <img src = "{{ film.Image }}" width="210px" height="210px">   
+                                    <td class="text-center">{{ film.Price }} Kr.</td> 
+                                    <button class="btn w-75" routerLink="/single-film">View</button>   
                         
                     </div>
+                    
                 </div>
             
-                     </tr>
-                <button class="btn w-75" routerLink="/view-produckts">View</button>
-            <!-- </div> -->
+                     <!-- </tr> -->
+                
+            </div>
+           

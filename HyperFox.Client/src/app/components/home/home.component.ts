@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Film } from "../../models";
+import { Film,Genre } from "../../models";
 import { FilmService } from "src/app/film.service";
 
 @Component({
@@ -9,6 +9,9 @@ import { FilmService } from "src/app/film.service";
 })
 export class HomeComponent implements OnInit {
 
+
+  genre: Genre = { GenreId: 0, GenreName: '', Films: [] };
+  
 
   films: Film[] = [];
   film:Film = { FilmId:0, FilmName:"", ReleaseDate:"", RunTimeInMin:0, Description:"", Price:0, Stock:0, Image:"", GenreId:0 };
@@ -25,6 +28,8 @@ export class HomeComponent implements OnInit {
     });
  }
   
-
- 
+  view(genre: Genre): void {
+    this.genre = genre;
+  }
+  
 }
