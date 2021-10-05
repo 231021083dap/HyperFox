@@ -12,8 +12,6 @@ namespace WebApi.Repositories
     {
         Task<List<User>> GetAll();
         Task<User> GetById(int UserId);
-
-        Task<User> GetByEmail(string email);
         Task<User> Create(User user);
         Task<User> Update(int userId, User user);
         Task<User> Delete(int userId);
@@ -64,11 +62,6 @@ namespace WebApi.Repositories
                 updateUser.Admin = user.Admin;
                 await _context.SaveChangesAsync();
             }return updateUser;
-        }
-
-        public async Task<User> GetByEmail(string email)
-        {
-            return await _context.User.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

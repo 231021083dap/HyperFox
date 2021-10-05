@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Auth;
 
 namespace WebApi.Entities
 {
@@ -23,7 +22,8 @@ namespace WebApi.Entities
         [Required]
         public string Password { get; set; }
         [Column(TypeName = "nvarchar(5)")]
-        public  Role Admin{ get; set; }
+        [Required]
+        public string Admin { get; set; }
 
         public Address Addresses { get; set; } 
     }

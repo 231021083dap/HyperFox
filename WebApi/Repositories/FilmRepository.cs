@@ -40,11 +40,11 @@ namespace WebApi.Repositories
                 .FirstOrDefaultAsync(f => f.FilmId == FilmId);
         }
 
-        public async Task<Film> Create(Film film)
+        public async Task<Film> Create(Film Film)
         {
-            _context.Film.Add(film);
+            _context.Film.Add(Film);
             await _context.SaveChangesAsync();
-            return film;
+            return Film;
         }
 
         public async Task<Film> Update(int FilmId, Film film)
@@ -53,14 +53,14 @@ namespace WebApi.Repositories
 
             if (updateFilm != null)
             {
-                updateFilm.FilmName = film.FilmName;
-                updateFilm.ReleaseDate = film.ReleaseDate;
-                updateFilm.RuntimeInMin = film.RuntimeInMin;
-                updateFilm.Description = film.Description;
-                updateFilm.Price = film.Price;
-                updateFilm.Stock = film.Stock;
-                updateFilm.Image = film.Image;
-                updateFilm.GenreId = film.GenreId;
+                updateFilm.FilmName = Film.FilmName;
+                updateFilm.ReleaseDate = Film.ReleaseDate;
+                updateFilm.RuntimeInMin = Film.RuntimeInMin;
+                updateFilm.Description = Film.Description;
+                updateFilm.Price = Film.Price;
+                updateFilm.Stock = Film.Stock;
+                updateFilm.Image = Film.Image;
+                updateFilm.GenreId = Film.GenreId;
 
                 await _context.SaveChangesAsync();
             }
@@ -80,5 +80,12 @@ namespace WebApi.Repositories
 
             return film;
         }
+
+        //public async Task<Film> GetAllById(int FilmId, Genre Genre)
+        //{
+        //    return await _context.Film
+        //        .Include(g => g.Genre)
+        //        .FirstOrDefaultAsync(f => f.FilmId == FilmId);
+        //}
     }
 }

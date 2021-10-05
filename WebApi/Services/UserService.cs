@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Auth;
 using WebApi.DTOs.Requests;
 using WebApi.DTOs.Responses;
 using WebApi.Entities;
@@ -16,20 +15,16 @@ namespace WebApi.Services
         Task<UserResponse> GetById(int userId);
         Task<UserResponse> Create(NewUser newUser);
         Task<UserResponse> Update(int userId, UpdateUser updateUser);
-        Task<LoginResponse> Authenticate(LoginRequest login);
-        Task<UserResponse> Register(RegisterUser newUser);
         Task<bool> Delete(int userId);
 
     }
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IJwtUtils _jwUtils;
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _jwUtils = jwtUtils;
         }
         public async Task<List<UserResponse>> GetAllUsers()
         {
@@ -109,56 +104,6 @@ namespace WebApi.Services
         {
             var result = await _userRepository.Delete(userId);
             return true;
-        }
-
-        public async Task<LoginResponse> Authenticate(LoginRequest login)
-        {
-            User user = await _userRepository.GetByEmail(login.Email);
-            if (user == null)
-            {
-                return null;
-            }
-
-            if (user.Password == login.Password)
-            {
-                LoginResponse response = new LoginResponse
-                {
-                    UserId = user.UserId,
-                    Email = user.Email,
-                    Username = user.UserName,
-                    Admin = user.Admin,
-                    Token = _jwUtils.GenerateJwtToken(user)
-                };
-                return response;
-            }
-
-            return null;
-        }
-
-        public async Task<UserResponse> Register(RegisterUser newUser)
-        {
-            User user = new User
-            {
-                Email = newUser.Email,
-                UserName = newUser.Username,
-                Password = newUser.Password,
-                Admin = Auth.Role.User // force all users created through Register, to Role.User
-            };
-
-            user = await _userRepository.Create(user);
-
-            return userResponse(user);
-        }
-
-        private UserResponse userResponse(User user)
-        {
-            return user == null ? null : new UserResponse
-            {
-                UserId = user.UserId,
-                Email = user.Email,
-                UserName = user.UserName,
-                Admin = user.Admin
-            };
         }
     }
 }
