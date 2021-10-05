@@ -9,8 +9,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    [Migration("20211004190134_Nice")]
-    partial class Nice
+    [Migration("20211005071358_Work")]
+    partial class Work
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,7 @@ namespace WebApi.Migrations
                             Description = "This movie is about a ring",
                             FilmName = "The lord of the rings",
                             GenreId = 1,
-                            Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                            Image = "https://www.information.dk/sites/information.dk/files/styles/open_graph/public/media/2011/05/27/20110527-144201-124983_0.jpg?itok=dpVGfrig",
                             Price = 79.99m,
                             ReleaseDate = "16-09-2001",
                             RuntimeInMin = (short)123,
@@ -80,7 +80,7 @@ namespace WebApi.Migrations
                             Description = "This movie is about the wizard world",
                             FilmName = "Harry potter",
                             GenreId = 1,
-                            Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                            Image = "https://www.bog-ide.dk/scommerce/images/klods-hans-592756.jpg?i=592756",
                             Price = 79.99m,
                             ReleaseDate = "16-09-2001",
                             RuntimeInMin = (short)123,

@@ -119,7 +119,7 @@ namespace WebApi.Database
                     Description = "This movie is about a ring",
                     Price = 79.99M,
                     Stock = 50,
-                    Image = "C:\\Users\\Tec\\Pictures\\1.jpg",
+                    Image = "https://www.information.dk/sites/information.dk/files/styles/open_graph/public/media/2011/05/27/20110527-144201-124983_0.jpg?itok=dpVGfrig",
                     GenreId = 1
                 },
                 new Film
@@ -131,7 +131,7 @@ namespace WebApi.Database
                     Description = "This movie is about the wizard world",
                     Price = 79.99M,
                     Stock = 50,
-                    Image = "C:\\Users\\Tec\\Pictures\\2.jpg",
+                    Image = "https://www.bog-ide.dk/scommerce/images/klods-hans-592756.jpg?i=592756",
                     GenreId = 1
                 });
         }

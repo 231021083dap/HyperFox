@@ -2,7 +2,7 @@
 
 namespace WebApi.Migrations
 {
-    public partial class Nice : Migration
+    public partial class Work : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -160,8 +160,8 @@ namespace WebApi.Migrations
                 columns: new[] { "FilmId", "Description", "FilmName", "GenreId", "Image", "Price", "ReleaseDate", "RuntimeInMin", "Stock" },
                 values: new object[,]
                 {
-                    { 1, "This movie is about a ring", "The lord of the rings", 1, "C:\\Users\\Tec\\Pictures\\1.jpg", 79.99m, "16-09-2001", (short)123, (short)50 },
-                    { 2, "This movie is about the wizard world", "Harry potter", 1, "C:\\Users\\Tec\\Pictures\\2.jpg", 79.99m, "16-09-2001", (short)123, (short)50 }
+                    { 1, "This movie is about a ring", "The lord of the rings", 1, "https://www.information.dk/sites/information.dk/files/styles/open_graph/public/media/2011/05/27/20110527-144201-124983_0.jpg?itok=dpVGfrig", 79.99m, "16-09-2001", (short)123, (short)50 },
+                    { 2, "This movie is about the wizard world", "Harry potter", 1, "https://www.bog-ide.dk/scommerce/images/klods-hans-592756.jpg?i=592756", 79.99m, "16-09-2001", (short)123, (short)50 }
                 });
 
             migrationBuilder.InsertData(
