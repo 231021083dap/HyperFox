@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Film, Genre } from './models';
 import { FilmService } from './services/film.service';
 import { GenreService } from './services/genre.service';
+import { Router } from '@angular/router';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +13,16 @@ import { GenreService } from './services/genre.service';
 export class AppComponent implements OnInit {
   title = 'HyperFox-Client';
 
+  @Input() genre: Genre | undefined;
+
   // Property "genres" of class "Genre" that is an array of data
   genres: Genre[] = [];
+  genreProperty: Genre = { GenreId: 0, GenreName: '', Films: [] };
   films: Film[] = [];
   film: Film = { FilmId: 0, FilmName: '', ReleaseDate: '', RunTimeInMin: 0, Description: '', Price: 0, Stock: 0, Image: '', GenreId: 1,};
+ 
 
-  constructor(private genreService: GenreService, private filmService: FilmService) { }
+  constructor(private genreService: GenreService, private filmService: FilmService, private router: Router) { }
 
   ngOnInit(): void {
     // Prints/shows data in category dropdown
@@ -33,4 +39,9 @@ export class AppComponent implements OnInit {
   //   this.filmService.getFilmsByGenreId(GenreId).subscribe(a =>
   //     this.films = a)
   // }
+
+
+  getFilmsByGenreId(GenreId: number): void {
+      this.router.navigate(['/genre-film', this.genreProperty.Films]);
+  }
 }

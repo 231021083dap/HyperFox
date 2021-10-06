@@ -18,4 +18,8 @@ export class FilmService {
   // getFilmsByGenreId(GenreId: number): Observable<Film[]>{
   //   return this.http.get<Film[]>(`${this.URLApi}/${FilmId}`);
   // }
+
+  getFilm(FilmId: number): Observable<Film>{
+    return this.http.get<Film>(`${this.URLApi}/${FilmId}`);
+  }
 }

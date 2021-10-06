@@ -21,7 +21,7 @@
             <div class="dropdown-menu w-25 text-center" aria-labelledby="dropdownMenuButton">
               <!-- Retrieve data from api: Using ngFor to get an array of "GenreName" from the property "genres", that contains a class of "Genre" that is an array of data -->
               <div *ngFor='let genre of genres'>
-                <a class="dropdown-item" >{{genre.GenreName}}</a> <!-- (click)="getFilmsByGenreId(genre.GenreId)" -->
+                <a class="dropdown-item" (click)="getFilmsByGenreId(genre.GenreId)">{{genre.GenreName}}</a> <!-- (click)="getFilmsByGenreId(genre.GenreId)"  or  routerLink="/genre-film" -->
               </div>
             </div>
           </div>
