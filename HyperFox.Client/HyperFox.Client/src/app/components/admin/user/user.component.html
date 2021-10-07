@@ -1,0 +1,27 @@
+<h3>Inputs</h3>
+
+<input [(ngModel)]="user.UserName" placeholder="Username">
+
+<input [(ngModel)]="user.Email" placeholder="Email">
+
+<input type="password" [(ngModel)]="user.Password" placeholder="Password">
+
+<input [(ngModel)]="user.Admin" placeholder="Role">
+
+<button (click)="save()">Save</button>
+<button (click)="cancel()">"Cancel</button>
+
+<!-- Dropdown -->
+<select [(ngModel)]="user.UserId">
+    <option [value]="0">Choose User</option>
+    <option *ngFor="let user of users" [value]="user.UserId"> {{ user.UserName }} {{ user.Email }} </option>
+</select>
+
+
+<ul>
+    <li *ngFor="let user of users">
+        <button (click)="edit(user)">Edit</button>
+        <button (click)="delete(user)">Delete</button>
+        {{ user.UserName }} {{ user.Email }} {{ user.Password }}
+    </li>
+</ul>

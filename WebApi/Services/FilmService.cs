@@ -114,9 +114,10 @@ namespace WebApi.Services
             return null;
         }
 
+        //Task, async, await.
         public async Task<FilmResponse> Update(int FilmId, UpdateFilm updateFilm)
         {
-            Film film = new Film
+            Film film = new Film //New object of film.
             {
                 FilmName = updateFilm.FilmName,
                 ReleaseDate = updateFilm.ReleaseDate,
@@ -128,7 +129,11 @@ namespace WebApi.Services
                 GenreId = updateFilm.GenreId
             };
 
+            // To show user its been updated.
             film = await _filmRepository.Update(FilmId, film);
+            
+
+
 
             if (film != null)
             {

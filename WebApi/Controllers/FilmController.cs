@@ -11,6 +11,7 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
+    //Route for API to Controller
     [Route("api/[controller]")]
     [ApiController]
     public class FilmController : Controller
@@ -95,16 +96,19 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+
         [Authorize(Role.Admin)]
         [HttpPut("{FilmId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //FromRoute = Looks at Endpoint to get Id. / FromBody = Application/Json
+        //Task to make a Http request, to a Response(DTO).
         public async Task<IActionResult> Update([FromRoute] int FilmId, [FromBody] UpdateFilm updateFilm)
         {
             try
             {
-                FilmResponse Film = await _filmServise.Update(FilmId, updateFilm);
+                FilmResponse Film = await _filmServise.Update(FilmId, updateFilm); //Sends updated info to service.
 
                 if (Film == null)
                 {

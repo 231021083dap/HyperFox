@@ -49,7 +49,9 @@ namespace WebApi.Repositories
 
         public async Task<Film> Update(int FilmId, Film film)
         {
-            Film updateFilm = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == FilmId);
+            //Checks in Database if Film with Id x exists, if YES, then update propperties.
+            //FirstOrDefualtAsync = Takes the first element.
+            Film updateFilm = await _context.Film.FirstOrDefaultAsync(f => f.FilmId == FilmId); //Get Id to know what to update.
 
             if (updateFilm != null)
             {
@@ -62,7 +64,7 @@ namespace WebApi.Repositories
                 updateFilm.Image = film.Image;
                 updateFilm.GenreId = film.GenreId;
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); //Save to context (database).
             }
 
             return updateFilm;
