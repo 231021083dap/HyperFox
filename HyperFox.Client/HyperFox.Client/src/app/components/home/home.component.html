@@ -1,0 +1,28 @@
+<app-slide></app-slide>
+
+<h1 class="text-center">Welcome</h1>
+
+<p class="text-center">New products</p>
+
+<div class="row row-cols-1 row-cols-md-4 g-4"   > 
+    <!-- <tr> -->
+                            <!-- Gets from models-->
+                            <div   class="col" *ngFor='let film of films.slice(0,4); let i = index'>
+                                <div class="card border-content">
+                                    <h6 class="text-center">Name</h6>
+                                    <td class="text-center">{{ film.FilmName }}</td>
+                                    
+                                    
+                                    <!-- <div class="btn-div"> -->
+                                    <img src = "{{ film.Image }}" width="210px" height="210px">   
+                                    <td class="text-center">{{ film.Price }} Kr.</td> 
+                                    <button class="btn w-75" routerLink="/single-film">View</button>   
+                        
+                    </div>
+                    
+                </div>
+            
+                     <!-- </tr> -->
+                
+            </div>
+           

@@ -1,0 +1,36 @@
+h2{
+    margin-top: 100px;
+    text-decoration: underline;
+
+}
+
+h5{
+    margin: 50px 100px 0px 100px;
+}
+
+.container{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.card{
+    background-color: rgba(0, 128, 128, 0.1);
+}
+
+h3{
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
+h6{
+    margin-bottom: 20px;
+}
+svg{
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.con2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
